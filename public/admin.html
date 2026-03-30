@@ -3,152 +3,417 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Админ-панель | DISA</title>
+  <title>Админ панель | DISA DMW</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0f0f0f;
-      color: #ffffff;
+      background: #0a0a0a;
+      color: #e0e0e0;
       min-height: 100vh;
     }
 
+    /* ====================== ШАПКА ====================== */
     .header {
-      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-      padding: 15px 30px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #111111;
+      padding: 15px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #333;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      border-bottom: 1px solid #222;
+      z-index: 1000;
     }
 
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo {
-      width: 40px;
-      height: 40px;
-      background: #007bff;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 20px;
-    }
+    .logo { font-size: 28px; font-weight: 700; color: #007bff; }
 
     .user-info {
       display: flex;
-      flex-direction: column;
-    }
-
-    .username {
-      font-size: 20px;
-      font-weight: 600;
-    }
-
-    .role {
-      font-size: 14px;
-      color: #00ff9d;
-      font-weight: 500;
+      align-items: center;
+      gap: 12px;
     }
 
     .logout-btn {
-      background: #dc3545;
+      background: #e74c3c;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 9px 22px;
       border-radius: 6px;
+      font-size: 14.5px;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 15px;
-      transition: 0.3s;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
     }
 
     .logout-btn:hover {
-      background: #c82333;
+      background: #c0392b;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
     }
 
-    .content {
-      padding: 40px;
-      text-align: center;
-      font-size: 28px;
-      color: #aaaaaa;
+    /* ====================== ФИЛЬТРЫ ====================== */
+    .filters {
+      position: fixed;
+      top: 85px;
+      left: 0; right: 0;
+      background: #111111;
+      padding: 18px 40px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: end;
+      gap: 20px;
+      z-index: 999;
     }
+
+    .filter-group label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      min-width: 170px;
+    }
+
+    .apply-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .apply-btn:hover { background: #005fcc; }
+
+    .reset-btn {
+      background: #222;
+      color: #ccc;
+      border: 1px solid #444;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover { background: #333; color: white; }
+
+    /* ====================== ТАБЛИЦА ====================== */
+    .content {
+      margin-top: 170px;
+      padding: 0 40px 60px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #111111;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #1a1a1a;
+      padding: 16px 12px;
+      text-align: left;
+      font-weight: 500;
+      color: #ccc;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #222;
+    }
+
+    tr:hover {
+      background: #1a1a1a;
+    }
+
+    .status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .status.pending { background: #ffc107; color: black; }
+    .status.approved { background: #28a745; color: white; }
+    .status.rejected { background: #dc3545; color: white; }
+
+    .open-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .open-btn:hover {
+      background: #005fcc;
+    }
+
+    /* ====================== ПАГИНАЦИЯ ====================== */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 40px;
+    }
+
+    .pagination button {
+      width: 40px;
+      height: 40px;
+      background: #1f1f1f;
+      color: #ddd;
+      border: 1px solid #333;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .pagination button:hover:not(:disabled) {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    .pagination button.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    .pagination button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #111111;
+    width: 90%;
+    max-width: 780px;
+    border-radius: 12px;
+    padding: 30px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #333;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.close {
+    font-size: 32px;
+    cursor: pointer;
+    color: #777;
+}
+
+.close:hover { color: #fff; }
+.status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.status:hover {
+    filter: brightness(1.1);
+}
+
+.status.pending { background: #ffc107; color: black; }
+.status.approved { background: #28a745; color: white; }
+.status.rejected { background: #dc3545; color: white; }
   </style>
 </head>
 <body>
 
-  <!-- Хедер -->
+  <!-- Шапка -->
   <div class="header">
-    <div class="left">
-      <div class="logo">D</div>
-      <div class="user-info">
-        <div class="username" id="username">Загрузка...</div>
-        <div class="role" id="role">Admin</div>
-      </div>
-    </div>
-
-    <div class="right">
+    <div><span class="logo">DISA DMW</span></div>
+    <div class="user-info">
+      <span style="color:#00ff9d; font-size:18px;">👤</span>
+      <span id="username">Администратор</span>
       <button class="logout-btn" onclick="logout()">Выйти</button>
     </div>
   </div>
 
-  <!-- Основной контент -->
+  <!-- Фильтры -->
+  <div class="filters">
+    <div class="filter-group">
+        <label>Статус</label>
+        <select id="statusFilter">
+            <option value="">Все</option>
+            <option value="pending">В обработке</option>
+            <option value="approved">Одобрено</option>
+            <option value="rejected">Отклонено</option>
+        </select>
+    </div>
+
+    <div class="filter-group">
+    <label>Тип работ</label>
+    <select id="typeFilter">
+        <option value="">Все</option>
+        <option value="Диагностика">Диагностика</option>
+        <option value="Ремонт">Ремонт</option>
+        <option value="ТО">Техническое обслуживание (ТО)</option>
+        <option value="Кузовной">Кузовной ремонт</option>
+        <option value="Электрика">Электроника / Электрика</option>
+        <option value="Подвеска">Подвеска и рулевое</option>
+        <option value="Двигатель">Двигатель и трансмиссия</option>
+    </select>
+</div>
+
+    <div class="filter-group">
+        <label>Дата приёма</label>
+        <input type="date" id="dateFilter">
+    </div>
+
+    <button id="applyFilters" class="apply-btn">Применить</button>
+    <button id="resetFilters" class="reset-btn">Сбросить</button>
+  </div>
+
+  <!-- Контент -->
   <div class="content">
-    <p>Добро пожаловать в панель управления</p>
-    <!-- Здесь будет остальной контент админки -->
+    <h2>Все заявки / Записи</h2>
+
+    <table id="adminTable">
+      <thead>
+        <tr>
+          <th>Статус</th>
+          <th>Тип</th>
+          <th>Дата приёма</th>
+          <th>Клиент</th>
+          <th>Модель / Марка</th>
+          <th>Гос. номер</th>
+          <th>VIN</th>
+          <th>Причина</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="pagination" id="pagination"></div>
+  <!-- Модальное окно -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Итоги осмотра</h2>
+            <span class="close" onclick="closeModal()">×</span>
+        </div>
+        <div id="modalBody" style="line-height:1.8;"></div>
+    </div>
+</div>
   </div>
 
   <script>
-    // Функция загрузки данных админа
-    async function loadAdminHeader() {
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        window.location.href = 'index.html';
-        return;
-      }
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    let allMeetings = [];
 
-      try {
-        const res = await fetch('/api/auth/me', {
-          headers: { 
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+    // Загрузка данных из БД
+    async function loadMeetings() {
+        try {
+            const res = await fetch('/api/meetings');
+            allMeetings = await res.json();
+            renderTable();
+            renderPagination();
+        } catch (err) {
+            console.error("Ошибка загрузки:", err);
+            alert("Не удалось загрузить данные из базы");
+        }
+    }
+
+    function renderTable() {
+        const tbody = document.querySelector('#adminTable tbody');
+        tbody.innerHTML = '';
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = allMeetings.slice(start, start + itemsPerPage);
+
+        pageData.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <span class="status ${item.status}" onclick="changeStatus(${item.id}, this)">
+                        ${item.status === 'pending' ? 'В обработке' : 
+                          item.status === 'approved' ? 'Одобрено' : 'Отклонено'}
+                    </span>
+                </td>
+                <td>${item.type}</td>
+                <td>${item.reception_date}</td>
+                <td>${item.client}</td>
+                <td>${item.model} ${item.brand}</td>
+                <td>${item.license_plate}</td>
+                <td>${item.vin || '-'}</td>
+                <td>${item.reason}</td>
+                <td><button class="open-btn" onclick="openModal(${item.id})">Открыть</button></td>
+            `;
+            tbody.appendChild(row);
         });
-
-        if (!res.ok) throw new Error('Сессия истекла');
-
-        const user = await res.json();
-
-        document.getElementById('username').textContent = user.username || 'Админ';
-        document.getElementById('role').textContent = user.role === 'admin' ? 'Администратор' : 'Пользователь';
-
-      } catch (err) {
-        console.error(err);
-        alert('Сессия истекла. Пожалуйста, войдите заново.');
-        localStorage.removeItem('token');
-        window.location.href = 'index.html';
-      }
     }
 
-    // Функция выхода из админ-панели
-    function logout() {
-      // Очищаем все данные авторизации
-      localStorage.removeItem('token');
-      localStorage.removeItem('adminLoggedIn');
-      sessionStorage.clear();
+    // Изменение статуса
+    async function changeStatus(id, element) {
+        const newStatus = prompt('Новый статус:\n1 - В обработке\n2 - Одобрено\n3 - Отклонено', '2');
+        let statusValue = 'pending';
+        if (newStatus === '2') statusValue = 'approved';
+        if (newStatus === '3') statusValue = 'rejected';
 
-      // Переадресация на главную страницу
-      window.location.href = 'index.html';
+        try {
+            await fetch(`/api/meetings/${id}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: statusValue })
+            });
+            loadMeetings(); // перезагружаем данные
+        } catch (err) {
+            alert('Ошибка при обновлении статуса');
+        }
     }
 
-    // Запускаем загрузку данных при открытии страницы
-    document.addEventListener('DOMContentLoaded', loadAdminHeader);
-  </script>
+    // Загрузка при старте
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMeetings();
+
+        document.getElementById('applyFilters').addEventListener('click', applyFilters);
+        document.getElementById('resetFilters').addEventListener('click', () => {
+            loadMeetings();
+        });
+    });
+</script>
 </body>
 </html>

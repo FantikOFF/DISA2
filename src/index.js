@@ -4,7 +4,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+// ← Подключаем роуты
 const authRoutes = require('./routes/authRoutes');
+const meetingRoutes = require('./routes/meetingRoutes');   // ← Новый роут
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,11 +16,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Статические файлы
+// Статические файлы (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, '../public')));
 
-// API роуты
+// API Роуты
 app.use('/api/auth', authRoutes);
+app.use('/api/meetings', meetingRoutes);     // ← Подключили встречи
 
 // Главная страница
 app.get('/', (req, res) => {

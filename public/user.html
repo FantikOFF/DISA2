@@ -8,133 +8,127 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
-      background: #0f0f0f;
-      color: #ffffff;
+      background: #0a0a0a;
+      color: #e0e0e0;
       min-height: 100vh;
     }
 
+    /* ====================== ШАПКА ====================== */
     .header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      padding: 16px 40px;
+      top: 0; left: 0; right: 0;
+      background: #111111;
+      padding: 15px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #222;
       z-index: 1000;
     }
 
-    .logo { font-size: 26px; font-weight: 700; color: #007bff; }
+    .logo { font-size: 28px; font-weight: 700; color: #007bff; }
 
     .main-nav a {
-      padding: 14px 24px;
-      color: #aaaaaa;
+      padding: 12px 20px;
+      color: #bbbbbb;
       text-decoration: none;
-      border-radius: 6px 6px 0 0;
+      margin-right: 8px;
+      border-radius: 6px;
     }
 
+    .main-nav a:hover,
     .main-nav a.active {
       color: white;
-      background: #0f0f0f;
-      border-bottom: 4px solid #007bff;
+      background: #1f1f1f;
     }
 
-    .tabs {
+    /* ====================== ФИЛЬТРЫ ====================== */
+    .filters {
       position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      padding: 20px 40px 15px 40px;
-      border-bottom: 1px solid #333;
+      top: 85px;
+      left: 0; right: 0;
+      background: #111111;
+      padding: 18px 40px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: end;
+      gap: 20px;
       z-index: 999;
     }
 
-    .tab {
-      padding: 14px 34px;
-      font-size: 17px;
-      background: #252525;
-      border: none;
-      color: #aaaaaa;
-      border-radius: 8px 8px 0 0;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    .tab.active {
-      background: #0f0f0f;
-      color: white;
-      border-bottom: 4px solid #007bff;
-    }
-
-    .filters {
-      position: fixed;
-      top: 145px;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      padding: 20px 40px 25px 40px;
-      border-bottom: 1px solid #333;
-      display: flex;
-      align-items: end;
-      gap: 22px;
-      z-index: 998;
-    }
-
     .filter-group label {
-      font-size: 13.5px;
+      font-size: 13px;
       color: #888;
+      margin-bottom: 5px;
+      display: block;
     }
 
-    .filter-group select, .filter-group input {
-      padding: 10px 14px;
-      background: #2d2d2d;
-      border: 1px solid #444;
-      border-radius: 6px;
+    .filter-group select,
+    .filter-group input {
+      background: #1f1f1f;
+      border: 1px solid #333;
       color: white;
-      min-width: 175px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      min-width: 170px;
     }
 
+    .apply-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .apply-btn:hover { background: #005fcc; }
+
+    .reset-btn {
+      background: #222;
+      color: #ccc;
+      border: 1px solid #444;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover { background: #333; color: white; }
+
+    /* ====================== ТАБЛИЦА ====================== */
     .content {
-      margin-top: 260px;
-      padding: 0 40px 40px;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      font-size: 24px;
+      margin-top: 170px;
+      padding: 0 40px 60px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      background: #1a1a1a;
-      border-radius: 8px;
+      background: #111111;
+      border-radius: 10px;
       overflow: hidden;
     }
 
     th {
-      background: #252525;
+      background: #1a1a1a;
       padding: 16px 12px;
       text-align: left;
       font-weight: 500;
-      color: #ddd;
+      color: #ccc;
     }
 
     td {
       padding: 14px 12px;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #222;
     }
 
     tr:hover {
-      background: #222;
+      background: #1a1a1a;
     }
 
     .status {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
@@ -143,56 +137,80 @@
     .status.Новая { background: #ffc107; color: black; }
     .status.В_работе { background: #17a2b8; color: white; }
 
-    /* Кнопка "Выйти" */
-    .logout-btn {
-      background: #333;
+    /* Кнопки "Открыть" */
+    .open-btn {
+      background: #007bff;
       color: white;
-      border: 1px solid #555;
-      padding: 8px 20px;
+      border: none;
+      padding: 8px 18px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
     }
 
-    .logout-btn:hover {
-      background: #444;
+    .open-btn:hover {
+      background: #005fcc;
     }
 
-    /* Пагинация */
+    /* ====================== ПАГИНАЦИЯ ====================== */
     .pagination {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 6px;
       margin-top: 40px;
     }
 
     .pagination button {
-      width: 38px;
-      height: 38px;
-      background: #252525;
-      color: #ccc;
-      border: none;
-      border-radius: 6px;
+      width: 40px;
+      height: 40px;
+      background: #1f1f1f;
+      color: #ddd;
+      border: 1px solid #333;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 15px;
+    }
+
+    .pagination button:hover:not(:disabled) {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
     }
 
     .pagination button.active {
       background: #007bff;
       color: white;
-      font-weight: bold;
+      border-color: #007bff;
     }
 
-    .pagination button:hover:not(.active) {
-      background: #333;
+    .pagination button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
+    /* Кнопка "Выйти" */
+.logout-btn {
+    background: #e74c3c;           /* красный цвет */
+    color: white;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+}
 
-    .pagination .dots {
-      color: #777;
-      padding: 0 10px;
-    }
-  </style>
+.logout-btn:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+}
+</style>
 </head>
 <body>
 
@@ -223,26 +241,30 @@
   <!-- Фильтры -->
   <div class="filters">
     <div class="filter-group">
-      <label>Статус</label>
-      <select id="statusFilter">
-        <option value="">Все</option>
-        <option value="Новая">Новая</option>
-        <option value="В работе">В работе</option>
-      </select>
+        <label>Статус</label>
+        <select id="statusFilter">
+            <option value="">Все</option>
+            <option value="Новая">Новая</option>
+            <option value="В_работе">В работе</option>
+        </select>
     </div>
+
     <div class="filter-group">
-      <label>Тип</label>
-      <select id="typeFilter">
-        <option value="">Все</option>
-        <option value="Ремонт">Ремонт</option>
-        <option value="Осмотр">Осмотр</option>
-      </select>
+        <label>Тип</label>
+        <select id="typeFilter">
+            <option value="">Все</option>
+            <option value="Ремонт">Ремонт</option>
+            <option value="Осмотр">Осмотр</option>
+        </select>
     </div>
+
     <div class="filter-group">
-      <label>Дата приёма</label>
-      <input type="date" id="dateFilter">
+        <label>Дата приёма</label>
+        <input type="date" id="dateFilter">
     </div>
-    <button onclick="applyFilters()" style="padding:11px 32px; background:#007bff; border:none; border-radius:6px; color:white;">Применить</button>
+
+    <button id="applyFilters" class="apply-btn">Применить</button>
+    <button id="resetFilters" class="reset-btn">Сбросить</button>
   </div>
 
   <!-- Контент -->
@@ -268,23 +290,22 @@
       <tbody></tbody>
     </table>
 
-    <!-- Пагинация -->
     <div class="pagination" id="pagination"></div>
   </div>
 
   <script>
     let currentPage = 1;
-    const itemsPerPage = 10; // сколько строк на одной странице
+    const itemsPerPage = 10;
 
     const sampleData = [
-      {status:"Новая", type:"Ремонт", number:"001", date:"12.12.2021", model:"Camry", brand:"Toyota", licensePlate:"A123BC", vin:"JT2BF22K610123456", client:"Иванов Сергей", reason:"Не заводится"},
-      {status:"В работе", type:"Осмотр", number:"002", date:"13.12.2021", model:"Focus", brand:"Ford", licensePlate:"X777XX", vin:"", client:"Петров Алексей", reason:"Плановое ТО"},
-      // Добавь больше данных для тестирования пагинации
-      ...Array(25).fill().map((_, i) => ({
-        status: i % 3 === 0 ? "Новая" : "В работе",
-        type: "Ремонт",
+      {status:"Новая", type:"Ремонт", number:"001", date:"2026-03-12", displayDate:"12.03.2026", model:"Camry", brand:"Toyota", licensePlate:"A123BC", vin:"JT2BF22K610123456", client:"Иванов Сергей", reason:"Не заводится"},
+      {status:"В_работе", type:"Осмотр", number:"002", date:"2026-03-13", displayDate:"13.03.2026", model:"Focus", brand:"Ford", licensePlate:"X777XX", vin:"", client:"Петров Алексей", reason:"Плановое ТО"},
+      ...Array(30).fill().map((_, i) => ({
+        status: i % 3 === 0 ? "Новая" : "В_работе",
+        type: i % 2 === 0 ? "Ремонт" : "Осмотр",
         number: String(100 + i).padStart(3, '0'),
-        date: "15.03.2026",
+        date: "2026-03-" + String(10 + (i % 20)).padStart(2, '0'),
+        displayDate: "15.03.2026",
         model: "Model " + (i+1),
         brand: "Brand",
         licensePlate: "A" + (100 + i) + "BC",
@@ -294,21 +315,25 @@
       }))
     ];
 
-    function renderTable(page) {
+    function renderTable(filteredData = sampleData) {
       const tbody = document.querySelector('#meetingsTable tbody');
       tbody.innerHTML = '';
 
-      const start = (page - 1) * itemsPerPage;
+      const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
-      const pageData = sampleData.slice(start, end);
+      const pageData = filteredData.slice(start, end);
 
       pageData.forEach(item => {
         const row = document.createElement('tr');
+        row.dataset.status = item.status;
+        row.dataset.type = item.type;
+        row.dataset.date = item.date;   // YYYY-MM-DD для фильтра
+
         row.innerHTML = `
-          <td><span class="status ${item.status.replace(' ', '_')}">${item.status}</span></td>
+          <td><span class="status ${item.status}">${item.status}</span></td>
           <td>${item.type}</td>
           <td>${item.number}</td>
-          <td>${item.date}</td>
+          <td>${item.displayDate}</td>
           <td>${item.model}</td>
           <td>${item.brand}</td>
           <td>${item.licensePlate}</td>
@@ -321,30 +346,64 @@
       });
     }
 
-    function renderPagination() {
-      const totalPages = Math.ceil(sampleData.length / itemsPerPage);
-      const pagination = document.getElementById('pagination');
-      pagination.innerHTML = '';
+    function applyFilters() {
+      const status = document.getElementById('statusFilter').value;
+      const type   = document.getElementById('typeFilter').value;
+      const date   = document.getElementById('dateFilter').value;
 
-      // Кнопка "Назад"
-      pagination.innerHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+      const filtered = sampleData.filter(item => {
+        return (!status || item.status === status) &&
+               (!type   || item.type   === type) &&
+               (!date   || item.date   === date);
+      });
 
-      for (let i = 1; i <= totalPages; i++) {
-        if (i === currentPage) {
-          pagination.innerHTML += `<button class="active" onclick="changePage(${i})">${i}</button>`;
-        } else {
-          pagination.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
-        }
-      }
-
-      // Кнопка "Вперёд"
-      pagination.innerHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+      currentPage = 1;
+      renderTable(filtered);
+      renderPagination(filtered.length);
     }
+
+    function resetFilters() {
+      document.getElementById('statusFilter').value = '';
+      document.getElementById('typeFilter').value = '';
+      document.getElementById('dateFilter').value = '';
+      currentPage = 1;
+      renderTable(sampleData);
+      renderPagination(sampleData.length);
+    }
+
+    function renderPagination(totalItems = sampleData.length) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  // Кнопка Назад
+  const prevBtn = document.createElement('button');
+  prevBtn.innerHTML = '‹';
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.onclick = () => changePage(currentPage - 1);
+  pagination.appendChild(prevBtn);
+
+  // Номера страниц
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    if (i === currentPage) btn.classList.add('active');
+    btn.onclick = () => changePage(i);
+    pagination.appendChild(btn);
+  }
+
+  // Кнопка Вперёд
+  const nextBtn = document.createElement('button');
+  nextBtn.innerHTML = '›';
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.onclick = () => changePage(currentPage + 1);
+  pagination.appendChild(nextBtn);
+}
 
     function changePage(page) {
       if (page < 1 || page > Math.ceil(sampleData.length / itemsPerPage)) return;
       currentPage = page;
-      renderTable(currentPage);
+      renderTable(sampleData);
       renderPagination();
     }
 
@@ -353,15 +412,16 @@
       window.location.href = 'index.html';
     }
 
-    function applyFilters() {
-      alert("Фильтры применены (пока заглушка)");
-    }
-
     // Инициализация
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('username').textContent = localStorage.getItem('username') || 'Пользователь';
-      renderTable(currentPage);
+      document.getElementById('username').textContent = localStorage.getItem('username') || 'Администратор';
+      
+      renderTable();
       renderPagination();
+
+      // Привязка фильтров
+      document.getElementById('applyFilters').addEventListener('click', applyFilters);
+      document.getElementById('resetFilters').addEventListener('click', resetFilters);
     });
   </script>
 </body>
