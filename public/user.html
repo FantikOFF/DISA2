@@ -1,2 +1,368 @@
-<h1>Главная</h1>
-<p>Добро пожаловать на сайт 👤</p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Встречи | DISA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      z-index: 1000;
+    }
+
+    .logo { font-size: 26px; font-weight: 700; color: #007bff; }
+
+    .main-nav a {
+      padding: 14px 24px;
+      color: #aaaaaa;
+      text-decoration: none;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .main-nav a.active {
+      color: white;
+      background: #0f0f0f;
+      border-bottom: 4px solid #007bff;
+    }
+
+    .tabs {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      padding: 20px 40px 15px 40px;
+      border-bottom: 1px solid #333;
+      z-index: 999;
+    }
+
+    .tab {
+      padding: 14px 34px;
+      font-size: 17px;
+      background: #252525;
+      border: none;
+      color: #aaaaaa;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .tab.active {
+      background: #0f0f0f;
+      color: white;
+      border-bottom: 4px solid #007bff;
+    }
+
+    .filters {
+      position: fixed;
+      top: 145px;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      padding: 20px 40px 25px 40px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      align-items: end;
+      gap: 22px;
+      z-index: 998;
+    }
+
+    .filter-group label {
+      font-size: 13.5px;
+      color: #888;
+    }
+
+    .filter-group select, .filter-group input {
+      padding: 10px 14px;
+      background: #2d2d2d;
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: white;
+      min-width: 175px;
+    }
+
+    .content {
+      margin-top: 260px;
+      padding: 0 40px 40px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #252525;
+      padding: 16px 12px;
+      text-align: left;
+      font-weight: 500;
+      color: #ddd;
+    }
+
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #333;
+    }
+
+    tr:hover {
+      background: #222;
+    }
+
+    .status {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .status.Новая { background: #ffc107; color: black; }
+    .status.В_работе { background: #17a2b8; color: white; }
+
+    /* Кнопка "Выйти" */
+    .logout-btn {
+      background: #333;
+      color: white;
+      border: 1px solid #555;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .logout-btn:hover {
+      background: #444;
+    }
+
+    /* Пагинация */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 40px;
+    }
+
+    .pagination button {
+      width: 38px;
+      height: 38px;
+      background: #252525;
+      color: #ccc;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .pagination button.active {
+      background: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+
+    .pagination button:hover:not(.active) {
+      background: #333;
+    }
+
+    .pagination .dots {
+      color: #777;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка -->
+  <div class="header">
+    <div><span class="logo">DISA DMW</span></div>
+    <div class="main-nav">
+      <a href="#" class="active">Встречи</a>
+      <a href="#">Отчеты</a>
+      <a href="#">Пакеты</a>
+      <a href="#">Спец.предложения</a>
+      <a href="#">Опросы</a>
+      <a href="#">Настройки</a>
+    </div>
+    <div>
+      <span style="color:#00ff9d; margin-right:12px;">👤</span>
+      <span id="username">Пользователь</span>
+      <button class="logout-btn" onclick="logout()">Выйти</button>
+    </div>
+  </div>
+
+  <!-- Вкладки -->
+  <div class="tabs">
+    <button class="tab active" id="allTab">Все встречи</button>
+    <button class="tab" id="myTab">Мои встречи</button>
+  </div>
+
+  <!-- Фильтры -->
+  <div class="filters">
+    <div class="filter-group">
+      <label>Статус</label>
+      <select id="statusFilter">
+        <option value="">Все</option>
+        <option value="Новая">Новая</option>
+        <option value="В работе">В работе</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Тип</label>
+      <select id="typeFilter">
+        <option value="">Все</option>
+        <option value="Ремонт">Ремонт</option>
+        <option value="Осмотр">Осмотр</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Дата приёма</label>
+      <input type="date" id="dateFilter">
+    </div>
+    <button onclick="applyFilters()" style="padding:11px 32px; background:#007bff; border:none; border-radius:6px; color:white;">Применить</button>
+  </div>
+
+  <!-- Контент -->
+  <div class="content">
+    <h2 id="pageTitle">Все встречи</h2>
+
+    <table id="meetingsTable">
+      <thead>
+        <tr>
+          <th>Статус</th>
+          <th>Тип</th>
+          <th>№ п/п</th>
+          <th>Дата приёма</th>
+          <th>Модель</th>
+          <th>Марка</th>
+          <th>Гос. номер</th>
+          <th>VIN</th>
+          <th>Клиент</th>
+          <th>Причина обращения</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Пагинация -->
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const itemsPerPage = 10; // сколько строк на одной странице
+
+    const sampleData = [
+      {status:"Новая", type:"Ремонт", number:"001", date:"12.12.2021", model:"Camry", brand:"Toyota", licensePlate:"A123BC", vin:"JT2BF22K610123456", client:"Иванов Сергей", reason:"Не заводится"},
+      {status:"В работе", type:"Осмотр", number:"002", date:"13.12.2021", model:"Focus", brand:"Ford", licensePlate:"X777XX", vin:"", client:"Петров Алексей", reason:"Плановое ТО"},
+      // Добавь больше данных для тестирования пагинации
+      ...Array(25).fill().map((_, i) => ({
+        status: i % 3 === 0 ? "Новая" : "В работе",
+        type: "Ремонт",
+        number: String(100 + i).padStart(3, '0'),
+        date: "15.03.2026",
+        model: "Model " + (i+1),
+        brand: "Brand",
+        licensePlate: "A" + (100 + i) + "BC",
+        vin: "-",
+        client: "Клиент " + (i+1),
+        reason: "Причина " + (i+1)
+      }))
+    ];
+
+    function renderTable(page) {
+      const tbody = document.querySelector('#meetingsTable tbody');
+      tbody.innerHTML = '';
+
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageData = sampleData.slice(start, end);
+
+      pageData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><span class="status ${item.status.replace(' ', '_')}">${item.status}</span></td>
+          <td>${item.type}</td>
+          <td>${item.number}</td>
+          <td>${item.date}</td>
+          <td>${item.model}</td>
+          <td>${item.brand}</td>
+          <td>${item.licensePlate}</td>
+          <td>${item.vin}</td>
+          <td>${item.client}</td>
+          <td>${item.reason}</td>
+          <td><button class="open-btn" style="background:#007bff;color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;">Открыть</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(sampleData.length / itemsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      // Кнопка "Назад"
+      pagination.innerHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+          pagination.innerHTML += `<button class="active" onclick="changePage(${i})">${i}</button>`;
+        } else {
+          pagination.innerHTML += `<button onclick="changePage(${i})">${i}</button>`;
+        }
+      }
+
+      // Кнопка "Вперёд"
+      pagination.innerHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+    }
+
+    function changePage(page) {
+      if (page < 1 || page > Math.ceil(sampleData.length / itemsPerPage)) return;
+      currentPage = page;
+      renderTable(currentPage);
+      renderPagination();
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'index.html';
+    }
+
+    function applyFilters() {
+      alert("Фильтры применены (пока заглушка)");
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('username').textContent = localStorage.getItem('username') || 'Пользователь';
+      renderTable(currentPage);
+      renderPagination();
+    });
+  </script>
+</body>
+</html>

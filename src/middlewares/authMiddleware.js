@@ -22,4 +22,4 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-module.exports = { authenticateToken, isAdmin };
+module.exports = { authenticateToken, isAdmin };``

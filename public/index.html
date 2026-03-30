@@ -3,26 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход в систему</title>
+  <title>Вход в DISA</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
-    form { max-width: 400px; margin: 0 auto; }
-    input { padding: 10px; margin: 10px 0; width: 100%; font-size: 16px; }
-    button { padding: 12px; width: 100%; font-size: 18px; background: #007bff; color: white; border: none; cursor: pointer; }
-    button:hover { background: #0056b3; }
-    .message { margin-top: 15px; color: red; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      background: #1a1a1a;
+      padding: 50px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid #333;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo span {
+      font-size: 48px;
+      font-weight: 700;
+      color: #007bff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    p {
+      text-align: center;
+      color: #aaaaaa;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 14px 16px;
+      background: #2d2d2d;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    }
+
+    button {
+      padding: 14px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 15px;
+      min-height: 20px;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 25px;
+      color: #666;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <h1>Вход в DISA</h1>
-  
-  <form id="loginForm">
-    <input type="text" id="username" placeholder="Логин" required>
-    <input type="password" id="password" placeholder="Пароль" required>
-    <button type="submit">Войти</button>
-  </form>
 
-  <div class="message" id="message"></div>
+  <div class="login-container">
+    <div class="logo">
+      <span>DISA</span>
+    </div>
+    
+    <h1>Вход в систему</h1>
+    <p>Введите ваши данные для входа</p>
+
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Логин" required>
+      <input type="password" id="password" placeholder="Пароль" required>
+      <button type="submit">Войти</button>
+    </form>
+
+    <div class="message" id="message"></div>
+
+    <div class="footer-text">
+      Нет аккаунта? <a href="register.html" style="color: #007bff; text-decoration: none;">Зарегистрироваться</a>
+    </div>
+  </div>
 
   <script>
     const form = document.getElementById('loginForm');
@@ -35,7 +140,7 @@
       const password = document.getElementById('password').value.trim();
 
       if (!username || !password) {
-        messageDiv.textContent = "Заполните все поля";
+        showMessage("Заполните все поля", "red");
         return;
       }
 
@@ -49,31 +154,30 @@
         const data = await res.json();
 
         if (res.ok) {
-          // Сохраняем токен
           localStorage.setItem('token', data.token);
           
-          messageDiv.style.color = 'green';
-          messageDiv.textContent = 'Вход выполнен успешно!';
+          showMessage('Вход выполнен успешно!', 'green');
 
-          // Перенаправляем в зависимости от роли
-          if (data.user.role === 'admin') {
-            setTimeout(() => {
-              window.location.href = '/admin.html';
-            }, 1000);
-          } else {
-            setTimeout(() => {
-              window.location.href = '/user.html';
-            }, 1000);
-          }
+          // Перенаправление в зависимости от роли
+          setTimeout(() => {
+            if (data.user && data.user.role === 'admin') {
+              window.location.href = 'admin.html';
+            } else {
+              window.location.href = 'user.html';
+            }
+          }, 1200);
         } else {
-          messageDiv.style.color = 'red';
-          messageDiv.textContent = data.message || 'Ошибка входа';
+          showMessage(data.message || 'Неверный логин или пароль', 'red');
         }
       } catch (err) {
-        messageDiv.style.color = 'red';
-        messageDiv.textContent = 'Ошибка соединения с сервером';
+        showMessage('Ошибка соединения с сервером', 'red');
       }
     });
+
+    function showMessage(text, color) {
+      messageDiv.style.color = color;
+      messageDiv.textContent = text;
+    }
   </script>
 </body>
 </html>

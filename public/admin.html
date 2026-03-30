@@ -57,12 +57,6 @@
       font-weight: 500;
     }
 
-    .right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
     .logout-btn {
       background: #dc3545;
       color: white;
@@ -88,7 +82,7 @@
 </head>
 <body>
 
-  <!-- Хедер в стиле твоего скриншота -->
+  <!-- Хедер -->
   <div class="header">
     <div class="left">
       <div class="logo">D</div>
@@ -110,11 +104,12 @@
   </div>
 
   <script>
+    // Функция загрузки данных админа
     async function loadAdminHeader() {
       const token = localStorage.getItem('token');
       
       if (!token) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
       }
 
@@ -130,24 +125,30 @@
 
         const user = await res.json();
 
-        // Заполняем данные в хедере
-        document.getElementById('username').textContent = user.username;
+        document.getElementById('username').textContent = user.username || 'Админ';
         document.getElementById('role').textContent = user.role === 'admin' ? 'Администратор' : 'Пользователь';
 
       } catch (err) {
+        console.error(err);
         alert('Сессия истекла. Пожалуйста, войдите заново.');
         localStorage.removeItem('token');
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
       }
     }
 
+    // Функция выхода из админ-панели
     function logout() {
+      // Очищаем все данные авторизации
       localStorage.removeItem('token');
-      window.location.href = 'login.html';
+      localStorage.removeItem('adminLoggedIn');
+      sessionStorage.clear();
+
+      // Переадресация на главную страницу
+      window.location.href = 'index.html';
     }
 
-    // Запуск при загрузке
-    window.onload = loadAdminHeader;
+    // Запускаем загрузку данных при открытии страницы
+    document.addEventListener('DOMContentLoaded', loadAdminHeader);
   </script>
 </body>
 </html>
