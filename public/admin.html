@@ -1,67 +1,153 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админ Панель</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Общие стили */
-header {
-  position: fixed; /* Фиксируем заголовок */
-  top: 0;         /* Сдвигаем вверху */
-  right: 0;       /* Сдвигаем вправо */
-  z-index: 1000;   /* Убеждаемся, что заголовок находится поверх других элементов */
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель | DISA</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f0f0f;
+      color: #ffffff;
+      min-height: 100vh;
+    }
 
-/* Стили для кнопки выхода */
-#logoutButton {
-  margin-left: 10px; /* Добавляем отступ слева */
-}
+    .header {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #333;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
 
-    </style>
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: #007bff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .role {
+      font-size: 14px;
+      color: #00ff9d;
+      font-weight: 500;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
+    }
+
+    .content {
+      padding: 40px;
+      text-align: center;
+      font-size: 28px;
+      color: #aaaaaa;
+    }
+  </style>
 </head>
 <body>
-    <header>
-    <h1 id="adminTitle">Админ</h1>
-    <button id="logoutButton">Выйти</button>
-</header>
 
-<script>
-const userTable = document.getElementById('userTable');
-const userInfoDiv = document.getElementById('userInfo');
+  <!-- Хедер в стиле твоего скриншота -->
+  <div class="header">
+    <div class="left">
+      <div class="logo">D</div>
+      <div class="user-info">
+        <div class="username" id="username">Загрузка...</div>
+        <div class="role" id="role">Admin</div>
+      </div>
+    </div>
 
-// Функция для получения данных пользователя из БД (замените на реальную логику)
-function getUsersFromDB() {
-  // Это просто пример данных, в реальном приложении вы получите их из БД
-  return [
-    { name: 'user1', email: 'user1@example.com' },
-    { name: 'user2', email: 'user2@example.com' }
-  ];
-}
+    <div class="right">
+      <button class="logout-btn" onclick="logout()">Выйти</button>
+    </div>
+  </div>
 
-// Вызываем функцию для получения данных
-const users = getUsersFromDB();
+  <!-- Основной контент -->
+  <div class="content">
+    <p>Добро пожаловать в панель управления</p>
+    <!-- Здесь будет остальной контент админки -->
+  </div>
 
-// Очищаем таблицу
-userTable.innerHTML = '';
+  <script>
+    async function loadAdminHeader() {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        window.location.href = 'login.html';
+        return;
+      }
 
-// Создаем строки таблицы
-users.forEach(user => {
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${user.name}</td>
-    <td>${user.email}</td>
-  `;
-  userTable.appendChild(row);
-});
+      try {
+        const res = await fetch('/api/auth/me', {
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
 
-// Отображаем информацию о пользователе слева
-userInfoDiv.innerHTML = `
-  <p>Имя пользователя: ${users[0].name}</p>
-  <p>Email: ${users[0].email}</p>
-`;
+        if (!res.ok) throw new Error('Сессия истекла');
 
-</script>
+        const user = await res.json();
+
+        // Заполняем данные в хедере
+        document.getElementById('username').textContent = user.username;
+        document.getElementById('role').textContent = user.role === 'admin' ? 'Администратор' : 'Пользователь';
+
+      } catch (err) {
+        alert('Сессия истекла. Пожалуйста, войдите заново.');
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+
+    // Запуск при загрузке
+    window.onload = loadAdminHeader;
+  </script>
 </body>
 </html>
