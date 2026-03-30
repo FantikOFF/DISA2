@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход</title>
+</head>
+<body>
+
+<h2>Авторизация</h2>
+
+<form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required><br><br>
+    <input type="password" id="password" placeholder="Пароль" required><br><br>
+
+    <a href="register.html">Нет аккаунта? Зарегистрироваться</a><br><br>
+
+    <button type="submit">Войти</button>
+</form>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const res = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    });
+
+    const data = await res.json();
+
+    if (data.role === 'admin') {
+        window.location.href = '/admin.html';
+    } else if (data.role === 'user') {
+        window.location.href = '/user.html';
+    } else {
+        alert(data.error);
+    }
+});
+</script>
+
+</body>
+</html>

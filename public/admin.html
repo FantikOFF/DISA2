@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панель</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Общие стили */
+header {
+  position: fixed; /* Фиксируем заголовок */
+  top: 0;         /* Сдвигаем вверху */
+  right: 0;       /* Сдвигаем вправо */
+  z-index: 1000;   /* Убеждаемся, что заголовок находится поверх других элементов */
+}
+
+/* Стили для кнопки выхода */
+#logoutButton {
+  margin-left: 10px; /* Добавляем отступ слева */
+}
+
+    </style>
+</head>
+<body>
+    <header>
+    <h1 id="adminTitle">Админ</h1>
+    <button id="logoutButton">Выйти</button>
+</header>
+
+<script>
+const userTable = document.getElementById('userTable');
+const userInfoDiv = document.getElementById('userInfo');
+
+// Функция для получения данных пользователя из БД (замените на реальную логику)
+function getUsersFromDB() {
+  // Это просто пример данных, в реальном приложении вы получите их из БД
+  return [
+    { name: 'user1', email: 'user1@example.com' },
+    { name: 'user2', email: 'user2@example.com' }
+  ];
+}
+
+// Вызываем функцию для получения данных
+const users = getUsersFromDB();
+
+// Очищаем таблицу
+userTable.innerHTML = '';
+
+// Создаем строки таблицы
+users.forEach(user => {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${user.name}</td>
+    <td>${user.email}</td>
+  `;
+  userTable.appendChild(row);
+});
+
+// Отображаем информацию о пользователе слева
+userInfoDiv.innerHTML = `
+  <p>Имя пользователя: ${users[0].name}</p>
+  <p>Email: ${users[0].email}</p>
+`;
+
+</script>
+</body>
+</html>
