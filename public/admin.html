@@ -797,6 +797,47 @@
       line-height: 1.5;
     }
 
+    .users-password-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid #2f3945;
+      background: linear-gradient(135deg, #111827 0%, #151a20 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .users-password-row input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 8px 10px;
+      box-shadow: none;
+    }
+
+    .users-password-row input:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .password-toggle-btn {
+      min-width: 42px;
+      height: 40px;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      background: #1b2633;
+      color: #dbeafe;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s ease;
+    }
+
+    .password-toggle-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
     .users-form-actions {
       display: flex;
       align-items: center;
@@ -872,6 +913,17 @@
     body.light-theme .users-header-note,
     body.light-theme .user-password-hint {
       color: #64748b;
+    }
+
+    body.light-theme .users-password-row {
+      background: #f8fbff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .password-toggle-btn {
+      background: #eef4ff;
+      border-color: #cfe0ff;
+      color: #1d4ed8;
     }
 
     @media (max-width: 900px) {
@@ -1711,7 +1763,7 @@
       </aside>
 
       <section class="users-manager-main">
-        <div id="usersEditorEmpty" class="users-editor-empty">Выберите пользователя слева, чтобы посмотреть пароль в базе, сменить роль или обновить данные.</div>
+        <div id="usersEditorEmpty" class="users-editor-empty">Выберите пользователя слева, чтобы сменить пароль, роль или обновить данные.</div>
 
         <form id="userEditorForm" class="users-form" style="display:none;">
           <div>
@@ -1740,8 +1792,12 @@
 
           </div>
 
+          <label class="users-field users-field-password">
             <span>Новый пароль</span>
-            <input type="text" id="managePassword" placeholder="Введите новый пароль при необходимости">
+            <div class="users-password-row">
+              <input type="password" id="managePassword" placeholder="Введите новый пароль при необходимости" autocomplete="new-password">
+              <button type="button" class="password-toggle-btn" id="toggleEditorPasswordBtn" title="Показать пароль">👁</button>
+            </div>
             <small class="user-password-hint">Если поле пустое, текущий пароль не изменится.</small>
           </label>
 
@@ -1904,7 +1960,14 @@
       document.getElementById('manageUsername').value = user.username || '';
       document.getElementById('manageEmail').value = user.email || '';
       document.getElementById('manageRole').value = String(user.role || 'user').toLowerCase();
-      document.getElementById('managePassword').value = '';
+      const passwordInput = document.getElementById('managePassword');
+      passwordInput.value = '';
+      passwordInput.type = 'password';
+      const passwordToggleButton = document.getElementById('toggleEditorPasswordBtn');
+      if (passwordToggleButton) {
+        passwordToggleButton.textContent = '👁';
+        passwordToggleButton.title = 'Показать пароль';
+      }
 
       selectedUserLabel.textContent = `${user.username || 'Пользователь'} #${user.id || '-'}`;
       selectedUserMeta.textContent = `${user.isOnline ? 'Онлайн' : 'Не в сети'} • Создан: ${formatDate(user.created_at)}${String(localStorage.getItem('userId') || '') === String(user.id) ? ' • это ваш аккаунт' : ''}`;
@@ -1988,6 +2051,17 @@
     function toggleManagedPasswordVisibility() {
       usersManagerState.revealHash = !usersManagerState.revealHash;
       updateStoredPasswordField();
+    }
+
+    function toggleEditorPasswordVisibility() {
+      const passwordInput = document.getElementById('managePassword');
+      const toggleButton = document.getElementById('toggleEditorPasswordBtn');
+      if (!passwordInput || !toggleButton) return;
+
+      const shouldShowPassword = passwordInput.type === 'password';
+      passwordInput.type = shouldShowPassword ? 'text' : 'password';
+      toggleButton.textContent = shouldShowPassword ? '🙈' : '👁';
+      toggleButton.title = shouldShowPassword ? 'Скрыть пароль' : 'Показать пароль';
     }
 
     async function saveManagedUser(event) {
@@ -2619,6 +2693,7 @@
         renderUsersManagerList();
       });
       document.getElementById('usersManagerRefreshBtn').addEventListener('click', () => loadUsers({ silent: false }));
+      document.getElementById('toggleEditorPasswordBtn').addEventListener('click', toggleEditorPasswordVisibility);
       document.getElementById('userEditorForm').addEventListener('submit', saveManagedUser);
       document.getElementById('deleteUserBtn').addEventListener('click', deleteManagedUser);
 
