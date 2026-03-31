@@ -11,23 +11,14 @@ const getServerErrorMessage = (err) => {
   return databaseErrorCodes.has(err.code) ? 'Ошибка подключения к базе данных' : 'Ошибка сервера';
 };
 
-const formatManagedUser = (user, onlineUserIds = new Set()) => {
-  const passwordHash = String(user?.password_hash || '');
-
-  return {
-    id: user?.id,
-    username: user?.username,
-    email: user?.email,
-    role: user?.role || 'user',
-    created_at: user?.created_at,
-    isOnline: onlineUserIds.has(Number(user?.id)),
-    password: passwordHash ? `${passwordHash.slice(0, 18)}...` : 'Не задан',
-    passwordHash,
-    passwordNote: passwordHash
-      ? 'В базе хранится bcrypt-хэш, исходный пароль восстановить нельзя.'
-      : 'Пароль не найден.',
-  };
-};
+const formatManagedUser = (user, onlineUserIds = new Set()) => ({
+  id: user?.id,
+  username: user?.username,
+  email: user?.email,
+  role: user?.role || 'user',
+  created_at: user?.created_at,
+  isOnline: onlineUserIds.has(Number(user?.id)),
+});
 
 const register = async (req, res) => {
   const { username, email, password } = req.body;

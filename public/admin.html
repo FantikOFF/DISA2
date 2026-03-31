@@ -1738,19 +1738,11 @@
               </select>
             </label>
 
-            <label class="users-field">
-              <span>Новый пароль</span>
-              <input type="text" id="managePassword" placeholder="Оставьте пустым, если менять не нужно">
-            </label>
           </div>
 
-          <label class="users-field">
-            <span>Что хранится в базе</span>
-            <div class="users-inline-row">
-              <input type="text" id="userStoredPassword" readonly value="Скрыто">
-              <button type="button" class="reset-btn" id="togglePasswordBtn">Показать</button>
-            </div>
-            <small class="user-password-hint" id="userPasswordHint">В системе хранится только защищенный bcrypt-хэш; исходный пароль нельзя восстановить, но можно задать новый.</small>
+            <span>Новый пароль</span>
+            <input type="text" id="managePassword" placeholder="Введите новый пароль при необходимости">
+            <small class="user-password-hint">Если поле пустое, текущий пароль не изменится.</small>
           </label>
 
           <div class="users-form-actions">
@@ -1858,26 +1850,10 @@
           user.email,
           user.role,
           user.isOnline ? 'онлайн' : 'offline',
-          user.passwordHash,
         ].join(' ').toLowerCase();
 
         return haystack.includes(query);
       });
-    }
-
-    function updateStoredPasswordField(user = getSelectedManagedUser()) {
-      const input = document.getElementById('userStoredPassword');
-      const toggleButton = document.getElementById('togglePasswordBtn');
-      const hint = document.getElementById('userPasswordHint');
-
-      if (!input || !toggleButton || !hint) return;
-
-      const passwordHash = String(user?.passwordHash || '');
-      input.value = usersManagerState.revealHash
-        ? (passwordHash || 'Нет данных')
-        : (passwordHash ? '••••••••••••••••••••••' : 'Нет данных');
-      toggleButton.textContent = usersManagerState.revealHash ? 'Скрыть' : 'Показать';
-      hint.textContent = user?.passwordNote || 'В базе хранится только защищенный хэш.';
     }
 
     function renderUsersManagerList() {
@@ -1940,7 +1916,6 @@
         deleteButton.title = isCurrentUser ? 'Свой активный аккаунт удалить нельзя' : 'Удалить пользователя';
       }
 
-      updateStoredPasswordField(user);
     }
 
     function renderUsersList() {
@@ -1969,7 +1944,6 @@
             <div class="user-line">ID: ${escapeHtml(user.id || '-')}</div>
             <div class="user-line">Email: ${escapeHtml(user.email || '-')}</div>
             <div class="user-line">Создан: ${escapeHtml(formatDate(user.created_at))}</div>
-            <div class="user-line">Пароль в базе: ${escapeHtml(user.password || 'Скрыт')}</div>
             <div class="user-status ${user.isOnline ? 'online' : 'offline'}">${user.isOnline ? 'Онлайн' : 'Не в сети'}</div>
             <div class="user-card-actions">
               <button type="button" class="users-open-btn" onclick="openUsersManager(${Number(user.id)})">Управление</button>
@@ -2645,7 +2619,6 @@
         renderUsersManagerList();
       });
       document.getElementById('usersManagerRefreshBtn').addEventListener('click', () => loadUsers({ silent: false }));
-      document.getElementById('togglePasswordBtn').addEventListener('click', toggleManagedPasswordVisibility);
       document.getElementById('userEditorForm').addEventListener('submit', saveManagedUser);
       document.getElementById('deleteUserBtn').addEventListener('click', deleteManagedUser);
 
