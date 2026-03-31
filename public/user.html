@@ -28,6 +28,49 @@
 
     .logo { font-size: 28px; font-weight: 700; color: #007bff; }
 
+    .tabs {
+      position: fixed;
+      top: 85px;
+      left: 0;
+      right: 0;
+      background: #111111;
+      padding: 12px 40px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 999;
+      flex-wrap: wrap;
+    }
+
+    .tabs-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sync-badge {
+      color: #8fb8ff;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .tab {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      color: #ccc;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
     .main-nav a {
       padding: 12px 20px;
       color: #bbbbbb;
@@ -42,10 +85,64 @@
       background: #1f1f1f;
     }
 
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .profile-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px 7px 8px;
+      border-radius: 14px;
+      border: 1px solid #293242;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.9));
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .profile-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      color: #ffffff;
+      font-size: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 18px rgba(139, 92, 246, 0.28);
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .profile-role {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8fa7c7;
+    }
+
+    #username {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      max-width: 160px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     /* ====================== ФИЛЬТРЫ ====================== */
     .filters {
       position: fixed;
-      top: 85px;
+      top: 138px;
       left: 0; right: 0;
       background: #111111;
       padding: 18px 40px;
@@ -54,6 +151,7 @@
       align-items: end;
       gap: 20px;
       z-index: 999;
+      flex-wrap: wrap;
     }
 
     .filter-group label {
@@ -71,6 +169,15 @@
       padding: 10px 14px;
       border-radius: 6px;
       min-width: 170px;
+    }
+
+    .search-group {
+      flex: 1 1 320px;
+    }
+
+    .search-group input {
+      width: 100%;
+      min-width: 280px;
     }
 
     .apply-btn {
@@ -98,33 +205,70 @@
 
     /* ====================== ТАБЛИЦА ====================== */
     .content {
-      margin-top: 170px;
+      margin-top: 230px;
       padding: 0 40px 60px;
+    }
+
+    .table-card {
+      background: #111111;
+      border-radius: 10px;
+      overflow: hidden;
+      border-top: 4px solid #17a8e3;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+      border: 1px solid #242424;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       background: #111111;
-      border-radius: 10px;
-      overflow: hidden;
+      color: #e8e8e8;
     }
 
     th {
-      background: #1a1a1a;
-      padding: 16px 12px;
+      background: #171717;
+      padding: 14px 12px;
       text-align: left;
-      font-weight: 500;
-      color: #ccc;
+      font-weight: 700;
+      color: #f3f3f3;
+      border-bottom: 1px solid #2e2e2e;
+      white-space: nowrap;
     }
 
     td {
-      padding: 14px 12px;
+      padding: 12px;
       border-bottom: 1px solid #222;
+      vertical-align: top;
+      color: #dddddd;
     }
 
     tr:hover {
-      background: #1a1a1a;
+      background: #181d24;
+    }
+
+    .cell-title {
+      font-weight: 600;
+      color: #f5f5f5;
+      margin-bottom: 4px;
+    }
+
+    .cell-meta {
+      font-size: 12.5px;
+      color: #a7b0bc;
+      line-height: 1.45;
+    }
+
+    .reason-text {
+      line-height: 1.45;
+      max-width: 360px;
+      word-break: break-word;
+    }
+
+    .match-highlight {
+      background: #ffcc33;
+      color: #111;
+      padding: 0 2px;
+      border-radius: 3px;
     }
 
     .status {
@@ -132,10 +276,13 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 500;
+      white-space: nowrap;
     }
 
     .status.Новая { background: #ffc107; color: black; }
     .status.В_работе { background: #17a2b8; color: white; }
+    .status.done { background: #28a745; color: white; }
+    .status.rejected { background: #dc3545; color: white; }
 
     /* Кнопки "Открыть" */
     .open-btn {
@@ -149,6 +296,185 @@
 
     .open-btn:hover {
       background: #005fcc;
+    }
+
+    .reception-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1b2633;
+      color: #d7e9ff;
+      border: 1px solid #2f435a;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .reception-btn:hover {
+      background: #23364b;
+      border-color: #5d8ec7;
+    }
+
+    .new-btn {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .new-btn:hover { background: #218838; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #111111;
+      width: 100%;
+      max-width: 860px;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #333;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 12px;
+    }
+
+    .close {
+      font-size: 30px;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .close:hover { color: #fff; }
+
+    .form-grid,
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 6px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      background: #1f1f1f;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+
+    .form-field textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .report-sheet {
+      background: linear-gradient(180deg, #11161d 0%, #0d1218 100%);
+      color: #e5e7eb;
+      border-radius: 14px;
+      padding: 16px 18px 22px;
+      border: 1px solid #283241;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .report-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .report-action-btn {
+      background: #171d25;
+      color: #e5e7eb;
+      border: 1px solid #2f3945;
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .report-action-btn:hover {
+      background: #1d2630;
+    }
+
+    .report-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 4px 0 18px;
+    }
+
+    .report-section {
+      margin-bottom: 18px;
+    }
+
+    .report-section h3 {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+
+    .report-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #212b36;
+      align-items: start;
+    }
+
+    .report-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .report-value {
+      color: #f8fafc;
+      font-size: 13px;
+      word-break: break-word;
     }
 
     /* ====================== ПАГИНАЦИЯ ====================== */
@@ -186,29 +512,369 @@
       opacity: 0.4;
       cursor: not-allowed;
     }
-    /* Кнопка "Выйти" */
-.logout-btn {
-    background: #e74c3c;           /* красный цвет */
-    color: white;
-    border: none;
-    padding: 9px 22px;
-    border-radius: 6px;
-    font-size: 14.5px;
-    font-weight: 500;
+    .logout-btn {
+      background: linear-gradient(135deg, #ff7a59 0%, #ef4444 100%);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      box-shadow: 0 8px 18px rgba(239, 68, 68, 0.25);
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(239, 68, 68, 0.32);
+      filter: brightness(1.03);
+    }
+
+    .logout-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(239, 68, 68, 0.24);
+    }
+
+.settings-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.settings-card {
+    background: #171717;
+    border: 1px solid #2d2d2d;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.settings-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.settings-note,
+.settings-list {
+    color: #aab2bd;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.settings-list {
+    padding-left: 18px;
+}
+
+.settings-card-disabled {
+    opacity: 0.78;
+}
+
+.theme-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #2f435a;
+    border-radius: 10px;
+    background: #111827;
+    margin-top: 10px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
 }
 
-.logout-btn:hover {
-    background: #c0392b;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+.theme-option input {
+    margin-top: 3px;
+    accent-color: #007bff;
 }
 
-.logout-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+.theme-option strong {
+    display: block;
+    color: #f3f4f6;
+    margin-bottom: 3px;
+}
+
+.theme-option small {
+    color: #aab2bd;
+}
+
+.settings-hint {
+    margin-right: auto;
+    color: #7dd3fc;
+    font-size: 14px;
+}
+
+body.light-theme {
+    background: #f3f6fb;
+    color: #1f2937;
+}
+
+body.light-theme .header,
+body.light-theme .tabs,
+body.light-theme .filters {
+    background: #ffffff;
+    border-bottom-color: #dbe3ef;
+}
+
+body.light-theme .main-nav a {
+    color: #4b5563;
+}
+
+body.light-theme .main-nav a:hover,
+body.light-theme .main-nav a.active {
+    color: #007bff;
+    background: #eaf3ff;
+}
+
+body.light-theme .profile-chip {
+    background: linear-gradient(135deg, #ffffff 0%, #eef4ff 100%);
+    border-color: #d6e1ef;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .profile-role {
+    color: #64748b;
+}
+
+body.light-theme #username {
+    color: #0f172a;
+}
+
+body.light-theme .tab {
+    background: #f7f9fc;
+    border-color: #d5dfeb;
+    color: #374151;
+}
+
+body.light-theme .sync-badge {
+    color: #64748b;
+}
+
+body.light-theme .filter-group label {
+    color: #6b7280;
+}
+
+body.light-theme .filter-group select,
+body.light-theme .filter-group input,
+body.light-theme .form-field input,
+body.light-theme .form-field select,
+body.light-theme .form-field textarea {
+    background: #ffffff;
+    border-color: #cfd8e3;
+    color: #111827;
+}
+
+body.light-theme .table-card,
+body.light-theme table,
+body.light-theme .modal-content {
+    background: #ffffff;
+    color: #111827;
+    border-color: #dbe3ef;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme th {
+    background: #f5f8fc;
+    color: #374151;
+    border-bottom-color: #dde6ef;
+}
+
+body.light-theme td {
+    color: #1f2937;
+    border-bottom-color: #eef2f7;
+}
+
+body.light-theme tr:hover {
+    background: #f8fbff;
+}
+
+body.light-theme .cell-title,
+body.light-theme h2,
+body.light-theme #pageTitle {
+    color: #111827;
+}
+
+body.light-theme .cell-meta,
+body.light-theme .form-field label,
+body.light-theme .close {
+    color: #6b7280;
+}
+
+body.light-theme .reset-btn {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: #d1d5db;
+}
+
+body.light-theme .pagination button {
+    background: #ffffff;
+    color: #374151;
+    border-color: #dbe3ef;
+}
+
+body.light-theme .settings-card {
+    background: #f8fbff;
+    border-color: #dbe3ef;
+}
+
+body.light-theme .settings-note,
+body.light-theme .settings-list,
+body.light-theme .theme-option small {
+    color: #5b6472;
+}
+
+body.light-theme .theme-option {
+    background: #ffffff;
+    border-color: #cfe0ff;
+}
+
+body.light-theme .theme-option strong {
+    color: #111827;
+}
+
+body.light-theme .report-sheet {
+    background: #ffffff;
+    color: #1d1d1d;
+    border-color: #d9d9d9;
+    box-shadow: none;
+}
+
+body.light-theme .report-action-btn {
+    background: #f3f3f3;
+    color: #222;
+    border-color: #cfcfcf;
+}
+
+body.light-theme .report-action-btn:hover {
+    background: #e7e7e7;
+}
+
+body.light-theme .report-title { color: #334155; }
+body.light-theme .report-section h3 { color: #5c5c5c; }
+body.light-theme .report-row { border-bottom-color: #ededed; }
+body.light-theme .report-label { color: #666; }
+body.light-theme .report-value { color: #111; }
+
+@media (max-width: 1112px) {
+    .header,
+    .tabs,
+    .filters {
+        position: static;
+    }
+
+    .header {
+        flex-wrap: wrap;
+        padding: 14px 20px;
+        gap: 12px;
+    }
+
+    .main-nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tabs {
+        padding: 12px 20px;
+        flex-wrap: wrap;
+    }
+
+    .filters {
+        padding: 16px 20px;
+    }
+
+    .content {
+        margin-top: 12px;
+        padding: 0 20px 48px;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+
+    #meetingsTable {
+        min-width: 1080px;
+    }
+
+    .status {
+        min-width: 118px;
+        display: inline-flex;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .modal-content {
+        width: 94%;
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .header,
+    .tabs,
+    .filters {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .main-nav {
+        justify-content: flex-start;
+    }
+
+    .main-nav a {
+        padding: 10px 12px;
+        margin-right: 4px;
+    }
+
+    .user-info {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .filters {
+        gap: 12px;
+    }
+
+    .filter-group,
+    .search-group {
+        flex: 1 1 100%;
+    }
+
+    .search-group input {
+        min-width: 0;
+    }
+
+    .apply-btn,
+    .reset-btn,
+    .new-btn {
+        width: 100%;
+    }
+
+    .content {
+        padding: 0 12px 40px;
+    }
+
+    .modal-content {
+        width: 96%;
+        padding: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
 </style>
 </head>
@@ -218,24 +884,33 @@
   <div class="header">
     <div><span class="logo">DISA DMW</span></div>
     <div class="main-nav">
-      <a href="#" class="active">Встречи</a>
-      <a href="#">Отчеты</a>
+      <a href="#" class="active" data-section="meetings">Встречи</a>
+      <a href="#" data-section="reception">Приемка</a>
+      <a href="#" data-section="reports">Отчеты</a>
       <a href="#">Пакеты</a>
       <a href="#">Спец.предложения</a>
       <a href="#">Опросы</a>
-      <a href="#">Настройки</a>
+      <a href="#" id="openSettingsBtn" class="settings-link">Настройки</a>
     </div>
-    <div>
-      <span style="color:#00ff9d; margin-right:12px;">👤</span>
-      <span id="username">Пользователь</span>
+    <div class="user-info">
+      <div class="profile-chip">
+        <span class="profile-badge">👤</span>
+        <div class="profile-meta">
+          <span class="profile-role">Личный кабинет</span>
+          <span id="username">Пользователь</span>
+        </div>
+      </div>
       <button class="logout-btn" onclick="logout()">Выйти</button>
     </div>
   </div>
 
   <!-- Вкладки -->
   <div class="tabs">
-    <button class="tab active" id="allTab">Все встречи</button>
-    <button class="tab" id="myTab">Мои встречи</button>
+    <div class="tabs-left">
+      <button class="tab active" id="allTab">Все встречи</button>
+      <button class="tab" id="myTab">Мои встречи</button>
+    </div>
+    <div class="sync-badge" id="syncInfo">Обновлено: --:--:--</div>
   </div>
 
   <!-- Фильтры -->
@@ -245,7 +920,9 @@
         <select id="statusFilter">
             <option value="">Все</option>
             <option value="Новая">Новая</option>
-            <option value="В_работе">В работе</option>
+            <option value="В работе">В работе</option>
+            <option value="Завершена">Завершена</option>
+            <option value="Отменена">Отменена</option>
         </select>
     </div>
 
@@ -253,8 +930,12 @@
         <label>Тип</label>
         <select id="typeFilter">
             <option value="">Все</option>
-            <option value="Ремонт">Ремонт</option>
+            <option value="Тип заказа">Тип заказа</option>
+            <option value="Консультация">Консультация</option>
             <option value="Осмотр">Осмотр</option>
+            <option value="Ремонт">Ремонт</option>
+            <option value="Доставка">Доставка</option>
+            <option value="Другое">Другое</option>
         </select>
     </div>
 
@@ -263,16 +944,231 @@
         <input type="date" id="dateFilter">
     </div>
 
+    <div class="filter-group search-group">
+        <label>Быстрый поиск</label>
+        <input type="text" id="searchFilter" placeholder="Поиск по модели, клиенту, VIN, номеру...">
+    </div>
+
     <button id="applyFilters" class="apply-btn">Применить</button>
     <button id="resetFilters" class="reset-btn">Сбросить</button>
+    <button id="openCreateModal" class="new-btn">Новая заявка</button>
   </div>
 
   <!-- Контент -->
   <div class="content">
     <h2 id="pageTitle">Все встречи</h2>
 
-    <table id="meetingsTable">
-      <thead>
+    <div class="table-card">
+      <table id="meetingsTable">
+        <thead>
+          <tr>
+            <th>Статус</th>
+            <th>Тип</th>
+            <th>№ п/п</th>
+            <th>Дата приёма</th>
+            <th>Модель</th>
+            <th>Марка</th>
+            <th>Гос. номер</th>
+            <th>VIN</th>
+            <th>Клиент</th>
+            <th>Причина обращения</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <div id="requestModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Новая заявка</h2>
+        <span class="close" onclick="closeRequestModal()">×</span>
+      </div>
+      <form id="requestForm">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="requestType">Тип работ</label>
+            <select id="requestType" required>
+              <option value="Тип заказа">Тип заказа</option>
+              <option value="Консультация">Консультация</option>
+              <option value="Осмотр">Осмотр</option>
+              <option value="Ремонт">Ремонт</option>
+              <option value="Доставка">Доставка</option>
+              <option value="Другое">Другое</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="requestDate">Дата приёма</label>
+            <input type="date" id="requestDate" required>
+          </div>
+          <div class="form-field">
+            <label for="requestTime">Время</label>
+            <input type="time" id="requestTime" required>
+          </div>
+          <div class="form-field">
+            <label for="requestClient">Клиент</label>
+            <input type="text" id="requestClient" required>
+          </div>
+          <div class="form-field">
+            <label for="requestPhone">Телефон</label>
+            <input type="tel" id="requestPhone" required>
+          </div>
+          <div class="form-field">
+            <label for="requestBrand">Марка</label>
+            <input type="text" id="requestBrand" required>
+          </div>
+          <div class="form-field">
+            <label for="requestModel">Модель</label>
+            <input type="text" id="requestModel" required>
+          </div>
+          <div class="form-field">
+            <label for="requestPlate">Гос. номер</label>
+            <input type="text" id="requestPlate" required>
+          </div>
+          <div class="form-field">
+            <label for="requestVin">VIN</label>
+            <input type="text" id="requestVin" required>
+          </div>
+          <div class="form-field full-width">
+            <label for="requestReason">Причина обращения</label>
+            <textarea id="requestReason" required></textarea>
+          </div>
+          <div class="form-field full-width">
+            <label for="requestNotes">Примечание</label>
+            <textarea id="requestNotes" required></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="reset-btn" onclick="closeRequestModal()">Отмена</button>
+          <button type="submit" class="apply-btn">Сохранить заявку</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Итоги осмотра</h2>
+        <span class="close" onclick="closeDetailModal()">×</span>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Настройки интерфейса</h2>
+        <span class="close" onclick="closeSettingsModal()">×</span>
+      </div>
+
+      <div class="settings-layout">
+        <div class="settings-card">
+          <h3>Что можно настроить</h3>
+          <p class="settings-note">Сейчас доступно переключение темы и сохранение выбора для текущего пользователя.</p>
+
+          <label class="theme-option">
+            <input type="radio" name="themeMode" value="dark" checked>
+            <span>
+              <strong>Темная тема</strong>
+              <small>Классический темный фон интерфейса</small>
+            </span>
+          </label>
+
+          <label class="theme-option">
+            <input type="radio" name="themeMode" value="light">
+            <span>
+              <strong>Светлая тема</strong>
+              <small>Светлый фон и более мягкий контраст</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="settings-card settings-card-disabled">
+          <h3>Пока недоступно</h3>
+          <ul class="settings-list">
+            <li>Смена шрифта</li>
+            <li>Скрытие блоков интерфейса</li>
+            <li>Отдельные цвета для таблиц</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <div id="themeSavedHint" class="settings-hint"></div>
+        <button type="button" class="reset-btn" onclick="closeSettingsModal()">Отмена</button>
+        <button type="button" class="apply-btn" id="saveSettingsBtn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="monitor.js"></script>
+  <script>
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const refreshIntervalMs = 5000;
+    let currentView = 'all';
+    let currentSection = 'meetings';
+    let allMeetings = [];
+    let filteredMeetings = [];
+    let refreshTimer = null;
+    let activeDetailId = null;
+
+    const escapeHtml = (value) => String(value ?? '-')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+    const escapeRegExp = (value) => String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    function highlightText(value, query) {
+      const safeText = escapeHtml(value ?? '-');
+      if (!query) return safeText;
+
+      const regex = new RegExp(`(${escapeRegExp(query)})`, 'ig');
+      return safeText.replace(regex, '<mark class="match-highlight">$1</mark>');
+    }
+
+    function renderTableHead() {
+      const thead = document.querySelector('#meetingsTable thead');
+      if (!thead) return;
+
+      if (currentSection === 'reception') {
+        thead.innerHTML = `
+          <tr>
+            <th>Статус</th>
+            <th>Модель</th>
+            <th>Данные</th>
+            <th>Клиент</th>
+            <th>Причина обращения</th>
+            <th>Действие</th>
+          </tr>
+        `;
+        return;
+      }
+
+      if (currentSection === 'reports') {
+        thead.innerHTML = `
+          <tr>
+            <th>Статус</th>
+            <th>Отчет</th>
+            <th>Автомобиль</th>
+            <th>Клиент</th>
+            <th>Описание</th>
+            <th>Действие</th>
+          </tr>
+        `;
+        return;
+      }
+
+      thead.innerHTML = `
         <tr>
           <th>Статус</th>
           <th>Тип</th>
@@ -286,142 +1182,573 @@
           <th>Причина обращения</th>
           <th>Действия</th>
         </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+      `;
+    }
 
-    <div class="pagination" id="pagination"></div>
-  </div>
+    function setSection(section) {
+      currentSection = section;
+      document.querySelectorAll('.main-nav a[data-section]').forEach(link => {
+        link.classList.toggle('active', link.dataset.section === section);
+      });
 
-  <script>
-    let currentPage = 1;
-    const itemsPerPage = 10;
+      const searchInput = document.getElementById('searchFilter');
+      const allTab = document.getElementById('allTab');
+      const myTab = document.getElementById('myTab');
+      const createButton = document.getElementById('openCreateModal');
 
-    const sampleData = [
-      {status:"Новая", type:"Ремонт", number:"001", date:"2026-03-12", displayDate:"12.03.2026", model:"Camry", brand:"Toyota", licensePlate:"A123BC", vin:"JT2BF22K610123456", client:"Иванов Сергей", reason:"Не заводится"},
-      {status:"В_работе", type:"Осмотр", number:"002", date:"2026-03-13", displayDate:"13.03.2026", model:"Focus", brand:"Ford", licensePlate:"X777XX", vin:"", client:"Петров Алексей", reason:"Плановое ТО"},
-      ...Array(30).fill().map((_, i) => ({
-        status: i % 3 === 0 ? "Новая" : "В_работе",
-        type: i % 2 === 0 ? "Ремонт" : "Осмотр",
-        number: String(100 + i).padStart(3, '0'),
-        date: "2026-03-" + String(10 + (i % 20)).padStart(2, '0'),
-        displayDate: "15.03.2026",
-        model: "Model " + (i+1),
-        brand: "Brand",
-        licensePlate: "A" + (100 + i) + "BC",
-        vin: "-",
-        client: "Клиент " + (i+1),
-        reason: "Причина " + (i+1)
-      }))
-    ];
+      if (section === 'reception') {
+        allTab.textContent = 'Вся приемка';
+        myTab.textContent = 'Моя приемка';
+        searchInput.placeholder = 'Поиск по модели, клиенту, VIN, номеру...';
+        createButton.style.display = 'inline-flex';
+      } else if (section === 'reports') {
+        allTab.textContent = 'Все отчеты';
+        myTab.textContent = 'Мои отчеты';
+        searchInput.placeholder = 'Поиск по отчетам, клиенту, авто, номеру...';
+        createButton.style.display = 'none';
+      } else {
+        allTab.textContent = 'Все встречи';
+        myTab.textContent = 'Мои встречи';
+        searchInput.placeholder = 'Поиск по встречам, клиенту, номеру...';
+        createButton.style.display = 'inline-flex';
+      }
 
-    function renderTable(filteredData = sampleData) {
+      renderTableHead();
+      applyFilters(true);
+      window.disaMonitor?.track('Переключил раздел', section);
+    }
+
+    function getStatusText(status) {
+      if (status === 'pending') return 'Новая';
+      if (status === 'approved') return 'Завершена';
+      if (status === 'rejected') return 'Отменена';
+      return status || 'Новая';
+    }
+
+    function getStatusClass(status) {
+      const normalizedStatus = getStatusText(status);
+      if (normalizedStatus === 'В работе') return 'В_работе';
+      if (normalizedStatus === 'Завершена') return 'done';
+      if (normalizedStatus === 'Отменена') return 'rejected';
+      return 'Новая';
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleDateString('ru-RU');
+    }
+
+    function updateSyncInfo(text) {
+      const syncInfo = document.getElementById('syncInfo');
+      if (syncInfo) {
+        syncInfo.textContent = text;
+      }
+    }
+
+    function getThemeStorageKey() {
+      const currentUserId = String(localStorage.getItem('userId') || '').trim();
+      const currentUsername = String(localStorage.getItem('username') || '').trim().toLowerCase();
+
+      if (currentUserId) return `disa-theme:user:${currentUserId}`;
+      if (currentUsername) return `disa-theme:name:${currentUsername}`;
+      return 'disa-theme:guest';
+    }
+
+    function applyTheme(theme = 'dark') {
+      const normalizedTheme = theme === 'light' ? 'light' : 'dark';
+      document.body.classList.toggle('light-theme', normalizedTheme === 'light');
+      document.body.dataset.theme = normalizedTheme;
+    }
+
+    function loadSavedTheme() {
+      const theme = localStorage.getItem(getThemeStorageKey())
+        || localStorage.getItem('disa-theme:last')
+        || 'dark';
+
+      applyTheme(theme);
+
+      const selectedInput = document.querySelector(`input[name="themeMode"][value="${theme}"]`);
+      if (selectedInput) selectedInput.checked = true;
+    }
+
+    function openSettingsModal() {
+      loadSavedTheme();
+      document.getElementById('themeSavedHint').textContent = '';
+      document.getElementById('settingsModal').style.display = 'flex';
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').style.display = 'none';
+      loadSavedTheme();
+    }
+
+    function saveSettings() {
+      const theme = document.querySelector('input[name="themeMode"]:checked')?.value || 'dark';
+      localStorage.setItem(getThemeStorageKey(), theme);
+      localStorage.setItem('disa-theme:last', theme);
+      applyTheme(theme);
+      document.getElementById('themeSavedHint').textContent = 'Настройки сохранены для этого пользователя.';
+      window.disaMonitor?.track('Сохранил настройки интерфейса', theme);
+      window.setTimeout(() => closeSettingsModal(), 500);
+    }
+
+    function getAuthHeaders(extraHeaders = {}) {
+      const token = localStorage.getItem('token');
+      return token ? { ...extraHeaders, Authorization: `Bearer ${token}` } : { ...extraHeaders };
+    }
+
+    async function ensureProfileLoaded() {
+      document.getElementById('username').textContent = localStorage.getItem('username') || 'Пользователь';
+      const token = localStorage.getItem('token');
+
+      if (!token || localStorage.getItem('username')) return;
+
+      try {
+        const res = await fetch('/api/auth/me', { headers: { Authorization: `Bearer ${token}` } });
+        if (!res.ok) return;
+        const me = await res.json();
+        localStorage.setItem('username', me.username || '');
+        localStorage.setItem('role', me.role || 'user');
+        localStorage.setItem('userId', String(me.id || ''));
+        document.getElementById('username').textContent = me.username || 'Пользователь';
+      } catch (err) {
+        console.warn('Не удалось загрузить профиль:', err);
+      }
+    }
+
+    function isOwnMeeting(item) {
+      const currentUsername = (localStorage.getItem('username') || '').toLowerCase();
+      const currentUserId = String(localStorage.getItem('userId') || '');
+      const createdBy = String(item?.created_by || '').toLowerCase();
+      const client = String(item?.client || '').toLowerCase();
+      const userId = String(item?.user_id || '');
+
+      return (currentUsername && (createdBy === currentUsername || client === currentUsername))
+        || (currentUserId && userId === currentUserId);
+    }
+
+    function getVisibleMeetings() {
+      if (currentView !== 'mine') return [...allMeetings];
+      return allMeetings.filter((item) => isOwnMeeting(item));
+    }
+
+    async function loadMeetings({ silent = false, preservePage = true } = {}) {
+      try {
+        const res = await fetch('/api/meetings', {
+          cache: 'no-store',
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Ошибка при загрузке заявок');
+        }
+
+        allMeetings = Array.isArray(data) ? data : [];
+        applyFilters(!preservePage);
+        updateSyncInfo(`Обновлено: ${new Date().toLocaleTimeString('ru-RU')}`);
+
+        if (activeDetailId) {
+          openDetailModal(activeDetailId, false);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки заявок:', err);
+        updateSyncInfo('Ошибка обновления');
+        if (!silent) alert(err.message || 'Не удалось загрузить заявки');
+      }
+    }
+
+    function renderTable(data = filteredMeetings) {
       const tbody = document.querySelector('#meetingsTable tbody');
+      const searchQuery = document.getElementById('searchFilter').value.trim();
       tbody.innerHTML = '';
 
+      if (!data.length) {
+        const emptyCols = currentSection === 'meetings' ? 11 : 6;
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="${emptyCols}" style="text-align:center; color:#6b7280; padding:24px;">
+              Ничего не найдено. Попробуйте изменить фильтры или создайте новую заявку.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
       const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageData = filteredData.slice(start, end);
+      const pageData = data.slice(start, start + itemsPerPage);
 
       pageData.forEach(item => {
         const row = document.createElement('tr');
-        row.dataset.status = item.status;
-        row.dataset.type = item.type;
-        row.dataset.date = item.date;   // YYYY-MM-DD для фильтра
 
-        row.innerHTML = `
-          <td><span class="status ${item.status}">${item.status}</span></td>
-          <td>${item.type}</td>
-          <td>${item.number}</td>
-          <td>${item.displayDate}</td>
-          <td>${item.model}</td>
-          <td>${item.brand}</td>
-          <td>${item.licensePlate}</td>
-          <td>${item.vin}</td>
-          <td>${item.client}</td>
-          <td>${item.reason}</td>
-          <td><button class="open-btn" style="background:#007bff;color:white;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;">Открыть</button></td>
-        `;
+        if (currentSection === 'reception') {
+          const modelText = [item.brand, item.model].filter(Boolean).join(' ') || item.model || '-';
+          const ownMeeting = isOwnMeeting(item);
+          const detailsHtml = [
+            `<div><strong>Дата:</strong> ${highlightText(formatDate(item.reception_date), searchQuery)}</div>`,
+            `<div><strong>Тип:</strong> ${highlightText(item.type || '-', searchQuery)}</div>`,
+            `<div><strong>№:</strong> ${highlightText(item.number || '-', searchQuery)}</div>`,
+            `<div><strong>Гос. номер:</strong> ${highlightText(item.license_plate || '-', searchQuery)}</div>`,
+            `<div><strong>VIN:</strong> ${highlightText(item.vin || '-', searchQuery)}</div>`
+          ].join('');
+
+          row.innerHTML = `
+            <td><span class="status ${getStatusClass(item.status)}">${escapeHtml(getStatusText(item.status))}</span></td>
+            <td>
+              <div class="cell-title">${highlightText(modelText, searchQuery)}</div>
+              <div class="cell-meta">${highlightText(item.type || '-', searchQuery)}</div>
+            </td>
+            <td><div class="cell-meta">${detailsHtml}</div></td>
+            <td>
+              <div class="cell-title">${highlightText(item.client || '-', searchQuery)}</div>
+              <div class="cell-meta">${highlightText(item.client_phone || 'Телефон не указан', searchQuery)}</div>
+            </td>
+            <td><div class="reason-text">${highlightText(item.reason || '-', searchQuery)}</div></td>
+            <td>
+              <button class="reception-btn" onclick="openReceptionPage(${Number(item.id)})" title="${ownMeeting ? 'Можно работать с приемкой' : 'Чужая приемка откроется только для просмотра'}">
+                <span>${ownMeeting ? '📋' : '👁'}</span>
+                <span>${ownMeeting ? 'Приемка' : 'Просмотр'}</span>
+              </button>
+            </td>
+          `;
+        } else if (currentSection === 'reports') {
+          row.innerHTML = `
+            <td><span class="status ${getStatusClass(item.status)}">${escapeHtml(getStatusText(item.status))}</span></td>
+            <td>
+              <div class="cell-title">Отчет №${highlightText(item.number || item.id, searchQuery)}</div>
+              <div class="cell-meta">${highlightText(formatDate(item.reception_date), searchQuery)}</div>
+            </td>
+            <td>
+              <div class="cell-title">${highlightText([item.brand, item.model].filter(Boolean).join(' ') || '-', searchQuery)}</div>
+              <div class="cell-meta">${highlightText(item.license_plate || item.vin || '-', searchQuery)}</div>
+            </td>
+            <td>
+              <div class="cell-title">${highlightText(item.client || '-', searchQuery)}</div>
+              <div class="cell-meta">${highlightText(item.client_phone || 'Телефон не указан', searchQuery)}</div>
+            </td>
+            <td><div class="reason-text">${highlightText(item.reason || item.notes || '-', searchQuery)}</div></td>
+            <td><button class="open-btn" onclick="openDetailModal(${Number(item.id)})">Открыть отчет</button></td>
+          `;
+        } else {
+          row.innerHTML = `
+            <td><span class="status ${getStatusClass(item.status)}">${escapeHtml(getStatusText(item.status))}</span></td>
+            <td>${highlightText(item.type || '-', searchQuery)}</td>
+            <td>${highlightText(item.number || '-', searchQuery)}</td>
+            <td>${highlightText(formatDate(item.reception_date), searchQuery)}</td>
+            <td>${highlightText(item.model || '-', searchQuery)}</td>
+            <td>${highlightText(item.brand || '-', searchQuery)}</td>
+            <td>${highlightText(item.license_plate || '-', searchQuery)}</td>
+            <td>${highlightText(item.vin || '-', searchQuery)}</td>
+            <td>${highlightText(item.client || '-', searchQuery)}</td>
+            <td><div class="reason-text">${highlightText(item.reason || '-', searchQuery)}</div></td>
+            <td><button class="open-btn" onclick="openDetailModal(${Number(item.id)})">Открыть</button></td>
+          `;
+        }
+
         tbody.appendChild(row);
       });
     }
 
-    function applyFilters() {
-      const status = document.getElementById('statusFilter').value;
-      const type   = document.getElementById('typeFilter').value;
-      const date   = document.getElementById('dateFilter').value;
+    function renderPagination(totalItems = filteredMeetings.length) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
 
-      const filtered = sampleData.filter(item => {
-        return (!status || item.status === status) &&
-               (!type   || item.type   === type) &&
-               (!date   || item.date   === date);
+      if (totalPages <= 1) return;
+
+      const prevBtn = document.createElement('button');
+      prevBtn.innerHTML = '‹';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => changePage(currentPage - 1);
+      pagination.appendChild(prevBtn);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add('active');
+        btn.onclick = () => changePage(i);
+        pagination.appendChild(btn);
+      }
+
+      const nextBtn = document.createElement('button');
+      nextBtn.innerHTML = '›';
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => changePage(currentPage + 1);
+      pagination.appendChild(nextBtn);
+    }
+
+    function changePage(page) {
+      const totalPages = Math.max(1, Math.ceil(filteredMeetings.length / itemsPerPage));
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderTable();
+      renderPagination();
+    }
+
+    function applyFilters(resetPage = true) {
+      const status = document.getElementById('statusFilter').value;
+      const type = document.getElementById('typeFilter').value.trim().toLowerCase();
+      const date = document.getElementById('dateFilter').value;
+      const search = document.getElementById('searchFilter').value.trim().toLowerCase();
+
+      filteredMeetings = getVisibleMeetings().filter(item => {
+        const itemDate = item.reception_date ? String(item.reception_date).slice(0, 10) : '';
+        const itemType = String(item.type || '').toLowerCase();
+        const displayStatus = getStatusText(item.status);
+        const haystack = [
+          displayStatus,
+          item.type,
+          item.number,
+          item.brand,
+          item.model,
+          item.license_plate,
+          item.vin,
+          item.client,
+          item.client_phone,
+          item.reason
+        ].join(' ').toLowerCase();
+
+        return (!status || displayStatus === status)
+          && (!type || itemType === type)
+          && (!date || itemDate === date)
+          && (!search || haystack.includes(search));
       });
 
-      currentPage = 1;
-      renderTable(filtered);
-      renderPagination(filtered.length);
+      if (resetPage) currentPage = 1;
+
+      document.getElementById('pageTitle').textContent = currentSection === 'reception'
+        ? (currentView === 'mine' ? 'Моя приемка' : 'Приемка')
+        : currentSection === 'reports'
+          ? (currentView === 'mine' ? 'Мои отчеты' : 'Отчеты')
+          : (currentView === 'mine' ? 'Мои встречи' : 'Все встречи');
+
+      renderTableHead();
+      renderTable();
+      renderPagination();
     }
 
     function resetFilters() {
       document.getElementById('statusFilter').value = '';
       document.getElementById('typeFilter').value = '';
       document.getElementById('dateFilter').value = '';
-      currentPage = 1;
-      renderTable(sampleData);
-      renderPagination(sampleData.length);
+      document.getElementById('searchFilter').value = '';
+      applyFilters(true);
     }
 
-    function renderPagination(totalItems = sampleData.length) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const pagination = document.getElementById('pagination');
-  pagination.innerHTML = '';
-
-  // Кнопка Назад
-  const prevBtn = document.createElement('button');
-  prevBtn.innerHTML = '‹';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.onclick = () => changePage(currentPage - 1);
-  pagination.appendChild(prevBtn);
-
-  // Номера страниц
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement('button');
-    btn.textContent = i;
-    if (i === currentPage) btn.classList.add('active');
-    btn.onclick = () => changePage(i);
-    pagination.appendChild(btn);
-  }
-
-  // Кнопка Вперёд
-  const nextBtn = document.createElement('button');
-  nextBtn.innerHTML = '›';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.onclick = () => changePage(currentPage + 1);
-  pagination.appendChild(nextBtn);
-}
-
-    function changePage(page) {
-      if (page < 1 || page > Math.ceil(sampleData.length / itemsPerPage)) return;
-      currentPage = page;
-      renderTable(sampleData);
-      renderPagination();
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll('.tab').forEach(button => {
+        button.classList.toggle('active', button.id === (view === 'mine' ? 'myTab' : 'allTab'));
+      });
+      applyFilters(true);
+      window.disaMonitor?.track('Переключил список', view === 'mine' ? 'Мои записи' : 'Все записи');
     }
 
-    function logout() {
-      localStorage.clear();
+    function openRequestModal() {
+      document.getElementById('requestClient').value = localStorage.getItem('username') || '';
+      document.getElementById('requestDate').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('requestModal').style.display = 'flex';
+    }
+
+    function closeRequestModal() {
+      document.getElementById('requestModal').style.display = 'none';
+      document.getElementById('requestForm').reset();
+    }
+
+    async function submitRequestForm(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const currentUserId = Number(localStorage.getItem('userId') || 0) || null;
+      const requiredFields = [
+        ['requestType', 'Тип работ'],
+        ['requestDate', 'Дата приёма'],
+        ['requestTime', 'Время'],
+        ['requestClient', 'Клиент'],
+        ['requestPhone', 'Телефон'],
+        ['requestBrand', 'Марка'],
+        ['requestModel', 'Модель'],
+        ['requestPlate', 'Гос. номер'],
+        ['requestVin', 'VIN'],
+        ['requestReason', 'Причина обращения'],
+        ['requestNotes', 'Примечание']
+      ];
+
+      const missingFields = requiredFields
+        .filter(([id]) => !String(document.getElementById(id).value || '').trim())
+        .map(([, label]) => label);
+
+      if (missingFields.length) {
+        alert(`Заполните все поля заявки: ${missingFields.join(', ')}`);
+        form.reportValidity();
+        const firstMissing = document.getElementById(requiredFields.find(([id]) => !String(document.getElementById(id).value || '').trim())?.[0]);
+        if (firstMissing) firstMissing.focus();
+        return;
+      }
+
+      const payload = {
+        type: document.getElementById('requestType').value.trim(),
+        reception_date: document.getElementById('requestDate').value.trim(),
+        time: document.getElementById('requestTime').value.trim(),
+        client: document.getElementById('requestClient').value.trim(),
+        client_phone: document.getElementById('requestPhone').value.trim(),
+        brand: document.getElementById('requestBrand').value.trim(),
+        model: document.getElementById('requestModel').value.trim(),
+        license_plate: document.getElementById('requestPlate').value.trim(),
+        vin: document.getElementById('requestVin').value.trim(),
+        reason: document.getElementById('requestReason').value.trim(),
+        notes: document.getElementById('requestNotes').value.trim(),
+        created_by: currentUserId,
+        user_id: currentUserId
+      };
+
+      try {
+        const res = await fetch('/api/meetings', {
+          method: 'POST',
+          headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Не удалось создать заявку');
+        }
+
+        closeRequestModal();
+        await loadMeetings({ silent: true, preservePage: false });
+        setView('mine');
+        window.disaMonitor?.track('Создал новую заявку', `${payload.type} • ${payload.brand} ${payload.model}`);
+      } catch (err) {
+        alert(err.message || 'Ошибка при создании заявки');
+      }
+    }
+
+    async function openDetailModal(id, fetchFresh = true) {
+      let item = allMeetings.find(meeting => Number(meeting.id) === Number(id));
+      activeDetailId = Number(id);
+
+      if (fetchFresh) {
+        try {
+          const res = await fetch(`/api/meetings/${id}`, {
+            cache: 'no-store',
+            headers: getAuthHeaders()
+          });
+          if (res.ok) item = await res.json();
+        } catch (err) {
+          console.warn('Не удалось обновить данные заявки:', err);
+        }
+      }
+
+      if (!item) return;
+
+      document.getElementById('modalTitle').textContent = `Итоги осмотра`;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="report-sheet">
+          <div class="report-title">Итоги осмотра</div>
+
+          <div class="report-section">
+            <h3>Заказ-наряд</h3>
+            <div class="report-row"><div class="report-label">Номер:</div><div class="report-value">${escapeHtml(item.number || item.id)}</div></div>
+            <div class="report-row"><div class="report-label">Дата заказа-наряда:</div><div class="report-value">${escapeHtml(formatDate(item.reception_date))} ${escapeHtml(item.time || '')}</div></div>
+            <div class="report-row"><div class="report-label">Статус:</div><div class="report-value">${escapeHtml(getStatusText(item.status))}</div></div>
+            <div class="report-row"><div class="report-label">Тип работ:</div><div class="report-value">${escapeHtml(item.type || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>ФИО клиента</h3>
+            <div class="report-row"><div class="report-label">Клиент:</div><div class="report-value">${escapeHtml(item.client || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Телефон:</div><div class="report-value">${escapeHtml(item.client_phone || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Создал заявку:</div><div class="report-value">${escapeHtml(item.created_by || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>Данные об автомобиле</h3>
+            <div class="report-row"><div class="report-label">Марка и модель:</div><div class="report-value">${escapeHtml([item.brand, item.model].filter(Boolean).join(' ') || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Идентификационный номер (VIN)</div><div class="report-value">${escapeHtml(item.vin || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Регистрационный номер</div><div class="report-value">${escapeHtml(item.license_plate || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>Описание обращения</h3>
+            <div class="report-row"><div class="report-label">Причина обращения со слов клиента</div><div class="report-value">${escapeHtml(item.reason || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Комментарий / заметки</div><div class="report-value">${escapeHtml(item.notes || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Последнее обновление</div><div class="report-value">${escapeHtml(formatDate(item.updated_at || item.created_at))}</div></div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('detailModal').style.display = 'flex';
+      window.disaMonitor?.track('Открыл карточку заявки', `#${item.id || id}`);
+    }
+
+    function closeDetailModal() {
+      activeDetailId = null;
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    function openReceptionPage(id) {
+      window.disaMonitor?.track('Открыл приемку', `#${Number(id)}`);
+      window.location.href = `reception.html?id=${Number(id)}`;
+    }
+
+    function startAutoRefresh() {
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(() => loadMeetings({ silent: true, preservePage: true }), refreshIntervalMs);
+    }
+
+    async function logout() {
+      await window.disaMonitor?.logout();
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
       window.location.href = 'index.html';
     }
 
-    // Инициализация
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('username').textContent = localStorage.getItem('username') || 'Администратор';
-      
-      renderTable();
-      renderPagination();
+    window.addEventListener('click', (event) => {
+      if (event.target.id === 'requestModal') closeRequestModal();
+      if (event.target.id === 'detailModal') closeDetailModal();
+      if (event.target.id === 'settingsModal') closeSettingsModal();
+    });
 
-      // Привязка фильтров
-      document.getElementById('applyFilters').addEventListener('click', applyFilters);
-      document.getElementById('resetFilters').addEventListener('click', resetFilters);
+    document.addEventListener('DOMContentLoaded', async () => {
+      await ensureProfileLoaded();
+      loadSavedTheme();
+      window.disaMonitor?.init({ pageName: 'Личный кабинет' });
+
+      document.getElementById('applyFilters').addEventListener('click', () => {
+        applyFilters(true);
+        window.disaMonitor?.track('Применил фильтры');
+      });
+      document.getElementById('resetFilters').addEventListener('click', () => {
+        resetFilters();
+        window.disaMonitor?.track('Сбросил фильтры');
+      });
+      document.getElementById('searchFilter').addEventListener('input', () => applyFilters(true));
+      document.getElementById('statusFilter').addEventListener('change', () => applyFilters(true));
+      document.getElementById('typeFilter').addEventListener('change', () => applyFilters(true));
+      document.getElementById('dateFilter').addEventListener('change', () => applyFilters(true));
+      document.getElementById('openCreateModal').addEventListener('click', openRequestModal);
+      document.getElementById('requestForm').addEventListener('submit', submitRequestForm);
+      document.getElementById('allTab').addEventListener('click', () => setView('all'));
+      document.getElementById('myTab').addEventListener('click', () => setView('mine'));
+      document.getElementById('openSettingsBtn').addEventListener('click', (event) => {
+        event.preventDefault();
+        openSettingsModal();
+      });
+      document.getElementById('saveSettingsBtn').addEventListener('click', saveSettings);
+      document.querySelectorAll('.main-nav a[data-section]').forEach(link => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          setSection(link.dataset.section);
+        });
+      });
+
+      renderTableHead();
+      setSection('meetings');
+      await loadMeetings({ silent: false, preservePage: false });
+      startAutoRefresh();
     });
   </script>
 </body>

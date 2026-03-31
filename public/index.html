@@ -19,6 +19,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    body.light-theme {
+      background: #eef4fb;
+      color: #111827;
     }
 
     .login-container {
@@ -29,6 +36,13 @@
       width: 100%;
       max-width: 420px;
       border: 1px solid #333;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    body.light-theme .login-container {
+      background: #ffffff;
+      border-color: #d9e3f0;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
     }
 
     .logo {
@@ -104,9 +118,131 @@
       color: #666;
       font-size: 14px;
     }
+
+    .theme-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid #4b5563;
+      background: #111111;
+      color: #f8fafc;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 18px rgba(255,255,255,0.12);
+      z-index: 5;
+      transition: 0.25s ease;
+      overflow: hidden;
+    }
+
+    .theme-toggle::before,
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      transition: 0.25s ease;
+    }
+
+    .theme-toggle::before {
+      width: 18px;
+      height: 18px;
+      background: currentColor;
+      box-shadow: 0 0 12px rgba(255,255,255,0.22);
+      transform: translateX(-2px);
+      opacity: 0.98;
+    }
+
+    .theme-toggle::after {
+      width: 16px;
+      height: 16px;
+      background: #111111;
+      transform: translateX(5px) translateY(-1px);
+    }
+
+    .theme-toggle:hover {
+      border-color: #d1d5db;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 22px rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+
+    body.light-theme h1 {
+      color: #111827;
+    }
+
+    body.light-theme p,
+    body.light-theme .footer-text {
+      color: #6b7280;
+    }
+
+    body.light-theme input {
+      background: #ffffff;
+      border-color: #cfd8e3;
+      color: #111827;
+    }
+
+    body.light-theme .theme-toggle {
+      background: #ffffff;
+      color: #111827;
+      border-color: #cbd5e1;
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.05), 0 0 16px rgba(15,23,42,0.12);
+    }
+
+    body.light-theme .theme-toggle::before {
+      transform: translateX(0);
+      box-shadow: 0 0 10px rgba(15,23,42,0.16);
+    }
+
+    body.light-theme .theme-toggle::after {
+      opacity: 0;
+      transform: translateX(10px);
+      background: transparent;
+    }
+
+    @media (max-width: 1112px) {
+      body {
+        padding: 24px 16px;
+      }
+
+      .login-container {
+        padding: 42px 30px;
+        max-width: 460px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        align-items: flex-start;
+        padding: 76px 12px 12px;
+      }
+
+      .login-container {
+        padding: 32px 18px;
+        max-width: none;
+      }
+
+      .logo span {
+        font-size: 38px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .theme-toggle {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <button type="button" class="theme-toggle" id="themeToggle" aria-label="Сменить тему"></button>
 
   <div class="login-container">
     <div class="logo">
@@ -132,6 +268,39 @@
   <script>
     const form = document.getElementById('loginForm');
     const messageDiv = document.getElementById('message');
+    const themeToggle = document.getElementById('themeToggle');
+
+    function getThemeStorageKey() {
+      const currentUserId = String(localStorage.getItem('userId') || '').trim();
+      const currentUsername = String(localStorage.getItem('username') || '').trim().toLowerCase();
+
+      if (currentUserId) return `disa-theme:user:${currentUserId}`;
+      if (currentUsername) return `disa-theme:name:${currentUsername}`;
+      return 'disa-theme:guest';
+    }
+
+    function applyTheme(theme = 'dark') {
+      const normalizedTheme = theme === 'light' ? 'light' : 'dark';
+      document.body.classList.toggle('light-theme', normalizedTheme === 'light');
+      themeToggle.setAttribute('title', normalizedTheme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему');
+    }
+
+    function loadSavedTheme() {
+      const theme = localStorage.getItem(getThemeStorageKey())
+        || localStorage.getItem('disa-theme:last')
+        || 'dark';
+      applyTheme(theme);
+    }
+
+    function toggleTheme() {
+      const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+      localStorage.setItem('disa-theme:last', nextTheme);
+      localStorage.setItem(getThemeStorageKey(), nextTheme);
+      applyTheme(nextTheme);
+    }
+
+    themeToggle.addEventListener('click', toggleTheme);
+    loadSavedTheme();
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -151,14 +320,30 @@
           body: JSON.stringify({ username, password })
         });
 
-        const data = await res.json();
+        const contentType = res.headers.get('content-type') || '';
+        const data = contentType.includes('application/json')
+          ? await res.json()
+          : { message: await res.text() };
 
         if (res.ok) {
           localStorage.setItem('token', data.token);
-          
+          localStorage.setItem('username', data.user?.username || username);
+          localStorage.setItem('role', data.user?.role || 'user');
+          localStorage.setItem('userId', String(data.user?.id || ''));
+
+          const savedTheme = localStorage.getItem('disa-theme:last');
+          if (savedTheme) {
+            if (data.user?.id) {
+              localStorage.setItem(`disa-theme:user:${data.user.id}`, savedTheme);
+            }
+            const userThemeName = String(data.user?.username || username || '').trim().toLowerCase();
+            if (userThemeName) {
+              localStorage.setItem(`disa-theme:name:${userThemeName}`, savedTheme);
+            }
+          }
+
           showMessage('Вход выполнен успешно!', 'green');
 
-          // Перенаправление в зависимости от роли
           setTimeout(() => {
             if (data.user && data.user.role === 'admin') {
               window.location.href = 'admin.html';

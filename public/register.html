@@ -1,41 +1,355 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Регистрация</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | DISA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0f0f0f;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        body.light-theme {
+            background: #eef4fb;
+            color: #111827;
+        }
+
+        .register-container {
+            background: #1a1a1a;
+            padding: 48px 40px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 430px;
+            border: 1px solid #333;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        body.light-theme .register-container {
+            background: #ffffff;
+            border-color: #d9e3f0;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo span {
+            font-size: 46px;
+            font-weight: 700;
+            color: #007bff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        p {
+            text-align: center;
+            color: #aaaaaa;
+            margin-bottom: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        input {
+            padding: 14px 16px;
+            background: #2d2d2d;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+        }
+
+        button {
+            padding: 14px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            min-height: 20px;
+            font-size: 15px;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 24px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .footer-text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid #4b5563;
+            background: #111111;
+            color: #f8fafc;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 0 18px rgba(255,255,255,0.12);
+            z-index: 5;
+            transition: 0.25s ease;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before,
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            transition: 0.25s ease;
+        }
+
+        .theme-toggle::before {
+            width: 18px;
+            height: 18px;
+            background: currentColor;
+            box-shadow: 0 0 12px rgba(255,255,255,0.22);
+            transform: translateX(-2px);
+            opacity: 0.98;
+        }
+
+        .theme-toggle::after {
+            width: 16px;
+            height: 16px;
+            background: #111111;
+            transform: translateX(5px) translateY(-1px);
+        }
+
+        .theme-toggle:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 22px rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        body.light-theme h1 {
+            color: #111827;
+        }
+
+        body.light-theme p,
+        body.light-theme .footer-text {
+            color: #6b7280;
+        }
+
+        body.light-theme input {
+            background: #ffffff;
+            border-color: #cfd8e3;
+            color: #111827;
+        }
+
+        body.light-theme .theme-toggle {
+            background: #ffffff;
+            color: #111827;
+            border-color: #cbd5e1;
+            box-shadow: 0 0 0 1px rgba(15,23,42,0.05), 0 0 16px rgba(15,23,42,0.12);
+        }
+
+        body.light-theme .theme-toggle::before {
+            transform: translateX(0);
+            box-shadow: 0 0 10px rgba(15,23,42,0.16);
+        }
+
+        body.light-theme .theme-toggle::after {
+            opacity: 0;
+            transform: translateX(10px);
+            background: transparent;
+        }
+
+        @media (max-width: 1112px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .register-container {
+                padding: 42px 30px;
+                max-width: 470px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 76px 12px 12px;
+            }
+
+            .register-container {
+                padding: 32px 18px;
+                max-width: none;
+            }
+
+            .logo span {
+                font-size: 38px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                width: 42px;
+                height: 42px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h2>Регистрация</h2>
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Сменить тему"></button>
 
-<form id="regForm">
-    <input type="text" id="username" placeholder="Логин" required><br><br>
-    <input type="email" id="email" placeholder="Email" required><br><br>
-    <input type="password" id="password" placeholder="Пароль" required><br><br>
+<div class="register-container">
+    <div class="logo">
+        <span>DISA</span>
+    </div>
 
-    <a href="index.html">Уже есть аккаунт? Войти</a><br><br>
+    <h1>Регистрация</h1>
+    <p>Создайте аккаунт для работы в системе</p>
 
-    <button type="submit">Зарегистрироваться</button>
-</form>
+    <form id="regForm">
+        <input type="text" id="username" placeholder="Логин" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Пароль" required>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <div class="message" id="message"></div>
+
+    <div class="footer-text">
+        Уже есть аккаунт? <a href="index.html">Войти</a>
+    </div>
+</div>
 
 <script>
-document.getElementById('regForm').addEventListener('submit', async (e) => {
+const form = document.getElementById('regForm');
+const messageDiv = document.getElementById('message');
+const themeToggle = document.getElementById('themeToggle');
+
+function getThemeStorageKey() {
+    const currentUserId = String(localStorage.getItem('userId') || '').trim();
+    const currentUsername = String(localStorage.getItem('username') || '').trim().toLowerCase();
+
+    if (currentUserId) return `disa-theme:user:${currentUserId}`;
+    if (currentUsername) return `disa-theme:name:${currentUsername}`;
+    return 'disa-theme:guest';
+}
+
+function applyTheme(theme = 'dark') {
+    const normalizedTheme = theme === 'light' ? 'light' : 'dark';
+    document.body.classList.toggle('light-theme', normalizedTheme === 'light');
+    themeToggle.setAttribute('title', normalizedTheme === 'light' ? 'Переключить на темную тему' : 'Переключить на светлую тему');
+}
+
+function loadSavedTheme() {
+    const theme = localStorage.getItem(getThemeStorageKey())
+        || localStorage.getItem('disa-theme:last')
+        || 'dark';
+    applyTheme(theme);
+}
+
+function toggleTheme() {
+    const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+    localStorage.setItem('disa-theme:last', nextTheme);
+    localStorage.setItem(getThemeStorageKey(), nextTheme);
+    applyTheme(nextTheme);
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+loadSavedTheme();
+
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const res = await fetch('/auth/register', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            username: username.value,
-            email: email.value,
-            password: password.value
-        })
-    });
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
 
-    const data = await res.json();
+    if (!username || !email || !password) {
+        showMessage('Заполните все поля', 'red');
+        return;
+    }
 
-    alert("Регистрация успешна!");
-    window.location.href = '/';
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.message || 'Ошибка регистрации');
+        }
+
+        showMessage(data.message || 'Регистрация успешна!', '#22c55e');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1200);
+    } catch (err) {
+        showMessage(err.message || 'Ошибка соединения с сервером', 'red');
+    }
 });
+
+function showMessage(text, color) {
+    messageDiv.style.color = color;
+    messageDiv.textContent = text;
+}
 </script>
 
 </body>

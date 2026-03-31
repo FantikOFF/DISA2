@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приемка | DISA DMW</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(180deg, #08090b 0%, #191b1f 100%);
+      color: #f3f4f6;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #0a0b0d;
+      color: #fff;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid #2e333b;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f8fbff, #8db8ff);
+      color: #0b1324;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 6px 14px rgba(0, 123, 255, 0.18);
+    }
+
+    .brand-logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #007bff;
+    }
+
+    .order-pill {
+      background: #14161a;
+      border: 1px solid #393f48;
+      color: #f3f4f6;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 18px 20px 32px;
+    }
+
+    .summary-bar {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .summary-item {
+      background: #111318;
+      border: 1px solid #2b3037;
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .summary-item span {
+      display: block;
+      font-size: 12px;
+      color: #a1a1aa;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .summary-item strong {
+      font-size: 16px;
+      color: #f8fafc;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: #111318;
+      border-radius: 16px;
+      border: 1px solid #2b3037;
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+      padding: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 123, 255, 0.12);
+      border: 1px solid rgba(0, 123, 255, 0.4);
+      color: #8ec5ff;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .info-card h2,
+    .visual-head h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #f8fafc;
+    }
+
+    .card-subtitle {
+      color: #a1a1aa;
+      font-size: 13px;
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #272b31;
+      font-size: 14px;
+      align-items: start;
+    }
+
+    .info-label {
+      color: #a1a1aa;
+      font-weight: 600;
+    }
+
+    .info-value {
+      color: #f3f4f6;
+      line-height: 1.45;
+    }
+
+    .visual-card {
+      background: linear-gradient(180deg, #13161a 0%, #0d0f13 100%);
+      border: 1px solid #2d333b;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .visual-head,
+    .hint-text,
+    .view-caption {
+      display: none;
+    }
+
+    .view-selector {
+      display: none;
+    }
+
+    .view-btn {
+      background: #181b20;
+      border: 1px solid #3b414b;
+      border-radius: 10px;
+      padding: 10px 8px;
+      color: #d4d4d8;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .view-btn:hover {
+      border-color: #f5f5f5;
+      background: #23262d;
+      color: #fff;
+    }
+
+    .view-btn.active {
+      background: #f5f5f5;
+      border-color: #ffffff;
+      color: #111827;
+      box-shadow: 0 8px 18px rgba(255, 255, 255, 0.12);
+    }
+
+    .car-visual {
+      min-height: 390px;
+      background: radial-gradient(circle at top, #20242b 0%, #0c0f13 72%);
+      border: 1px solid #343a43;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .car-view-wrap {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .damage-points-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .damage-point {
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      border: 2px solid #dbeafe;
+      background: linear-gradient(180deg, #25c1ff 0%, #0ea5e9 100%);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 10px 24px rgba(14, 165, 233, 0.4);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      pointer-events: auto;
+    }
+
+    .damage-point:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+      box-shadow: 0 12px 28px rgba(14, 165, 233, 0.52);
+    }
+
+    .damage-point.marked {
+      background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+    }
+
+    .damage-point::after {
+      content: attr(data-count);
+      position: absolute;
+      right: -6px;
+      top: -6px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: #0f172a;
+      color: #93c5fd;
+      font-size: 10px;
+      font-weight: 800;
+      display: none;
+      place-items: center;
+      border: 1px solid #60a5fa;
+    }
+
+    .damage-point.marked::after {
+      display: grid;
+    }
+
+    .car-visual svg {
+      width: 100%;
+      height: auto;
+      max-height: 310px;
+    }
+
+    .inspection-note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px dashed rgba(96, 165, 250, 0.55);
+      background: rgba(11, 17, 27, 0.72);
+      color: #cfe6ff;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .dashboard-panel {
+      margin-top: 14px;
+      background: linear-gradient(180deg, #0f141b 0%, #121922 100%);
+      border: 1px solid #283240;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .dashboard-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #e5eefc;
+      margin-bottom: 10px;
+    }
+
+    .instrument-cluster {
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .speedometer-card {
+      position: relative;
+      min-height: 220px;
+      border-radius: 14px;
+      border: 1px solid #2a3441;
+      background: radial-gradient(circle at center, #101827 0%, #05070b 72%);
+      overflow: hidden;
+    }
+
+    .speed-ring {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      width: 220px;
+      height: 220px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: conic-gradient(from 210deg, #38bdf8 0deg, #60a5fa 70deg, #93c5fd 110deg, #475569 170deg, transparent 170deg 360deg);
+      -webkit-mask: radial-gradient(circle at center, transparent 57%, #000 58%, #000 71%, transparent 72%);
+      mask: radial-gradient(circle at center, transparent 57%, #000 58%, #000 71%, transparent 72%);
+      opacity: 0.95;
+    }
+
+    .speed-needle {
+      position: absolute;
+      left: 50%;
+      top: 54px;
+      width: 4px;
+      height: 82px;
+      background: linear-gradient(180deg, #e0f2fe 0%, #2563eb 100%);
+      border-radius: 999px;
+      transform-origin: bottom center;
+      transform: translateX(-50%) rotate(-120deg);
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.45);
+      z-index: 2;
+    }
+
+    .speed-needle::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      width: 18px;
+      height: 18px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: #dbeafe;
+      border: 3px solid #1e3a8a;
+    }
+
+    .speed-center {
+      position: absolute;
+      left: 50%;
+      top: 92px;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 3;
+    }
+
+    .speed-number {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .speed-unit {
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .speed-scale {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      color: #9fb0c7;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .cluster-side {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cluster-card {
+      background: #0b1016;
+      border: 1px solid #2a3441;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .cluster-label {
+      color: #a5b4c7;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .cluster-fuel-line {
+      display: grid;
+      grid-template-columns: 18px 1fr 18px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fuel-mark {
+      color: #94a3b8;
+      font-size: 12px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .fuel-track {
+      height: 12px;
+      background: #1f2937;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .fuel-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8 0%, #22c55e 100%);
+      transition: width 0.25s ease, opacity 0.25s ease;
+    }
+
+    .cluster-meta {
+      margin-top: 8px;
+      color: #8fa0b5;
+      font-size: 12px;
+    }
+
+    .odo-screen {
+      margin-top: 2px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #0f172a;
+      border: 1px solid #233041;
+      color: #e0f2fe;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-family: 'Consolas', 'Segoe UI', monospace;
+      text-align: center;
+    }
+
+    .legend-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #1f2937;
+      padding-bottom: 8px;
+      color: #9fb0c7;
+      font-size: 13px;
+    }
+
+    .legend-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .legend-item strong {
+      color: #e0f2fe;
+      font-size: 13px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(2, 6, 14, 0.74);
+      z-index: 50;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(560px, 100%);
+      background: #ffffff;
+      color: #111827;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .modal-header h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .modal-header p {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.45;
+    }
+
+    .modal-close,
+    .issue-tool {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      background: #f8fafc;
+      color: #374151;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .start-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-group {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field-group label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .field-group input {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .field-group input:focus {
+      outline: none;
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+    }
+
+    .fuel-slider {
+      width: 100%;
+      height: 12px;
+      appearance: none;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8 0%, #22c55e 0%, #1e293b 0%, #1e293b 100%);
+      border: 1px solid #334155;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .fuel-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 2px solid #0ea5e9;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+    }
+
+    .fuel-slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 2px solid #0ea5e9;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+    }
+
+    .odo-input {
+      margin-top: 2px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #0f172a;
+      border: 1px solid #233041;
+      color: #e0f2fe;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-family: 'Consolas', 'Segoe UI', monospace;
+      text-align: center;
+    }
+
+    .odo-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .odo-input::-webkit-outer-spin-button,
+    .odo-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .issue-toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .issue-steps {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      flex-wrap: wrap;
+    }
+
+    .issue-step {
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .issue-step.active {
+      border-bottom-color: #0ea5e9;
+      color: #0f172a;
+    }
+
+    .issue-target {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .issue-options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .issue-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      border-radius: 12px;
+      background: #f8fafc;
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      color: #111827;
+      font-size: 14px;
+    }
+
+    .issue-option::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #d1d5db;
+      background: #ffffff;
+      flex: 0 0 18px;
+    }
+
+    .issue-option.active {
+      background: #e0f2fe;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .issue-option.active::before {
+      border-color: #0ea5e9;
+      background: #0ea5e9;
+      box-shadow: inset 0 0 0 4px #ffffff;
+    }
+
+    .issue-help {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .inspection-mode .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .inspection-mode .info-card {
+      display: none;
+    }
+
+    .overview-board {
+      margin-top: 18px;
+      background: #101317;
+      border: 1px solid #2b3138;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .overview-board h3 {
+      font-size: 16px;
+      color: #f8fafc;
+      margin-bottom: 10px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .overview-item {
+      border: 1px solid #343a43;
+      background: #171a1f;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .overview-item:hover {
+      border-color: #007bff;
+      background: #132235;
+    }
+
+    .overview-item.active {
+      border-color: #007bff;
+      background: #102846;
+      box-shadow: inset 0 0 0 1px rgba(0, 123, 255, 0.24);
+    }
+
+    .overview-item strong {
+      display: block;
+      margin-top: 8px;
+      color: #e5e7eb;
+      font-size: 13px;
+    }
+
+    .overview-item svg {
+      width: 100%;
+      max-height: 90px;
+      height: auto;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-width: 180px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      transition: 0.2s ease;
+    }
+
+    .btn-secondary {
+      background: #181b20;
+      color: #f3f4f6;
+      border: 1px solid #3b414b;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: #ffffff;
+      border: 1px solid #007bff;
+    }
+
+    .btn-secondary:hover { background: #23262d; }
+    .btn-primary:hover { background: #0062cc; }
+
+    .message {
+      text-align: center;
+      min-height: 20px;
+      color: #d1fae5;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    body.light-theme {
+      background: #f3f6fb;
+      color: #1f2937;
+    }
+
+    body.light-theme .topbar {
+      background: #ffffff;
+      border-bottom-color: #dbe3ef;
+    }
+
+    body.light-theme .order-pill {
+      background: #eef4ff;
+      border-color: #cfe0ff;
+      color: #1f2937;
+    }
+
+    body.light-theme .summary-item,
+    body.light-theme .panel,
+    body.light-theme .visual-card,
+    body.light-theme .overview-board {
+      background: #ffffff;
+      border-color: #dbe3ef;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme .summary-item strong,
+    body.light-theme .info-card h2,
+    body.light-theme .info-value,
+    body.light-theme .overview-board h3 {
+      color: #111827;
+    }
+
+    body.light-theme .summary-item span,
+    body.light-theme .info-label,
+    body.light-theme .card-subtitle,
+    body.light-theme .overview-item strong {
+      color: #6b7280;
+    }
+
+    body.light-theme .info-row {
+      border-bottom-color: #eef2f7;
+    }
+
+    body.light-theme .car-visual {
+      background: linear-gradient(180deg, #f7f9fc 0%, #eef4fb 100%);
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .dashboard-panel {
+      background: linear-gradient(180deg, #f8fbff 0%, #edf4ff 100%);
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .dashboard-title,
+    body.light-theme .speed-number {
+      color: #111827;
+    }
+
+    body.light-theme .speedometer-card,
+    body.light-theme .cluster-card {
+      background: #ffffff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .speed-ring {
+      background: conic-gradient(from 210deg, #60a5fa 0deg, #3b82f6 70deg, #93c5fd 110deg, #cbd5e1 170deg, transparent 170deg 360deg);
+    }
+
+    body.light-theme .speed-unit,
+    body.light-theme .cluster-label,
+    body.light-theme .fuel-mark,
+    body.light-theme .cluster-meta,
+    body.light-theme .speed-scale {
+      color: #64748b;
+    }
+
+    body.light-theme .fuel-track {
+      background: #e5edf7;
+      border-color: #d4deea;
+    }
+
+    body.light-theme .odo-screen {
+      background: #f3f8ff;
+      border-color: #d9e6f8;
+      color: #0f172a;
+    }
+
+    body.light-theme .inspection-note {
+      background: #edf6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    body.light-theme .legend-item {
+      border-bottom-color: #e5edf7;
+      color: #64748b;
+    }
+
+    body.light-theme .legend-item strong {
+      color: #0f172a;
+    }
+
+    body.light-theme .damage-point::after {
+      background: #ffffff;
+      color: #0369a1;
+    }
+
+    body.light-theme .overview-item {
+      background: #ffffff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .overview-item:hover {
+      border-color: #007bff;
+      background: #eaf3ff;
+    }
+
+    body.light-theme .overview-item.active {
+      border-color: #007bff;
+      background: #dbeafe;
+    }
+
+    body.light-theme .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+      border-color: #d1d5db;
+    }
+
+    @media (max-width: 1112px) {
+      .topbar {
+        flex-wrap: wrap;
+        padding: 14px 16px;
+      }
+
+      .container {
+        padding: 14px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .instrument-cluster {
+        grid-template-columns: 1fr;
+      }
+
+      .start-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .view-selector {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .car-visual {
+        min-height: 320px;
+      }
+
+      .car-visual svg {
+        max-height: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        padding: 12px 14px;
+        align-items: flex-start;
+      }
+
+      .order-pill {
+        width: 100%;
+        text-align: center;
+      }
+
+      .container {
+        padding: 12px;
+      }
+
+      .summary-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .panel,
+      .visual-card,
+      .dashboard-panel {
+        padding: 12px;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .car-visual {
+        min-height: 240px;
+        padding: 8px;
+      }
+
+      .car-visual svg {
+        max-height: 190px;
+      }
+
+      .damage-point {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+      }
+
+      .view-selector {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .start-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-card {
+        width: 100%;
+        padding: 14px;
+        border-radius: 14px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-actions .btn {
+        width: 100%;
+      }
+
+      .speedometer-card {
+        min-height: 200px;
+      }
+
+      .speed-ring {
+        width: 180px;
+        height: 180px;
+        top: 14px;
+      }
+
+      .speed-needle {
+        top: 44px;
+        height: 68px;
+      }
+
+      .speed-center {
+        top: 72px;
+      }
+
+      .speed-number {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-badge">D</div>
+      <div class="brand-logo">DISA DMW</div>
+    </div>
+    <div class="topbar-meta">
+      <div class="order-pill" id="syncInfo">Обновлено: --:--:--</div>
+      <div class="order-pill" id="orderNumberTop">Заказ-наряд: —</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="summary-bar">
+      <div class="summary-item">
+        <span>Автомобиль</span>
+        <strong id="carSummary">—</strong>
+      </div>
+      <div class="summary-item">
+        <span>Клиент</span>
+        <strong id="clientSummary">—</strong>
+      </div>
+      <div class="summary-item">
+        <span>Дата приема</span>
+        <strong id="dateSummary">—</strong>
+      </div>
+    </div>
+
+    <div class="panel layout">
+      <div class="info-card">
+        <div class="status-badge" id="statusBadge">Статус: —</div>
+        <h2>Карточка приемки</h2>
+        <div class="card-subtitle">Аккуратный вид заявки без лишних блоков: только важные данные по автомобилю и клиенту.</div>
+
+        <div class="info-row"><div class="info-label">Клиент</div><div class="info-value" id="clientName">—</div></div>
+        <div class="info-row"><div class="info-label">Телефон</div><div class="info-value" id="clientPhone">—</div></div>
+        <div class="info-row"><div class="info-label">Автомобиль</div><div class="info-value" id="carName">—</div></div>
+        <div class="info-row"><div class="info-label">Гос. номер</div><div class="info-value" id="carPlate">—</div></div>
+        <div class="info-row"><div class="info-label">VIN</div><div class="info-value" id="carVin">—</div></div>
+        <div class="info-row"><div class="info-label">Причина</div><div class="info-value" id="carReason">—</div></div>
+        <div class="info-row"><div class="info-label">Примечание</div><div class="info-value" id="carNotes">—</div></div>
+      </div>
+
+      <div class="visual-card">
+        <div class="visual-head">
+          <h2>Схема автомобиля</h2>
+          <div class="card-subtitle">Переключай стороны, чтобы было понятно, какой именно вид машины сейчас открыт.</div>
+        </div>
+
+        <div class="car-visual" id="carVisual"></div>
+        <div class="inspection-note" id="inspectionHint">Нажми <strong>«Начать приемку»</strong>, укажи бензин и пробег, после чего отмечай реальные дефекты на стекле, кузове, колесах и оптике.</div>
+        <div class="hint-text">Визуал меняется по выбранной стороне осмотра.</div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-title">Приборка автомобиля</div>
+          <div class="instrument-cluster">
+            <div class="speedometer-card">
+              <div class="speed-ring"></div>
+              <div class="speed-needle" id="speedNeedle"></div>
+              <div class="speed-center">
+                <div class="speed-number" id="speedValue">0</div>
+                <div class="speed-unit">км/ч</div>
+              </div>
+              <div class="speed-scale">
+                <span>0</span>
+                <span>60</span>
+                <span>120</span>
+                <span>180</span>
+                <span>240</span>
+              </div>
+            </div>
+
+            <div class="cluster-side">
+              <div class="cluster-card">
+                <div class="cluster-label">Бензин</div>
+                <div class="cluster-fuel-line">
+                  <span class="fuel-mark">E</span>
+                  <input class="fuel-slider" id="startFuelInput" type="range" min="0" max="100" step="1" value="0" oninput="syncFuelValue(this.value)" />
+                  <span class="fuel-mark">F</span>
+                </div>
+                <div class="cluster-meta" id="clusterFuel">Подвинь ползунок для уровня топлива</div>
+              </div>
+
+              <div class="cluster-card">
+                <div class="cluster-label">Пробег</div>
+                <input class="odo-input" id="startMileageInput" type="number" min="0" step="1" placeholder="Впиши пробег" oninput="syncMileageValue(this.value)" />
+                <div class="cluster-meta" id="clusterMileageHint">Показание одометра на момент приемки</div>
+              </div>
+
+              <div class="cluster-card">
+                <div class="cluster-label">Что показывает приборка</div>
+                <div class="legend-list">
+                  <div class="legend-item"><span>0 км/ч</span><strong id="speedHint">Скорость авто</strong></div>
+                  <div class="legend-item"><span>Бензин</span><strong>Уровень в баке</strong></div>
+                  <div class="legend-item"><span>Пробег</span><strong>Текущий одометр</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overview-board">
+          <h3>Обзор автомобиля со всех сторон</h3>
+          <div class="overview-grid">
+            <div class="overview-item" data-view="front" onclick="renderCarView('front')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M68 42C74 26 90 16 109 12H131C150 16 166 26 172 42L178 68H62L68 42Z" fill="#e5e7eb" stroke="#b7bec8" stroke-width="3"/>
+                <path d="M86 24H154C162 24 168 31 168 39V49H72V39C72 31 78 24 86 24Z" fill="#6b7280" opacity="0.78"/>
+                <rect x="76" y="52" width="88" height="9" rx="4.5" fill="#111827"/>
+                <rect x="64" y="45" width="14" height="8" rx="4" fill="#dbeafe"/>
+                <rect x="162" y="45" width="14" height="8" rx="4" fill="#dbeafe"/>
+                <circle cx="83" cy="80" r="10" fill="#090c10"/><circle cx="157" cy="80" r="10" fill="#090c10"/>
+              </svg>
+              <strong>Спереди</strong>
+            </div>
+            <div class="overview-item" data-view="left" onclick="renderCarView('left')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 72C28 47 48 31 80 20L112 14C143 8 171 12 191 24C202 31 209 40 214 53L216 77H18V72Z" fill="#e5e7eb" stroke="#aeb4bd" stroke-width="3"/>
+                <path d="M66 30C85 20 109 16 139 16C160 16 177 23 191 36L198 49H54L66 30Z" fill="#8f98a3" opacity="0.55"/>
+                <circle cx="58" cy="82" r="14" fill="#090c10"/><circle cx="174" cy="82" r="14" fill="#090c10"/>
+              </svg>
+              <strong>Слева</strong>
+            </div>
+            <div class="overview-item" data-view="right" onclick="renderCarView('right')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M202 72C192 47 172 31 140 20L108 14C77 8 49 12 29 24C18 31 11 40 6 53L4 77H202V72Z" fill="#e5e7eb" stroke="#aeb4bd" stroke-width="3"/>
+                <path d="M154 30C135 20 111 16 81 16C60 16 43 23 29 36L22 49H166L154 30Z" fill="#8f98a3" opacity="0.55"/>
+                <circle cx="46" cy="82" r="14" fill="#090c10"/><circle cx="162" cy="82" r="14" fill="#090c10"/>
+              </svg>
+              <strong>Справа</strong>
+            </div>
+            <div class="overview-item" data-view="rear" onclick="renderCarView('rear')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M70 42C76 26 92 16 111 12H129C148 16 164 26 170 42L176 68H64L70 42Z" fill="#e5e7eb" stroke="#b7bec8" stroke-width="3"/>
+                <path d="M84 26H156C162 26 168 31 168 39V47H72V39C72 31 78 26 84 26Z" fill="#6b7280" opacity="0.72"/>
+                <rect x="76" y="52" width="18" height="7" rx="3.5" fill="#f87171"/>
+                <rect x="126" y="52" width="18" height="7" rx="3.5" fill="#f87171"/>
+                <rect x="97" y="53" width="26" height="6" rx="3" fill="#1f2937"/>
+                <circle cx="84" cy="80" r="10" fill="#090c10"/><circle cx="156" cy="80" r="10" fill="#090c10"/>
+              </svg>
+              <strong>Сзади</strong>
+            </div>
+            <div class="overview-item" data-view="top" onclick="renderCarView('top')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M84 10H136C149 10 159 20 162 34L168 74C171 89 160 100 145 100H75C60 100 49 89 52 74L58 34C61 20 71 10 84 10Z" fill="#e5e7eb" stroke="#aeb4bd" stroke-width="3"/>
+                <path d="M92 22H128C139 22 147 30 149 40L151 50H69L71 40C73 30 81 22 92 22Z" fill="#8f98a3" opacity="0.8"/>
+                <rect x="74" y="54" width="72" height="28" rx="10" fill="#1f2937"/>
+                <path d="M110 24V84" stroke="#d1d5db" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                <rect x="48" y="30" width="8" height="20" rx="4" fill="#090c10"/>
+                <rect x="164" y="30" width="8" height="20" rx="4" fill="#090c10"/>
+                <rect x="48" y="62" width="8" height="20" rx="4" fill="#090c10"/>
+                <rect x="164" y="62" width="8" height="20" rx="4" fill="#090c10"/>
+              </svg>
+              <strong>Сверху</strong>
+            </div>
+            <div class="overview-item" data-view="bottom" onclick="renderCarView('bottom')">
+              <svg viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M84 10H136C149 10 159 20 162 34L168 74C171 89 160 100 145 100H75C60 100 49 89 52 74L58 34C61 20 71 10 84 10Z" fill="#dbeafe" stroke="#60a5fa" stroke-width="3"/>
+                <rect x="103" y="20" width="14" height="64" rx="7" fill="#111827"/>
+                <rect x="83" y="42" width="54" height="22" rx="10" fill="#1e293b" stroke="#93c5fd" stroke-width="2"/>
+                <path d="M66 32L83 48M154 32L137 48M66 78L83 60M154 78L137 60" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="67" cy="30" r="9" fill="#090c10"/><circle cx="153" cy="30" r="9" fill="#090c10"/>
+                <circle cx="67" cy="80" r="9" fill="#090c10"/><circle cx="153" cy="80" r="9" fill="#090c10"/>
+              </svg>
+              <strong>Снизу</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" onclick="goBack()">Назад</button>
+          <button class="btn btn-primary" id="startReceptionBtn" onclick="beginReception()">Начать приемку</button>
+        </div>
+        <div class="message" id="message"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="issueModal">
+    <div class="modal-card">
+      <div class="issue-toolbar">
+        <button class="issue-tool" type="button" onclick="closeIssueModal()">×</button>
+        <button class="issue-tool" type="button" title="Фото">🖼</button>
+        <button class="issue-tool" type="button" title="Очистить" onclick="clearCurrentPoint()">🗑</button>
+      </div>
+
+      <div class="issue-steps">
+        <div class="issue-step active">1. Подтверждение</div>
+        <div class="issue-step">2. Фото</div>
+      </div>
+
+      <div class="issue-target" id="issuePointName">Выбор зоны осмотра</div>
+      <div class="issue-options" id="issueOptions"></div>
+      <div class="issue-help">Выбери, что найдено на этой детали. Можно отметить несколько вариантов.</div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" type="button" onclick="closeIssueModal()">Закрыть</button>
+        <button class="btn btn-primary" type="button" onclick="saveIssueSelection()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="monitor.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const meetingId = Number(params.get('id')) || 0;
+    const refreshIntervalMs = 5000;
+    let currentMeeting = null;
+    let currentView = 'left';
+    let activePoint = null;
+    let refreshTimer = null;
+    const damageOptions = ['царапина', 'скол ЛКП', 'вмятина', 'потертость', 'трещина', 'коррозия'];
+    const inspectionPoints = {
+      left: [
+        { id: 'mirror', label: 'Левое зеркало', short: '1', x: 25, y: 40 },
+        { id: 'front-wheel', label: 'Переднее колесо', short: '2', x: 29, y: 69 },
+        { id: 'driver-glass', label: 'Стекло водительской двери', short: '3', x: 48, y: 31 },
+        { id: 'rear-wheel', label: 'Заднее колесо', short: '4', x: 72, y: 69 }
+      ],
+      front: [
+        { id: 'front-left', label: 'Левая фара', short: '1', x: 35, y: 52 },
+        { id: 'hood', label: 'Капот', short: '2', x: 50, y: 38 },
+        { id: 'front-right', label: 'Правая фара', short: '3', x: 65, y: 52 },
+        { id: 'bumper', label: 'Передний бампер', short: '4', x: 50, y: 71 }
+      ],
+      right: [
+        { id: 'mirror', label: 'Правое зеркало', short: '1', x: 75, y: 40 },
+        { id: 'front-wheel', label: 'Переднее колесо', short: '2', x: 28, y: 69 },
+        { id: 'passenger-glass', label: 'Стекло пассажирской двери', short: '3', x: 52, y: 31 },
+        { id: 'rear-wheel', label: 'Заднее колесо', short: '4', x: 69, y: 69 }
+      ],
+      rear: [
+        { id: 'rear-left', label: 'Левый фонарь', short: '1', x: 35, y: 52 },
+        { id: 'trunk', label: 'Крышка багажника', short: '2', x: 50, y: 43 },
+        { id: 'rear-right', label: 'Правый фонарь', short: '3', x: 65, y: 52 },
+        { id: 'rear-bumper', label: 'Задний бампер', short: '4', x: 50, y: 71 }
+      ],
+      top: [
+        { id: 'roof-front', label: 'Передняя часть крыши', short: '1', x: 38, y: 26 },
+        { id: 'roof-center', label: 'Центр крыши', short: '2', x: 50, y: 39 },
+        { id: 'rear-left-door', label: 'Левая задняя часть', short: '3', x: 40, y: 69 },
+        { id: 'rear-right-door', label: 'Правая задняя часть', short: '4', x: 60, y: 69 }
+      ],
+      bottom: [
+        { id: 'front-suspension', label: 'Передняя подвеска', short: '1', x: 36, y: 30 },
+        { id: 'engine', label: 'Защита двигателя', short: '2', x: 50, y: 40 },
+        { id: 'exhaust', label: 'Низ кузова', short: '3', x: 50, y: 64 },
+        { id: 'rear-suspension', label: 'Задняя подвеска', short: '4', x: 64, y: 74 }
+      ]
+    };
+    let inspectionState = {
+      started: false,
+      fuel: null,
+      mileage: '',
+      issues: {}
+    };
+
+    function getDamageOptionsForPoint(view, point) {
+      const key = `${view} ${point?.id || ''} ${point?.label || ''}`.toLowerCase();
+
+      if (/стекл|glass|windshield|лобов/.test(key)) {
+        return ['трещина', 'скол от камня', 'царапины от дворников', 'помутнение', 'потертость'];
+      }
+      if (/mirror|зеркал/.test(key)) {
+        return ['царапина корпуса', 'скол крышки', 'трещина повторителя', 'люфт крепления'];
+      }
+      if (/wheel|колес|шина|disk|диск/.test(key)) {
+        return ['износ шины', 'прокол', 'бордюрка диска', 'трещина диска'];
+      }
+      if (/фара|фонарь|rear-left|rear-right|front-left|front-right/.test(key)) {
+        return ['трещина', 'скол', 'запотевание', 'царапина'];
+      }
+      if (/bumper|бампер/.test(key)) {
+        return ['царапина', 'потертость', 'трещина', 'скол краски'];
+      }
+      if (/двер|капот|багаж|крыш|hood|trunk|roof/.test(key)) {
+        return ['царапина', 'вмятина', 'скол ЛКП', 'потертость'];
+      }
+      if (/подвес|suspension/.test(key)) {
+        return ['люфт', 'течь амортизатора', 'износ сайлентблока', 'повреждение крепления'];
+      }
+      if (/engine|защита|низ кузова|exhaust/.test(key)) {
+        return ['замятие', 'подтекание', 'коррозия', 'повреждение защиты'];
+      }
+
+      return damageOptions;
+    }
+
+    const carViews = {
+      left: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид слева">
+            <defs>
+              <linearGradient id="bodyLeft" x1="140" y1="128" x2="792" y2="320" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f5f5f5"/>
+                <stop offset="0.5" stop-color="#cfd4db"/>
+                <stop offset="1" stop-color="#8a9099"/>
+              </linearGradient>
+              <linearGradient id="glassLeft" x1="240" y1="138" x2="722" y2="226" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#586170"/>
+                <stop offset="1" stop-color="#1f2937"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="460" cy="366" rx="250" ry="24" fill="#05070b" opacity="0.42"/>
+            <path d="M120 294C136 242 176 206 228 182L320 146C372 126 442 116 530 118C597 120 660 134 712 160C758 184 794 218 818 266L828 300C830 308 824 316 816 316H126C118 316 113 307 116 299L120 294Z" fill="url(#bodyLeft)" stroke="#f5f5f5" stroke-width="5"/>
+            <path d="M278 160C322 138 388 126 480 126H556C612 126 660 146 696 182L722 224H238L278 160Z" fill="url(#glassLeft)" stroke="#9ca3af" stroke-width="4"/>
+            <path d="M236 228H730" stroke="#7a828d" stroke-width="4" stroke-linecap="round"/>
+            <path d="M354 150V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M516 126V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M646 158V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M210 246C248 241 282 238 326 238" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+            <path d="M514 238H648" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+            <rect x="156" y="214" width="34" height="12" rx="6" fill="#d4d4d8"/>
+            <rect x="760" y="224" width="34" height="12" rx="6" fill="#d4d4d8"/>
+            <circle cx="286" cy="314" r="56" fill="#090c10"/>
+            <circle cx="286" cy="314" r="32" fill="#6b7280"/>
+            <circle cx="286" cy="314" r="14" fill="#d1d5db"/>
+            <circle cx="668" cy="314" r="56" fill="#090c10"/>
+            <circle cx="668" cy="314" r="32" fill="#6b7280"/>
+            <circle cx="668" cy="314" r="14" fill="#d1d5db"/>
+          </svg>
+        </div>
+      `,
+      front: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид спереди">
+            <defs>
+              <linearGradient id="bodyFrontReal" x1="300" y1="116" x2="620" y2="304" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f8fafc"/>
+                <stop offset="0.55" stop-color="#d6dbe3"/>
+                <stop offset="1" stop-color="#99a1ad"/>
+              </linearGradient>
+              <linearGradient id="glassFrontReal" x1="362" y1="136" x2="558" y2="214" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6b7788"/>
+                <stop offset="1" stop-color="#1f2937"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="460" cy="360" rx="192" ry="22" fill="#04070c" opacity="0.42"/>
+            <circle cx="346" cy="320" r="38" fill="#090c10"/>
+            <circle cx="574" cy="320" r="38" fill="#090c10"/>
+            <path d="M304 214C322 162 372 120 432 110H488C548 120 598 162 616 214L632 270C638 290 624 308 604 308H316C296 308 282 290 288 270L304 214Z" fill="url(#bodyFrontReal)" stroke="#eef2f7" stroke-width="5"/>
+            <path d="M360 144C378 126 408 118 460 118C512 118 542 126 560 144L554 212H366L360 144Z" fill="url(#glassFrontReal)" stroke="#a8b0bb" stroke-width="4"/>
+            <path d="M332 234C364 242 409 246 460 246C511 246 556 242 588 234" stroke="#111827" stroke-width="26" stroke-linecap="round"/>
+            <path d="M460 148V214" stroke="#c8ced6" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+            <rect x="310" y="214" width="40" height="12" rx="6" fill="#dbeafe"/>
+            <rect x="570" y="214" width="40" height="12" rx="6" fill="#dbeafe"/>
+            <rect x="424" y="240" width="72" height="12" rx="6" fill="#697585"/>
+            <path d="M320 274H600" stroke="#dbe4ef" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+          </svg>
+        </div>
+      `,
+      right: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид справа">
+            <defs>
+              <linearGradient id="bodyRight" x1="780" y1="128" x2="128" y2="320" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f5f5f5"/>
+                <stop offset="0.5" stop-color="#cfd4db"/>
+                <stop offset="1" stop-color="#8a9099"/>
+              </linearGradient>
+              <linearGradient id="glassRight" x1="694" y1="138" x2="210" y2="226" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#586170"/>
+                <stop offset="1" stop-color="#1f2937"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="460" cy="366" rx="250" ry="24" fill="#05070b" opacity="0.42"/>
+            <path d="M800 294C784 242 744 206 692 182L600 146C548 126 478 116 390 118C323 120 260 134 208 160C162 184 126 218 102 266L92 300C90 308 96 316 104 316H794C802 316 807 307 804 299L800 294Z" fill="url(#bodyRight)" stroke="#f5f5f5" stroke-width="5"/>
+            <path d="M642 160C598 138 532 126 440 126H364C308 126 260 146 224 182L198 224H682L642 160Z" fill="url(#glassRight)" stroke="#9ca3af" stroke-width="4"/>
+            <path d="M190 224H684" stroke="#7a828d" stroke-width="4" stroke-linecap="round"/>
+            <path d="M566 150V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M404 126V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M274 158V224" stroke="#8c96a3" stroke-width="4" stroke-linecap="round"/>
+            <path d="M598 238H730" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+            <path d="M272 238C316 238 350 241 388 246" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+            <rect x="126" y="224" width="34" height="12" rx="6" fill="#d4d4d8"/>
+            <rect x="730" y="214" width="34" height="12" rx="6" fill="#d4d4d8"/>
+            <circle cx="252" cy="314" r="56" fill="#090c10"/>
+            <circle cx="252" cy="314" r="32" fill="#6b7280"/>
+            <circle cx="252" cy="314" r="14" fill="#d1d5db"/>
+            <circle cx="634" cy="314" r="56" fill="#090c10"/>
+            <circle cx="634" cy="314" r="32" fill="#6b7280"/>
+            <circle cx="634" cy="314" r="14" fill="#d1d5db"/>
+          </svg>
+        </div>
+      `,
+      rear: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид сзади">
+            <defs>
+              <linearGradient id="bodyRearReal" x1="304" y1="116" x2="616" y2="304" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f8fafc"/>
+                <stop offset="0.55" stop-color="#d6dbe3"/>
+                <stop offset="1" stop-color="#99a1ad"/>
+              </linearGradient>
+              <linearGradient id="glassRearReal" x1="362" y1="140" x2="558" y2="216" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#667181"/>
+                <stop offset="1" stop-color="#1f2937"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="460" cy="360" rx="192" ry="22" fill="#04070c" opacity="0.42"/>
+            <circle cx="346" cy="320" r="38" fill="#090c10"/>
+            <circle cx="574" cy="320" r="38" fill="#090c10"/>
+            <path d="M304 214C322 162 372 120 432 110H488C548 120 598 162 616 214L632 270C638 290 624 308 604 308H316C296 308 282 290 288 270L304 214Z" fill="url(#bodyRearReal)" stroke="#eef2f7" stroke-width="5"/>
+            <path d="M366 146C384 132 412 124 460 124C508 124 536 132 554 146L548 210H372L366 146Z" fill="url(#glassRearReal)" stroke="#a8b0bb" stroke-width="4"/>
+            <path d="M338 236C366 244 409 248 460 248C511 248 554 244 582 236" stroke="#111827" stroke-width="24" stroke-linecap="round"/>
+            <rect x="320" y="214" width="44" height="12" rx="6" fill="#f87171"/>
+            <rect x="556" y="214" width="44" height="12" rx="6" fill="#f87171"/>
+            <rect x="424" y="240" width="72" height="12" rx="6" fill="#64748b"/>
+            <path d="M440 266H480" stroke="#cfd8e3" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      `,
+      top: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид сверху">
+            <defs>
+              <linearGradient id="bodyTopReal" x1="280" y1="58" x2="640" y2="354" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f8fafc"/>
+                <stop offset="0.6" stop-color="#d7dde5"/>
+                <stop offset="1" stop-color="#979fab"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="460" cy="366" rx="150" ry="18" fill="#05070b" opacity="0.34"/>
+            <path d="M388 58H532C582 58 620 96 630 146L640 248C648 302 607 352 552 352H368C313 352 272 302 280 248L290 146C300 96 338 58 388 58Z" fill="url(#bodyTopReal)" stroke="#60a5fa" stroke-width="5"/>
+            <path d="M404 82H516C546 82 572 104 578 134L586 164H334L342 134C348 104 374 82 404 82Z" fill="#8c97a5" opacity="0.9"/>
+            <rect x="348" y="170" width="224" height="118" rx="28" fill="#151b24" stroke="#9aa5b1" stroke-width="4"/>
+            <rect x="372" y="94" width="176" height="64" rx="18" fill="#9ca7b5" opacity="0.9"/>
+            <rect x="374" y="294" width="172" height="32" rx="14" fill="#8b96a4" opacity="0.9"/>
+            <path d="M460 92V320" stroke="#d5dbe3" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+            <rect x="258" y="132" width="18" height="50" rx="9" fill="#090c10"/>
+            <rect x="644" y="132" width="18" height="50" rx="9" fill="#090c10"/>
+            <rect x="258" y="236" width="18" height="50" rx="9" fill="#090c10"/>
+            <rect x="644" y="236" width="18" height="50" rx="9" fill="#090c10"/>
+          </svg>
+        </div>
+      `,
+      bottom: `
+        <div class="car-view-wrap">
+          <svg viewBox="0 0 920 430" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Автомобиль вид снизу с подвеской">
+            <ellipse cx="460" cy="366" rx="150" ry="18" fill="#05070b" opacity="0.3"/>
+            <path d="M388 58H532C582 58 620 96 630 146L640 248C648 302 607 352 552 352H368C313 352 272 302 280 248L290 146C300 96 338 58 388 58Z" fill="#e4eefc" stroke="#60a5fa" stroke-width="5"/>
+            <rect x="446" y="98" width="28" height="226" rx="12" fill="#111827"/>
+            <rect x="384" y="142" width="152" height="44" rx="18" fill="#1e293b" stroke="#93c5fd" stroke-width="3"/>
+            <rect x="368" y="228" width="184" height="52" rx="18" fill="#1e293b" stroke="#93c5fd" stroke-width="3"/>
+            <path d="M334 138L386 164M586 138L534 164M334 292L386 254M586 292L534 254" stroke="#2563eb" stroke-width="8" stroke-linecap="round"/>
+            <path d="M334 138V292" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+            <path d="M586 138V292" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+            <path d="M460 118V320" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+            <rect x="426" y="284" width="68" height="24" rx="12" fill="#64748b"/>
+            <circle cx="334" cy="130" r="30" fill="#090c10"/>
+            <circle cx="586" cy="130" r="30" fill="#090c10"/>
+            <circle cx="334" cy="296" r="30" fill="#090c10"/>
+            <circle cx="586" cy="296" r="30" fill="#090c10"/>
+          </svg>
+        </div>
+      `
+    };
+
+    function formatDate(value) {
+      if (!value) return '—';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleDateString('ru-RU');
+    }
+
+    function updateSyncInfo(text) {
+      const syncInfo = document.getElementById('syncInfo');
+      if (syncInfo) {
+        syncInfo.textContent = text;
+      }
+    }
+
+    function getAuthHeaders(extraHeaders = {}) {
+      const token = localStorage.getItem('token');
+      return token ? { ...extraHeaders, Authorization: `Bearer ${token}` } : { ...extraHeaders };
+    }
+
+    function getThemeStorageKey() {
+      const currentUserId = String(localStorage.getItem('userId') || '').trim();
+      const currentUsername = String(localStorage.getItem('username') || '').trim().toLowerCase();
+
+      if (currentUserId) return `disa-theme:user:${currentUserId}`;
+      if (currentUsername) return `disa-theme:name:${currentUsername}`;
+      return 'disa-theme:guest';
+    }
+
+    function loadSavedTheme() {
+      const theme = localStorage.getItem(getThemeStorageKey())
+        || localStorage.getItem('disa-theme:last')
+        || 'dark';
+      document.body.classList.toggle('light-theme', theme === 'light');
+    }
+
+    function startAutoRefresh() {
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(() => {
+        loadReceptionCard();
+      }, refreshIntervalMs);
+    }
+
+    function canEditReception(meeting = currentMeeting) {
+      if (!meeting) return false;
+
+      const currentRole = String(localStorage.getItem('role') || '').toLowerCase();
+      const currentUserId = Number(localStorage.getItem('userId') || 0);
+
+      if (currentRole === 'admin') return true;
+      if (!Number.isFinite(currentUserId) || currentUserId <= 0) return false;
+
+      return Number(meeting.user_id) === currentUserId || Number(meeting.created_by) === currentUserId;
+    }
+
+    function getInspectionStorageKey() {
+      return meetingId ? `disa-reception:${meetingId}` : 'disa-reception:draft';
+    }
+
+    function loadInspectionState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(getInspectionStorageKey()) || 'null');
+        if (saved && typeof saved === 'object') {
+          inspectionState = {
+            started: Boolean(saved.started),
+            fuel: saved.fuel === '' || saved.fuel === undefined || saved.fuel === null ? null : Number(saved.fuel),
+            mileage: saved.mileage || '',
+            issues: saved.issues && typeof saved.issues === 'object' ? saved.issues : {}
+          };
+        }
+      } catch {
+        inspectionState = { started: false, fuel: null, mileage: '', issues: {} };
+      }
+    }
+
+    function saveInspectionState() {
+      localStorage.setItem(getInspectionStorageKey(), JSON.stringify(inspectionState));
+    }
+
+    function updateInlineInspectionControls() {
+      const fuelInput = document.getElementById('startFuelInput');
+      const mileageInput = document.getElementById('startMileageInput');
+      const canEdit = canEditReception();
+      const fuelValue = Number.isFinite(inspectionState.fuel) ? Math.round(inspectionState.fuel) : 0;
+
+      if (fuelInput && document.activeElement !== fuelInput) {
+        fuelInput.value = String(fuelValue);
+      }
+      if (mileageInput && document.activeElement !== mileageInput) {
+        mileageInput.value = inspectionState.mileage || '';
+      }
+      if (fuelInput) {
+        fuelInput.disabled = !canEdit;
+        fuelInput.style.background = `linear-gradient(90deg, #38bdf8 0%, #22c55e ${fuelValue}%, #1e293b ${fuelValue}%, #1e293b 100%)`;
+        fuelInput.style.opacity = canEdit ? '1' : '0.7';
+      }
+      if (mileageInput) {
+        mileageInput.readOnly = !canEdit;
+        mileageInput.disabled = !canEdit;
+        mileageInput.style.opacity = canEdit ? '1' : '0.7';
+      }
+    }
+
+    function syncFuelValue(value) {
+      if (!canEditReception()) return;
+
+      const numeric = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+      inspectionState.fuel = numeric;
+      saveInspectionState();
+      updateInlineInspectionControls();
+      refreshInspectionMetrics();
+    }
+
+    function syncMileageValue(value) {
+      if (!canEditReception()) return;
+
+      inspectionState.mileage = String(value || '').replace(/\D/g, '');
+      saveInspectionState();
+      updateInlineInspectionControls();
+      refreshInspectionMetrics();
+    }
+
+    function applyInspectionMode() {
+      const canEdit = canEditReception();
+      const inspectionHint = document.getElementById('inspectionHint');
+      const startButton = document.getElementById('startReceptionBtn');
+
+      document.body.classList.toggle('inspection-mode', canEdit && Boolean(inspectionState.started));
+
+      if (startButton) {
+        startButton.disabled = !canEdit;
+        startButton.textContent = !canEdit
+          ? 'Только просмотр'
+          : (inspectionState.started ? 'Приемка активна' : 'Начать приемку');
+        startButton.style.opacity = canEdit ? '1' : '0.75';
+        startButton.style.cursor = canEdit ? 'pointer' : 'not-allowed';
+      }
+
+      if (inspectionHint) {
+        inspectionHint.innerHTML = canEdit
+          ? 'Нажми <strong>«Начать приемку»</strong>, укажи бензин и пробег, после чего отмечай реальные дефекты на стекле, кузове, колесах и оптике.'
+          : 'Это <strong>чужая приемка</strong>. Карточку можно посмотреть, но менять данные и отмечать повреждения нельзя.';
+      }
+
+      updateInlineInspectionControls();
+      renderCarView(currentView);
+    }
+
+    function getViewLabel(view) {
+      return ({ left: 'Слева', front: 'Спереди', right: 'Справа', rear: 'Сзади', top: 'Сверху', bottom: 'Снизу' })[view] || 'Осмотр';
+    }
+
+    function showMessage(text, color = '#0f766e') {
+      const message = document.getElementById('message');
+      message.style.color = color;
+      message.textContent = text;
+    }
+
+    function formatMileageValue(rawValue) {
+      if (rawValue === null || rawValue === undefined || rawValue === '') return 'не указан';
+      const digits = String(rawValue).replace(/\D/g, '');
+      if (!digits) return String(rawValue);
+      return `${Number(digits).toLocaleString('ru-RU')} км`;
+    }
+
+    function getMileageText(item) {
+      if (canEditReception() && inspectionState.mileage !== '' && inspectionState.mileage !== null && inspectionState.mileage !== undefined) {
+        return formatMileageValue(inspectionState.mileage);
+      }
+
+      const directValue = item?.mileage ?? item?.odometer ?? item?.run ?? item?.mileage_km;
+      const sourceText = `${item?.reason || ''} ${item?.notes || ''}`;
+      const match = sourceText.match(/(?:пробег|одометр)\s*[:\-]?\s*(\d[\d\s]{2,})/i);
+      const rawValue = directValue ?? (match ? match[1] : '');
+
+      return formatMileageValue(rawValue);
+    }
+
+    function getFuelPercent(item) {
+      if (canEditReception() && Number.isFinite(inspectionState.fuel)) {
+        return Math.max(0, Math.min(100, Math.round(inspectionState.fuel)));
+      }
+
+      const directValue = item?.fuel_level ?? item?.fuel_percent ?? item?.fuel ?? item?.fuelLevel;
+      const sourceText = `${item?.reason || ''} ${item?.notes || ''}`;
+      const match = sourceText.match(/(?:бензин|топливо|fuel)\s*[:\-]?\s*(\d{1,3})\s*%/i);
+      const rawValue = directValue ?? (match ? match[1] : null);
+
+      if (rawValue === null || rawValue === undefined || rawValue === '') return null;
+
+      const numeric = Number(String(rawValue).replace(',', '.').replace(/[^\d.]/g, ''));
+      if (!Number.isFinite(numeric)) return null;
+
+      return Math.max(0, Math.min(100, Math.round(numeric)));
+    }
+
+    function getSpeedValue(item) {
+      if (canEditReception() && inspectionState.started) return 0;
+
+      const directValue = item?.speed ?? item?.speed_kmh;
+      const sourceText = `${item?.reason || ''} ${item?.notes || ''}`;
+      const match = sourceText.match(/(?:скорость|speed)\s*[:\-]?\s*(\d{1,3})/i);
+      const rawValue = directValue ?? (match ? match[1] : 0);
+      const numeric = Number(String(rawValue).replace(/[^\d.]/g, ''));
+
+      if (!Number.isFinite(numeric)) return 0;
+      return Math.max(0, Math.min(240, Math.round(numeric)));
+    }
+
+    function refreshInspectionMetrics(item = currentMeeting || {}) {
+      const mileageText = getMileageText(item);
+      const fuelPercent = getFuelPercent(item);
+      const speedValue = getSpeedValue(item);
+      const fuelText = document.getElementById('clusterFuel');
+      const speedHint = document.getElementById('speedHint');
+      const speedValueNode = document.getElementById('speedValue');
+      const speedNeedle = document.getElementById('speedNeedle');
+      const mileageHint = document.getElementById('clusterMileageHint');
+
+      if (mileageHint) {
+        mileageHint.textContent = mileageText === 'не указан'
+          ? 'Показание одометра на момент приемки'
+          : `Сейчас: ${mileageText}`;
+      }
+      if (speedValueNode) speedValueNode.textContent = String(speedValue);
+      if (speedNeedle) {
+        speedNeedle.style.transform = `translateX(-50%) rotate(${speedValue - 120}deg)`;
+      }
+      if (speedHint) {
+        speedHint.textContent = speedValue === 0 ? 'Авто стоит на месте' : 'Текущая скорость';
+      }
+
+      updateInlineInspectionControls();
+      if (!fuelText) return;
+
+      fuelText.textContent = fuelPercent === null
+        ? 'Подвинь ползунок для уровня топлива'
+        : `Бензин: ${fuelPercent}%`;
+    }
+
+    function attachDamagePoints(view) {
+      const wrap = document.querySelector('#carVisual .car-view-wrap');
+      if (!wrap || !inspectionState.started || !canEditReception()) return;
+
+      const points = inspectionPoints[view] || [];
+      const layer = document.createElement('div');
+      layer.className = 'damage-points-layer';
+      layer.innerHTML = points.map((point) => {
+        const selected = inspectionState.issues?.[view]?.[point.id] || [];
+        const selectedText = selected.length ? `: ${selected.join(', ')}` : '';
+        return `
+          <button
+            type="button"
+            class="damage-point ${selected.length ? 'marked' : ''}"
+            style="left:${point.x}%; top:${point.y}%;"
+            data-count="${selected.length ? selected.length : ''}"
+            title="${point.label}${selectedText}"
+            onclick="openIssueModal('${view}', '${point.id}')"
+          >${point.short}</button>
+        `;
+      }).join('');
+      wrap.appendChild(layer);
+    }
+
+    function renderCarView(view = 'left') {
+      currentView = view;
+      document.querySelectorAll('.view-btn').forEach((button) => {
+        button.classList.toggle('active', button.dataset.view === view);
+      });
+      document.querySelectorAll('.overview-item').forEach((item) => {
+        item.classList.toggle('active', item.dataset.view === view);
+      });
+
+      const visual = document.getElementById('carVisual');
+      visual.innerHTML = carViews[view] || carViews.left;
+      attachDamagePoints(view);
+    }
+
+    async function loadReceptionCard() {
+      if (!meetingId) {
+        showMessage('Не найдена заявка для приемки', '#b91c1c');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/meetings/${meetingId}`, {
+          cache: 'no-store',
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Не удалось загрузить карточку приемки');
+        }
+
+        currentMeeting = data;
+        renderReceptionCard(data);
+        updateSyncInfo(`Обновлено: ${new Date().toLocaleTimeString('ru-RU')}`);
+      } catch (err) {
+        updateSyncInfo('Ошибка обновления');
+        showMessage(err.message || 'Ошибка загрузки карточки', '#b91c1c');
+      }
+    }
+
+    function renderReceptionCard(item) {
+      const carName = [item.brand, item.model].filter(Boolean).join(' ') || '—';
+      const orderNumber = item.number || item.id || '—';
+
+      document.getElementById('orderNumberTop').textContent = `Заказ-наряд: ${orderNumber}`;
+      document.getElementById('carSummary').textContent = carName;
+      document.getElementById('clientSummary').textContent = item.client || '—';
+      document.getElementById('dateSummary').textContent = formatDate(item.reception_date);
+      document.getElementById('statusBadge').textContent = `Статус: ${item.status || 'Новая'}`;
+      document.getElementById('clientName').textContent = item.client || '—';
+      document.getElementById('clientPhone').textContent = item.client_phone || '—';
+      document.getElementById('carName').textContent = carName;
+      document.getElementById('carPlate').textContent = item.license_plate || '—';
+      document.getElementById('carVin').textContent = item.vin || '—';
+      document.getElementById('carReason').textContent = item.reason || '—';
+      document.getElementById('carNotes').textContent = item.notes || '—';
+      refreshInspectionMetrics(item);
+      updateInlineInspectionControls();
+      applyInspectionMode();
+    }
+
+    function openIssueModal(view, pointId) {
+      if (!canEditReception()) {
+        showMessage('Чужую приемку можно только смотреть без изменений.', '#b91c1c');
+        return;
+      }
+
+      if (!inspectionState.started) {
+        showMessage('Сначала начни приемку и укажи бензин с пробегом.', '#b91c1c');
+        return;
+      }
+
+      activePoint = { view, pointId };
+      const point = (inspectionPoints[view] || []).find((item) => item.id === pointId);
+      const selected = new Set(inspectionState.issues?.[view]?.[pointId] || []);
+      const options = getDamageOptionsForPoint(view, point);
+      document.getElementById('issuePointName').textContent = `${getViewLabel(view)} — ${point?.label || 'деталь'}`;
+      document.getElementById('issueOptions').innerHTML = options.map((option) => `
+        <button type="button" class="issue-option ${selected.has(option) ? 'active' : ''}" data-value="${option}" onclick="toggleIssueOption(this)">${option}</button>
+      `).join('');
+      document.getElementById('issueModal').classList.add('open');
+    }
+
+    function closeIssueModal() {
+      document.getElementById('issueModal').classList.remove('open');
+      activePoint = null;
+    }
+
+    function toggleIssueOption(button) {
+      button.classList.toggle('active');
+    }
+
+    function clearCurrentPoint() {
+      if (!activePoint || !canEditReception()) return;
+      const viewState = inspectionState.issues?.[activePoint.view];
+      if (viewState) {
+        delete viewState[activePoint.pointId];
+        if (!Object.keys(viewState).length) {
+          delete inspectionState.issues[activePoint.view];
+        }
+      }
+      saveInspectionState();
+      renderCarView(currentView);
+      closeIssueModal();
+      showMessage('Отметка по детали очищена.');
+    }
+
+    function saveIssueSelection() {
+      if (!activePoint || !canEditReception()) return;
+
+      const selected = Array.from(document.querySelectorAll('#issueOptions .issue-option.active'))
+        .map((button) => button.dataset.value)
+        .filter(Boolean);
+
+      inspectionState.issues[activePoint.view] = inspectionState.issues[activePoint.view] || {};
+      if (selected.length) {
+        inspectionState.issues[activePoint.view][activePoint.pointId] = selected;
+      } else {
+        delete inspectionState.issues[activePoint.view][activePoint.pointId];
+        if (!Object.keys(inspectionState.issues[activePoint.view]).length) {
+          delete inspectionState.issues[activePoint.view];
+        }
+      }
+
+      saveInspectionState();
+      renderCarView(currentView);
+      closeIssueModal();
+      if (selected.length) {
+        window.disaMonitor?.track('Обновил дефект по приемке', `${activePoint.view} / ${activePoint.pointId}`);
+      }
+      showMessage(selected.length ? 'Повреждение по точке сохранено.' : 'По точке ничего не выбрано.');
+    }
+
+    async function updateReceptionStatus() {
+      const res = await fetch(`/api/meetings/${meetingId}/status`, {
+        method: 'PUT',
+        headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({ status: 'В работе' })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Не удалось обновить статус');
+      }
+
+      currentMeeting = data;
+      renderReceptionCard(data);
+    }
+
+    function beginReception() {
+      if (!meetingId) return;
+
+      if (!canEditReception()) {
+        showMessage('У тебя нет прав запускать или менять чужую приемку.', '#b91c1c');
+        return;
+      }
+
+      confirmStartReception();
+    }
+
+    async function confirmStartReception() {
+      if (!canEditReception()) {
+        showMessage('У тебя нет прав запускать или менять чужую приемку.', '#b91c1c');
+        return;
+      }
+      const fuelValue = Number(document.getElementById('startFuelInput').value);
+      const mileageValue = document.getElementById('startMileageInput').value.trim();
+
+      if (!Number.isFinite(fuelValue) || mileageValue === '') {
+        showMessage('Сначала укажи бензин и пробег прямо в карточке ниже.', '#b91c1c');
+        return;
+      }
+
+      if (fuelValue < 0 || fuelValue > 100) {
+        showMessage('Бензин нужно указать в пределах от 0 до 100%.', '#b91c1c');
+        return;
+      }
+
+      const alreadyStarted = inspectionState.started;
+      inspectionState.started = true;
+      inspectionState.fuel = Math.round(fuelValue);
+      inspectionState.mileage = mileageValue;
+      saveInspectionState();
+      refreshInspectionMetrics();
+      applyInspectionMode();
+
+      if (currentMeeting) {
+        renderReceptionCard({ ...currentMeeting, status: 'В работе' });
+      }
+
+      if (alreadyStarted) {
+        showMessage('Параметры приемки обновлены прямо в карточке.');
+        return;
+      }
+
+      try {
+        await updateReceptionStatus();
+        window.disaMonitor?.track('Начал приемку', `#${meetingId}`);
+        showMessage('Приемка начата. Теперь можно сразу двигать бензин и править пробег без окна.');
+      } catch (err) {
+        showMessage(err.message || 'Ошибка при запуске приемки', '#b91c1c');
+      }
+    }
+
+    function goBack() {
+      window.location.href = 'user.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedTheme();
+      window.disaMonitor?.init({ pageName: 'Приемка' });
+      loadInspectionState();
+      updateSyncInfo('Обновление...');
+      document.querySelectorAll('.view-btn').forEach((button) => {
+        button.addEventListener('click', () => renderCarView(button.dataset.view));
+      });
+      document.querySelectorAll('.modal-overlay').forEach((modal) => {
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) {
+            modal.classList.remove('open');
+            if (modal.id === 'issueModal') activePoint = null;
+          }
+        });
+      });
+
+      renderCarView('left');
+      applyInspectionMode();
+      loadReceptionCard();
+      startAutoRefresh();
+    });
+  </script>
+</body>
+</html>

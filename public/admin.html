@@ -11,106 +11,907 @@
       background: #0a0a0a;
       color: #e0e0e0;
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.light-theme {
+      background: #f3f6fb;
+      color: #1f2937;
+    }
+
+    body.light-theme .header,
+    body.light-theme .tabs-bar,
+    body.light-theme .filters {
+      background: #ffffff;
+      border-bottom-color: #dbe3ef;
+    }
+
+    body.light-theme table {
+      background: #ffffff;
+      color: #111827;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme th {
+      background: #f5f8fc;
+      color: #374151;
+    }
+
+    body.light-theme td {
+      color: #1f2937;
+      border-bottom-color: #eaeef4;
+    }
+
+    body.light-theme .view-tab {
+      background: #f7f9fc;
+      border-color: #d5dfeb;
+      color: #374151;
+    }
+
+    body.light-theme .main-nav a {
+      color: #4b5563;
+    }
+
+    body.light-theme .main-nav a:hover,
+    body.light-theme .main-nav a.active {
+      color: #007bff;
+      background: #eaf3ff;
+    }
+
+    body.light-theme .profile-chip {
+      background: linear-gradient(135deg, #ffffff 0%, #eef4ff 100%);
+      border-color: #d6e1ef;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme .profile-role {
+      color: #64748b;
+    }
+
+    body.light-theme #username {
+      color: #0f172a;
+    }
+
+    body.light-theme .filter-group label,
+    body.light-theme .sync-badge,
+    body.light-theme .close {
+      color: #6b7280;
+    }
+
+    body.light-theme .filter-group select,
+    body.light-theme .filter-group input,
+    body.light-theme .status-select,
+    body.light-theme .modal-content {
+      background: #ffffff;
+      border-color: #dbe3ef;
+      color: #111827;
     }
 
     /* ====================== ШАПКА ====================== */
     .header {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      background: #111111;
-      padding: 15px 40px;
-      display: flex;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1460px, calc(100% - 24px));
+      background: rgba(11, 14, 18, 0.96);
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #222;
+      gap: 18px;
+      border: 1px solid #1f2630;
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(12px);
       z-index: 1000;
     }
 
     .logo { font-size: 28px; font-weight: 700; color: #007bff; }
 
+    .brand-area {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-width: 0;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .main-nav a {
+      padding: 8px 10px;
+      color: #b6bec9;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: #ffffff;
+      background: #1c2128;
+    }
+
+    .main-nav a.nav-placeholder {
+      opacity: 0.72;
+      cursor: default;
+    }
+
+    .main-nav a.nav-placeholder:hover {
+      color: #b6bec9;
+      background: transparent;
+    }
+
+    .main-nav a.nav-placeholder.active {
+      color: #ffffff;
+      background: #1c2128;
+      opacity: 1;
+    }
+
     .user-info {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-shrink: 0;
+      justify-self: end;
+    }
+
+    .profile-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px 7px 8px;
+      border-radius: 14px;
+      border: 1px solid #293242;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.9));
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .profile-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      color: #ffffff;
+      font-size: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 18px rgba(139, 92, 246, 0.28);
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .profile-role {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8fa7c7;
+    }
+
+    #username {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      max-width: 160px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .logout-btn {
-      background: #e74c3c;
+      background: linear-gradient(135deg, #ff7a59 0%, #ef4444 100%);
       color: white;
-      border: none;
-      padding: 9px 22px;
-      border-radius: 6px;
-      font-size: 14.5px;
-      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
+      transition: all 0.22s ease;
+      box-shadow: 0 8px 18px rgba(239, 68, 68, 0.25);
     }
 
     .logout-btn:hover {
-      background: #c0392b;
       transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+      box-shadow: 0 12px 22px rgba(239, 68, 68, 0.32);
+      filter: brightness(1.03);
     }
 
-    /* ====================== ФИЛЬТРЫ ====================== */
+    /* ====================== ВКЛАДКИ И ФИЛЬТРЫ ====================== */
+    .tabs-bar {
+      position: fixed;
+      top: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1460px, calc(100% - 24px));
+      background: rgba(11, 14, 18, 0.96);
+      border: 1px solid #1f2630;
+      border-radius: 14px 14px 0 0;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+
+    .tabs-left {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .view-tab {
+      background: #151a20;
+      color: #d5d9df;
+      border: 1px solid #2c3540;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .view-tab:hover {
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .view-tab.active {
+      background: linear-gradient(135deg, #0d8bff 0%, #0065d8 100%);
+      color: #fff;
+      border-color: #0d8bff;
+      box-shadow: 0 8px 18px rgba(13, 139, 255, 0.22);
+    }
+
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: nowrap;
+      margin-left: auto;
+    }
+
+    .search-scope {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #2f3945;
+      background: #14181d;
+      color: #9fb3cb;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .toolbar-search {
+      width: 210px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #171b20;
+      color: #f8fafc;
+      font-size: 13px;
+    }
+
+    .toolbar-search:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .sync-badge {
+      color: #8fb8ff;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    body.light-theme .search-scope {
+      background: #f5f8fc;
+      border-color: #d5dfeb;
+      color: #5b6472;
+    }
+
+    body.light-theme .toolbar-search {
+      background: #ffffff;
+      border-color: #dbe3ef;
+      color: #111827;
+    }
+
     .filters {
       position: fixed;
-      top: 85px;
-      left: 0; right: 0;
-      background: #111111;
-      padding: 18px 40px;
-      border-bottom: 1px solid #222;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1460px, calc(100% - 24px));
+      background: rgba(11, 14, 18, 0.98);
+      padding: 16px;
+      border: 1px solid #1f2630;
+      border-top: none;
+      border-radius: 0 0 14px 14px;
       display: flex;
       align-items: end;
-      gap: 20px;
-      z-index: 999;
+      gap: 12px;
+      z-index: 998;
+      flex-wrap: wrap;
+      backdrop-filter: blur(10px);
+    }
+
+    .filter-group {
+      display: grid;
+      gap: 6px;
+      min-width: 165px;
+      flex: 1 1 170px;
+      max-width: 220px;
+    }
+
+    .search-group {
+      flex: 1 1 320px;
+      max-width: none;
+    }
+
+    .search-group input {
+      width: 100%;
+      min-width: 260px;
     }
 
     .filter-group label {
       font-size: 13px;
-      color: #888;
-      margin-bottom: 5px;
+      color: #9aa4b2;
       display: block;
     }
 
     .filter-group select,
     .filter-group input {
-      background: #1f1f1f;
-      border: 1px solid #333;
+      background: #171b20;
+      border: 1px solid #2f3945;
       color: white;
-      padding: 10px 14px;
-      border-radius: 6px;
-      min-width: 170px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .filter-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-wrap: wrap;
     }
 
     .apply-btn {
-      background: #007bff;
+      background: linear-gradient(135deg, #0d8bff 0%, #0065d8 100%);
       color: white;
       border: none;
-      padding: 10px 24px;
-      border-radius: 6px;
+      padding: 10px 18px;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    .apply-btn:hover { background: #005fcc; }
+    .apply-btn:hover { background: linear-gradient(135deg, #148fff 0%, #0b70ea 100%); }
 
     .reset-btn {
-      background: #222;
-      color: #ccc;
-      border: 1px solid #444;
-      padding: 10px 20px;
-      border-radius: 6px;
+      background: #171b20;
+      color: #d5d9df;
+      border: 1px solid #2f3945;
+      padding: 10px 16px;
+      border-radius: 10px;
       cursor: pointer;
     }
 
-    .reset-btn:hover { background: #333; color: white; }
+    .reset-btn:hover { background: #1c2128; color: white; }
 
     /* ====================== ТАБЛИЦА ====================== */
     .content {
-      margin-top: 170px;
-      padding: 0 40px 60px;
+      margin-top: 272px;
+      padding: 0 20px 60px;
+      max-width: 1460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table-card {
+      background: #111111;
+      border: 1px solid #1f2630;
+      border-radius: 14px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+    }
+
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .meetings-column {
+      min-width: 0;
+    }
+
+    .users-panel {
+      background: #111111;
+      border: 1px solid #1f2630;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+      position: sticky;
+      top: 272px;
+    }
+
+    .users-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .users-panel h3 {
+      margin: 0 0 4px;
+      font-size: 18px;
+      color: #f8fafc;
+    }
+
+    .users-meta,
+    .users-note,
+    .users-empty,
+    .user-line {
+      color: #9fb0c7;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .users-panel-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .users-note {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #151a20;
+      border: 1px solid #2f3945;
+      white-space: nowrap;
+    }
+
+    .users-open-btn {
+      border: 1px solid #31557f;
+      background: linear-gradient(135deg, #17365f 0%, #0d6dd8 100%);
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .users-open-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(13, 109, 216, 0.24);
+    }
+
+    .users-list {
+      display: grid;
+      gap: 10px;
+      max-height: calc(100vh - 330px);
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .user-card {
+      border: 1px solid #26303d;
+      border-radius: 12px;
+      background: #141a20;
+      padding: 11px 12px;
+    }
+
+    .user-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .user-name {
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .user-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #1b2633;
+      border: 1px solid #334155;
+      color: #dbeafe;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .user-role.admin {
+      background: #2a1638;
+      border-color: #7c3aed;
+      color: #e9d5ff;
+    }
+
+    .user-role.user {
+      background: #0f2016;
+      border-color: #166534;
+      color: #bbf7d0;
+    }
+
+    .user-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .user-status::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #64748b;
+    }
+
+    .user-status.online {
+      color: #86efac;
+    }
+
+    .user-status.online::before {
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.45);
+    }
+
+    .user-status.offline {
+      color: #94a3b8;
+    }
+
+    .user-card-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .admin-users-fab {
+      position: fixed;
+      right: 82px;
+      bottom: 18px;
+      width: 54px;
+      height: 54px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%);
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 21px;
+      box-shadow: 0 14px 34px rgba(99, 102, 241, 0.35);
+      z-index: 2500;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .admin-users-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(99, 102, 241, 0.42);
+    }
+
+    .users-manager-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2601;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(2, 6, 14, 0.72);
+    }
+
+    .users-manager-card {
+      width: min(1320px, 100%);
+      height: min(92vh, 920px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #0f1318;
+      border: 1px solid #26303d;
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.36);
+    }
+
+    .users-manager-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid #1f2937;
+    }
+
+    .users-manager-head h2 {
+      margin: 0 0 4px;
+      color: #f8fafc;
+      font-size: 22px;
+    }
+
+    .users-header-note {
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .users-manager-layout {
+      display: grid;
+      grid-template-columns: 340px minmax(0, 1fr);
+      min-height: 0;
+      flex: 1;
+    }
+
+    .users-manager-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+      padding: 16px;
+      border-right: 1px solid #1f2937;
+    }
+
+    .users-manager-search {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #2f3945;
+      background: #151a20;
+      color: #f8fafc;
+      font-size: 13px;
+    }
+
+    .users-manager-list {
+      display: grid;
+      gap: 10px;
+      overflow-y: auto;
+      min-height: 0;
+      padding-right: 2px;
+    }
+
+    .users-manager-item {
+      text-align: left;
+      border: 1px solid #26303d;
+      border-radius: 12px;
+      background: #141a20;
+      padding: 12px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .users-manager-item:hover,
+    .users-manager-item.active {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.16);
+    }
+
+    .users-manager-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .users-manager-main {
+      padding: 16px 18px;
+      overflow-y: auto;
+    }
+
+    .users-editor-empty {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #94a3b8;
+      border: 1px dashed #334155;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .users-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .users-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .users-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .users-field span {
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .users-field input,
+    .users-field select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #2f3945;
+      background: #151a20;
+      color: #f8fafc;
+      font-size: 14px;
+    }
+
+    .users-inline-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .users-inline-row input {
+      flex: 1 1 280px;
+    }
+
+    .user-password-hint {
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .users-form-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .danger-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .danger-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    body.light-theme .users-panel {
+      background: #ffffff;
+      border-color: #dbe3ef;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    body.light-theme .users-panel h3,
+    body.light-theme .user-name {
+      color: #111827;
+    }
+
+    body.light-theme .users-meta,
+    body.light-theme .users-note,
+    body.light-theme .users-empty,
+    body.light-theme .user-line {
+      color: #64748b;
+    }
+
+    body.light-theme .users-note,
+    body.light-theme .user-card {
+      background: #f8fbff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .users-manager-card {
+      background: #ffffff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .users-manager-head,
+    body.light-theme .users-manager-sidebar {
+      border-color: #e5edf7;
+    }
+
+    body.light-theme .users-manager-head h2,
+    body.light-theme .users-field input,
+    body.light-theme .users-field select {
+      color: #111827;
+    }
+
+    body.light-theme .users-manager-search,
+    body.light-theme .users-manager-item,
+    body.light-theme .users-field input,
+    body.light-theme .users-field select {
+      background: #f8fbff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .users-header-note,
+    body.light-theme .user-password-hint {
+      color: #64748b;
+    }
+
+    @media (max-width: 900px) {
+      .users-manager-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .users-manager-sidebar {
+        border-right: none;
+        border-bottom: 1px solid #1f2937;
+        max-height: 280px;
+      }
+
+      .users-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 1112px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .users-panel {
+        position: static;
+        top: auto;
+      }
+
+      .users-list {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-users-fab {
+        width: 48px;
+        height: 48px;
+        right: 68px;
+        bottom: 12px;
+      }
     }
 
     h2 {
@@ -120,6 +921,7 @@
 
     table {
       width: 100%;
+      min-width: 920px;
       border-collapse: collapse;
       background: #111111;
       border-radius: 10px;
@@ -150,9 +952,10 @@
       font-weight: 500;
     }
 
-    .status.pending { background: #ffc107; color: black; }
-    .status.approved { background: #28a745; color: white; }
-    .status.rejected { background: #dc3545; color: white; }
+    .status.new { background: #ffc107; color: black; }
+    .status.in-progress { background: #17a2b8; color: white; }
+    .status.done { background: #28a745; color: white; }
+    .status.cancelled { background: #dc3545; color: white; }
 
     .open-btn {
       background: #007bff;
@@ -165,6 +968,463 @@
 
     .open-btn:hover {
       background: #005fcc;
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .action-icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid #2f3945;
+      background: #171b20;
+      color: #f8fafc;
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .action-icon-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    .action-icon-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .action-icon-btn.print {
+      background: #1b2633;
+      border-color: #334155;
+      color: #dbeafe;
+    }
+
+    .action-icon-btn.reject {
+      background: #2b1114;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+
+    .action-icon-btn.approve {
+      background: #0f2016;
+      border-color: #166534;
+      color: #86efac;
+    }
+
+    body.light-theme .action-icon-btn {
+      background: #ffffff;
+      border-color: #dbe3ef;
+      color: #334155;
+    }
+
+    body.light-theme .action-icon-btn.print {
+      background: #eef4ff;
+      color: #1d4ed8;
+    }
+
+    body.light-theme .action-icon-btn.reject {
+      background: #fff1f2;
+      color: #be123c;
+      border-color: #fecdd3;
+    }
+
+    body.light-theme .action-icon-btn.approve {
+      background: #ecfdf5;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
+
+    .status-select {
+      background: #1f1f1f;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 20px;
+      padding: 7px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      min-width: 145px;
+      white-space: nowrap;
+    }
+
+    .status-select.new { background: #ffc107; color: #111; }
+    .status-select.in-progress { background: #17a2b8; color: #fff; }
+    .status-select.done { background: #28a745; color: #fff; }
+    .status-select.cancelled { background: #dc3545; color: #fff; }
+
+    .secondary-btn {
+      background: #222;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .secondary-btn:hover { background: #333; }
+
+    .report-sheet {
+      background: linear-gradient(180deg, #11161d 0%, #0d1218 100%);
+      color: #e5e7eb;
+      border-radius: 14px;
+      padding: 16px 18px 22px;
+      border: 1px solid #283241;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .report-toolbar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .report-action-btn {
+      background: #171d25;
+      color: #e5e7eb;
+      border: 1px solid #2f3945;
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .report-action-btn:hover { background: #1d2630; }
+
+    .report-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 4px 0 18px;
+    }
+
+    .report-section {
+      margin-bottom: 18px;
+    }
+
+    .report-section h3 {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+
+    .report-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #212b36;
+      align-items: start;
+    }
+
+    .report-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .report-value {
+      color: #f8fafc;
+      font-size: 13px;
+      word-break: break-word;
+    }
+
+    body.light-theme .report-sheet {
+      background: #ffffff;
+      color: #1d1d1d;
+      border-color: #d9d9d9;
+      box-shadow: none;
+    }
+
+    body.light-theme .report-action-btn {
+      background: #f3f3f3;
+      color: #222;
+      border-color: #cfcfcf;
+    }
+
+    body.light-theme .report-action-btn:hover { background: #e7e7e7; }
+    body.light-theme .report-title { color: #334155; }
+    body.light-theme .report-section h3 { color: #5c5c5c; }
+    body.light-theme .report-row { border-bottom-color: #ededed; }
+    body.light-theme .report-label { color: #666; }
+    body.light-theme .report-value { color: #111; }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .settings-card {
+      background: #171717;
+      border: 1px solid #2d2d2d;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .settings-card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .settings-note,
+    .settings-list {
+      color: #aab2bd;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .settings-list {
+      padding-left: 18px;
+    }
+
+    .settings-card-disabled {
+      opacity: 0.78;
+    }
+
+    .theme-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid #2f435a;
+      border-radius: 10px;
+      background: #111827;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .theme-option input {
+      margin-top: 3px;
+      accent-color: #007bff;
+    }
+
+    .theme-option strong {
+      display: block;
+      color: #f3f4f6;
+      margin-bottom: 3px;
+    }
+
+    .theme-option small {
+      color: #aab2bd;
+    }
+
+    .settings-hint {
+      margin-right: auto;
+      color: #7dd3fc;
+      font-size: 14px;
+    }
+
+    body.light-theme .settings-card {
+      background: #f8fbff;
+      border-color: #dbe3ef;
+    }
+
+    body.light-theme .settings-note,
+    body.light-theme .settings-list,
+    body.light-theme .theme-option small {
+      color: #5b6472;
+    }
+
+    body.light-theme .theme-option {
+      background: #ffffff;
+      border-color: #cfe0ff;
+    }
+
+    body.light-theme .theme-option strong {
+      color: #111827;
+    }
+
+    @media (max-width: 1112px) {
+      .header,
+      .tabs-bar,
+      .filters {
+        position: static;
+        left: auto;
+        transform: none;
+        width: calc(100% - 24px);
+        margin: 0 auto 12px;
+      }
+
+      .header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 14px 16px;
+        gap: 12px;
+      }
+
+      .brand-area,
+      .user-info {
+        justify-self: center;
+      }
+
+      .main-nav,
+      .tabs-left {
+        justify-content: center;
+      }
+
+      .tabs-bar {
+        flex-wrap: wrap;
+        padding: 12px 14px;
+        border-radius: 14px;
+      }
+
+      .toolbar-right {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .filters {
+        padding: 14px;
+        border-top: 1px solid #1f2630;
+        border-radius: 14px;
+      }
+
+      .filter-group {
+        max-width: none;
+      }
+
+      .search-group input {
+        min-width: 0;
+      }
+
+      .content {
+        margin-top: 10px;
+        padding: 0 12px 40px;
+      }
+
+      #adminTable {
+        min-width: 940px;
+      }
+
+      th,
+      td {
+        padding: 12px 10px;
+      }
+
+      .status-select,
+      .status {
+        min-width: 118px;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .modal-content {
+        width: min(96vw, 780px);
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header,
+      .tabs-bar,
+      .filters {
+        width: calc(100% - 12px);
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .main-nav {
+        width: 100%;
+        gap: 4px;
+      }
+
+      .main-nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .main-nav a.nav-placeholder {
+        display: none;
+      }
+
+      .user-info {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .profile-chip {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .tabs-left,
+      .filter-actions {
+        width: 100%;
+      }
+
+      .view-tab,
+      .apply-btn,
+      .reset-btn {
+        flex: 1 1 100%;
+      }
+
+      .filter-group,
+      .search-group {
+        flex: 1 1 100%;
+      }
+
+      .search-group input {
+        min-width: 0;
+      }
+
+      .filter-actions {
+        margin-left: 0;
+      }
+
+      #adminTable {
+        min-width: 860px;
+      }
+
+      th,
+      td {
+        padding: 10px 8px;
+        font-size: 12px;
+      }
+
+      .report-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .modal-content {
+        padding: 16px;
+      }
+
+      .modal-header {
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .users-manager-modal {
+        padding: 0;
+      }
+
+      .users-manager-card {
+        width: 100%;
+        height: 100dvh;
+        max-height: none;
+        border-radius: 0;
+      }
+
+      .users-manager-head,
+      .users-manager-main,
+      .users-manager-sidebar {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
     }
 
     /* ====================== ПАГИНАЦИЯ ====================== */
@@ -253,64 +1513,714 @@
     filter: brightness(1.1);
 }
 
-.status.pending { background: #ffc107; color: black; }
-.status.approved { background: #28a745; color: white; }
-.status.rejected { background: #dc3545; color: white; }
+.status.new { background: #ffc107; color: black; }
+.status.in-progress { background: #17a2b8; color: white; }
+.status.done { background: #28a745; color: white; }
+.status.cancelled { background: #dc3545; color: white; }
   </style>
 </head>
 <body>
 
   <!-- Шапка -->
   <div class="header">
-    <div><span class="logo">DISA DMW</span></div>
+    <div class="brand-area"><span class="logo">DISA DMW</span></div>
+
+    <nav class="main-nav" aria-label="Админ меню">
+      <a href="#" class="active" data-nav="meetings">Встречи</a>
+      <a href="#" data-nav="reports">Отчеты</a>
+      <a href="#" class="nav-placeholder">Пакеты</a>
+      <a href="#" class="nav-placeholder">Спец. предложения</a>
+      <a href="#" class="nav-placeholder">Опросы</a>
+      <a href="#" id="openSettingsBtn" class="settings-link">Настройки</a>
+      <a href="#" class="nav-placeholder">Поддержка</a>
+    </nav>
+
     <div class="user-info">
-      <span style="color:#00ff9d; font-size:18px;">👤</span>
-      <span id="username">Администратор</span>
+      <div class="profile-chip">
+        <span class="profile-badge">👤</span>
+        <div class="profile-meta">
+          <span class="profile-role">Панель управления</span>
+          <span id="username">Администратор</span>
+        </div>
+      </div>
       <button class="logout-btn" onclick="logout()">Выйти</button>
+    </div>
+  </div>
+
+  <div class="tabs-bar">
+    <div class="tabs-left">
+      <button class="view-tab active" data-view="all">Все встречи</button>
+      <button class="view-tab" data-view="mine">Мои встречи</button>
+    </div>
+    <div class="toolbar-right">
+      <div class="sync-badge" id="syncInfo">Обновлено: --:--:--</div>
     </div>
   </div>
 
   <!-- Фильтры -->
   <div class="filters">
     <div class="filter-group">
-        <label>Статус</label>
-        <select id="statusFilter">
-            <option value="">Все</option>
-            <option value="pending">В обработке</option>
-            <option value="approved">Одобрено</option>
-            <option value="rejected">Отклонено</option>
-        </select>
-    </div>
-
-    <div class="filter-group">
-    <label>Тип работ</label>
-    <select id="typeFilter">
+      <label>Статус</label>
+      <select id="statusFilter">
         <option value="">Все</option>
-        <option value="Диагностика">Диагностика</option>
-        <option value="Ремонт">Ремонт</option>
-        <option value="ТО">Техническое обслуживание (ТО)</option>
-        <option value="Кузовной">Кузовной ремонт</option>
-        <option value="Электрика">Электроника / Электрика</option>
-        <option value="Подвеска">Подвеска и рулевое</option>
-        <option value="Двигатель">Двигатель и трансмиссия</option>
-    </select>
-</div>
-
-    <div class="filter-group">
-        <label>Дата приёма</label>
-        <input type="date" id="dateFilter">
+        <option value="Новая">Новая</option>
+        <option value="В работе">В работе</option>
+        <option value="Завершена">Завершена</option>
+        <option value="Отменена">Отменена</option>
+      </select>
     </div>
 
-    <button id="applyFilters" class="apply-btn">Применить</button>
-    <button id="resetFilters" class="reset-btn">Сбросить</button>
+    <div class="filter-group">
+      <label>Тип работ</label>
+      <select id="typeFilter">
+        <option value="">Все</option>
+        <option value="Тип заказа">Тип заказа</option>
+        <option value="Консультация">Консультация</option>
+        <option value="Осмотр">Осмотр</option>
+        <option value="Ремонт">Ремонт</option>
+        <option value="Доставка">Доставка</option>
+        <option value="Другое">Другое</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Дата приёма</label>
+      <input type="date" id="dateFilter">
+    </div>
+
+    <div class="filter-group search-group">
+      <label>Быстрый поиск</label>
+      <input type="text" id="searchFilter" placeholder="Поиск по модели, клиенту, VIN, номеру...">
+    </div>
+
+    <div class="filter-actions">
+      <button id="applyFilters" class="apply-btn">Применить</button>
+      <button id="resetFilters" class="reset-btn">Сбросить</button>
+    </div>
   </div>
 
   <!-- Контент -->
   <div class="content">
-    <h2>Все заявки / Записи</h2>
+    <div class="dashboard-layout">
+      <div class="meetings-column">
+        <h2 id="pageTitle">Все встречи</h2>
 
-    <table id="adminTable">
-      <thead>
+        <div class="table-card">
+          <table id="adminTable">
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Тип</th>
+                <th>Дата приёма</th>
+                <th>Клиент</th>
+                <th>Модель / Марка</th>
+                <th>Гос. номер</th>
+                <th>VIN</th>
+                <th>Причина</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+    </div>
+  <!-- Модальное окно -->
+<div id="detailModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Итоги осмотра</h2>
+            <span class="close" onclick="closeModal()">×</span>
+        </div>
+        <div id="modalBody" style="line-height:1.8;"></div>
+    </div>
+</div>
+
+<div id="settingsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Настройки интерфейса</h2>
+      <span class="close" onclick="closeSettingsModal()">×</span>
+    </div>
+
+    <div class="settings-layout">
+      <div class="settings-card">
+        <h3>Что можно настроить</h3>
+        <p class="settings-note">Сейчас доступно переключение темы и сохранение выбора для текущего администратора.</p>
+
+        <label class="theme-option">
+          <input type="radio" name="themeMode" value="dark" checked>
+          <span>
+            <strong>Темная тема</strong>
+            <small>Классический темный фон интерфейса</small>
+          </span>
+        </label>
+
+        <label class="theme-option">
+          <input type="radio" name="themeMode" value="light">
+          <span>
+            <strong>Светлая тема</strong>
+            <small>Светлый фон и более мягкий контраст</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="settings-card settings-card-disabled">
+        <h3>Пока недоступно</h3>
+        <ul class="settings-list">
+          <li>Смена шрифта</li>
+          <li>Скрытие блоков интерфейса</li>
+          <li>Отдельные цвета для таблиц</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div id="themeSavedHint" class="settings-hint"></div>
+      <button type="button" class="reset-btn" onclick="closeSettingsModal()">Отмена</button>
+      <button type="button" class="apply-btn" id="saveSettingsBtn">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<button id="usersFab" class="admin-users-fab" type="button" title="Управление пользователями" onclick="openUsersManager()">👥</button>
+
+<div id="usersManagerModal" class="users-manager-modal">
+  <div class="users-manager-card">
+    <div class="users-manager-head">
+      <div>
+        <h2>Управление пользователями</h2>
+        <div class="users-header-note">Полноэкранный режим для ролей, паролей, логинов, email и удаления аккаунтов.</div>
+      </div>
+      <div class="disa-logs-actions">
+        <button type="button" class="disa-logs-action-btn" id="usersManagerRefreshBtn" title="Обновить">↻</button>
+        <button type="button" class="disa-logs-action-btn" onclick="closeUsersManager()" title="Закрыть">×</button>
+      </div>
+    </div>
+
+    <div class="users-manager-layout">
+      <aside class="users-manager-sidebar">
+        <input type="text" id="usersManagerSearch" class="users-manager-search" placeholder="Поиск по логину, email, роли..." autocomplete="off">
+        <div class="users-meta" id="usersManagerMeta">Загрузка пользователей...</div>
+        <div class="users-manager-list" id="usersManagerList">
+          <div class="users-empty">Загрузка пользователей...</div>
+        </div>
+      </aside>
+
+      <section class="users-manager-main">
+        <div id="usersEditorEmpty" class="users-editor-empty">Выберите пользователя слева, чтобы посмотреть пароль в базе, сменить роль или обновить данные.</div>
+
+        <form id="userEditorForm" class="users-form" style="display:none;">
+          <div>
+            <h3 id="selectedUserLabel">Пользователь</h3>
+            <div class="users-header-note" id="selectedUserMeta">—</div>
+          </div>
+
+          <div class="users-form-grid">
+            <label class="users-field">
+              <span>Логин</span>
+              <input type="text" id="manageUsername" required>
+            </label>
+
+            <label class="users-field">
+              <span>Email</span>
+              <input type="email" id="manageEmail" required>
+            </label>
+
+            <label class="users-field">
+              <span>Роль</span>
+              <select id="manageRole">
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+              </select>
+            </label>
+
+            <label class="users-field">
+              <span>Новый пароль</span>
+              <input type="text" id="managePassword" placeholder="Оставьте пустым, если менять не нужно">
+            </label>
+          </div>
+
+          <label class="users-field">
+            <span>Что хранится в базе</span>
+            <div class="users-inline-row">
+              <input type="text" id="userStoredPassword" readonly value="Скрыто">
+              <button type="button" class="reset-btn" id="togglePasswordBtn">Показать</button>
+            </div>
+            <small class="user-password-hint" id="userPasswordHint">В системе хранится только защищенный bcrypt-хэш; исходный пароль нельзя восстановить, но можно задать новый.</small>
+          </label>
+
+          <div class="users-form-actions">
+            <button type="button" class="danger-btn" id="deleteUserBtn">Удалить пользователя</button>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" class="reset-btn" onclick="fillUsersManagerForm()">Сбросить</button>
+              <button type="submit" class="apply-btn">Сохранить изменения</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <script src="monitor.js"></script>
+  <script>
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    const refreshIntervalMs = 5000;
+    let currentView = 'all';
+    let currentSection = 'meetings';
+    let allMeetings = [];
+    let allUsers = [];
+    let filteredMeetings = [];
+    let activeModalId = null;
+    let refreshTimer = null;
+    const usersManagerState = {
+      selectedUserId: null,
+      search: '',
+      revealHash: false,
+    };
+
+    const escapeHtml = (value) => String(value ?? '-')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+    function getStatusText(status) {
+      if (status === 'pending') return 'Новая';
+      if (status === 'approved') return 'Завершена';
+      if (status === 'rejected') return 'Отменена';
+      return status || 'Новая';
+    }
+
+    function getStatusClass(status) {
+      const normalizedStatus = getStatusText(status);
+      if (normalizedStatus === 'В работе') return 'in-progress';
+      if (normalizedStatus === 'Завершена') return 'done';
+      if (normalizedStatus === 'Отменена') return 'cancelled';
+      return 'new';
+    }
+
+    function formatDate(value) {
+      if (!value) return '-';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleDateString('ru-RU');
+    }
+
+    function updateSyncInfo(text) {
+      const syncInfo = document.getElementById('syncInfo');
+      if (syncInfo) {
+        syncInfo.textContent = text;
+      }
+    }
+
+    function updateUsersMeta(text) {
+      const usersMeta = document.getElementById('usersMeta');
+      if (usersMeta) {
+        usersMeta.textContent = text;
+      }
+
+      const usersManagerMeta = document.getElementById('usersManagerMeta');
+      if (usersManagerMeta) {
+        usersManagerMeta.textContent = text;
+      }
+    }
+
+    function getSortedUsers(users = allUsers) {
+      return [...users].sort((left, right) => {
+        if (Boolean(left.isOnline) !== Boolean(right.isOnline)) {
+          return Number(Boolean(right.isOnline)) - Number(Boolean(left.isOnline));
+        }
+        return new Date(right.created_at || 0) - new Date(left.created_at || 0);
+      });
+    }
+
+    function getSelectedManagedUser() {
+      return allUsers.find((user) => Number(user.id) === Number(usersManagerState.selectedUserId)) || null;
+    }
+
+    function getManagedUsersFiltered() {
+      const query = String(usersManagerState.search || '').trim().toLowerCase();
+      const sortedUsers = getSortedUsers();
+
+      if (!query) return sortedUsers;
+
+      return sortedUsers.filter((user) => {
+        const haystack = [
+          user.id,
+          user.username,
+          user.email,
+          user.role,
+          user.isOnline ? 'онлайн' : 'offline',
+          user.passwordHash,
+        ].join(' ').toLowerCase();
+
+        return haystack.includes(query);
+      });
+    }
+
+    function updateStoredPasswordField(user = getSelectedManagedUser()) {
+      const input = document.getElementById('userStoredPassword');
+      const toggleButton = document.getElementById('togglePasswordBtn');
+      const hint = document.getElementById('userPasswordHint');
+
+      if (!input || !toggleButton || !hint) return;
+
+      const passwordHash = String(user?.passwordHash || '');
+      input.value = usersManagerState.revealHash
+        ? (passwordHash || 'Нет данных')
+        : (passwordHash ? '••••••••••••••••••••••' : 'Нет данных');
+      toggleButton.textContent = usersManagerState.revealHash ? 'Скрыть' : 'Показать';
+      hint.textContent = user?.passwordNote || 'В базе хранится только защищенный хэш.';
+    }
+
+    function renderUsersManagerList() {
+      const listNode = document.getElementById('usersManagerList');
+      if (!listNode) return;
+
+      const users = getManagedUsersFiltered();
+      if (!users.length) {
+        listNode.innerHTML = '<div class="users-empty">По запросу ничего не найдено.</div>';
+        return;
+      }
+
+      listNode.innerHTML = users.map((user) => {
+        const role = String(user.role || 'user').toLowerCase();
+        const isActive = Number(user.id) === Number(usersManagerState.selectedUserId);
+        return `
+          <button type="button" class="users-manager-item ${isActive ? 'active' : ''}" onclick="selectManagedUser(${Number(user.id)})">
+            <div class="users-manager-item-top">
+              <strong>${escapeHtml(user.username || '-')}</strong>
+              <span class="user-role ${escapeHtml(role)}">${escapeHtml(role)}</span>
+            </div>
+            <div class="user-line">${escapeHtml(user.email || '-')}</div>
+            <div class="user-line">ID: ${escapeHtml(user.id || '-')} • ${escapeHtml(formatDate(user.created_at))}</div>
+            <div class="user-status ${user.isOnline ? 'online' : 'offline'}">${user.isOnline ? 'Онлайн' : 'Не в сети'}</div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function fillUsersManagerForm() {
+      const emptyState = document.getElementById('usersEditorEmpty');
+      const form = document.getElementById('userEditorForm');
+      const selectedUserLabel = document.getElementById('selectedUserLabel');
+      const selectedUserMeta = document.getElementById('selectedUserMeta');
+      const user = getSelectedManagedUser();
+
+      if (!emptyState || !form || !selectedUserLabel || !selectedUserMeta) return;
+
+      if (!user) {
+        emptyState.style.display = 'grid';
+        form.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      form.style.display = 'grid';
+
+      document.getElementById('manageUsername').value = user.username || '';
+      document.getElementById('manageEmail').value = user.email || '';
+      document.getElementById('manageRole').value = String(user.role || 'user').toLowerCase();
+      document.getElementById('managePassword').value = '';
+
+      selectedUserLabel.textContent = `${user.username || 'Пользователь'} #${user.id || '-'}`;
+      selectedUserMeta.textContent = `${user.isOnline ? 'Онлайн' : 'Не в сети'} • Создан: ${formatDate(user.created_at)}${String(localStorage.getItem('userId') || '') === String(user.id) ? ' • это ваш аккаунт' : ''}`;
+
+      const deleteButton = document.getElementById('deleteUserBtn');
+      if (deleteButton) {
+        const isCurrentUser = String(localStorage.getItem('userId') || '') === String(user.id || '');
+        deleteButton.disabled = isCurrentUser;
+        deleteButton.title = isCurrentUser ? 'Свой активный аккаунт удалить нельзя' : 'Удалить пользователя';
+      }
+
+      updateStoredPasswordField(user);
+    }
+
+    function renderUsersList() {
+      const usersList = document.getElementById('usersList');
+      if (!usersList) return;
+
+      if (!allUsers.length) {
+        updateUsersMeta('Пользователи не найдены');
+        usersList.innerHTML = '<div class="users-empty">Пользователи не найдены.</div>';
+        renderUsersManagerList();
+        fillUsersManagerForm();
+        return;
+      }
+
+      const onlineCount = allUsers.filter((user) => Boolean(user.isOnline)).length;
+      updateUsersMeta(`Всего: ${allUsers.length} • Онлайн: ${onlineCount}`);
+
+      usersList.innerHTML = getSortedUsers().map((user) => {
+        const role = String(user.role || 'user').toLowerCase();
+        return `
+          <div class="user-card">
+            <div class="user-card-head">
+              <div class="user-name">${escapeHtml(user.username || '-')}</div>
+              <span class="user-role ${escapeHtml(role)}">${escapeHtml(role)}</span>
+            </div>
+            <div class="user-line">ID: ${escapeHtml(user.id || '-')}</div>
+            <div class="user-line">Email: ${escapeHtml(user.email || '-')}</div>
+            <div class="user-line">Создан: ${escapeHtml(formatDate(user.created_at))}</div>
+            <div class="user-line">Пароль в базе: ${escapeHtml(user.password || 'Скрыт')}</div>
+            <div class="user-status ${user.isOnline ? 'online' : 'offline'}">${user.isOnline ? 'Онлайн' : 'Не в сети'}</div>
+            <div class="user-card-actions">
+              <button type="button" class="users-open-btn" onclick="openUsersManager(${Number(user.id)})">Управление</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (!usersManagerState.selectedUserId && allUsers.length) {
+        usersManagerState.selectedUserId = Number(getSortedUsers()[0]?.id || 0) || null;
+      }
+
+      renderUsersManagerList();
+      fillUsersManagerForm();
+    }
+
+    function openUsersManager(preselectedUserId = null) {
+      if (preselectedUserId !== null && preselectedUserId !== undefined) {
+        usersManagerState.selectedUserId = Number(preselectedUserId);
+      } else if (!usersManagerState.selectedUserId && allUsers.length) {
+        usersManagerState.selectedUserId = Number(getSortedUsers()[0]?.id || 0) || null;
+      }
+
+      usersManagerState.revealHash = false;
+      renderUsersManagerList();
+      fillUsersManagerForm();
+      document.getElementById('usersManagerModal').style.display = 'flex';
+      window.disaMonitor?.track('Открыл управление пользователями');
+    }
+
+    function closeUsersManager() {
+      document.getElementById('usersManagerModal').style.display = 'none';
+    }
+
+    function selectManagedUser(userId) {
+      usersManagerState.selectedUserId = Number(userId);
+      usersManagerState.revealHash = false;
+      renderUsersManagerList();
+      fillUsersManagerForm();
+    }
+
+    function toggleManagedPasswordVisibility() {
+      usersManagerState.revealHash = !usersManagerState.revealHash;
+      updateStoredPasswordField();
+    }
+
+    async function saveManagedUser(event) {
+      event?.preventDefault();
+
+      const user = getSelectedManagedUser();
+      if (!user) {
+        alert('Сначала выберите пользователя.');
+        return;
+      }
+
+      const payload = {
+        username: document.getElementById('manageUsername').value.trim(),
+        email: document.getElementById('manageEmail').value.trim(),
+        role: document.getElementById('manageRole').value,
+      };
+
+      const newPassword = document.getElementById('managePassword').value.trim();
+      if (newPassword) {
+        payload.password = newPassword;
+      }
+
+      try {
+        const res = await fetch(`/api/auth/users/${Number(user.id)}`, {
+          method: 'PATCH',
+          headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || 'Не удалось сохранить изменения пользователя');
+        }
+
+        await loadUsers({ silent: true });
+        selectManagedUser(Number(data.user?.id || user.id));
+        alert(data.message || 'Изменения сохранены');
+        window.disaMonitor?.track('Обновил пользователя', `${payload.username || user.username}`);
+      } catch (err) {
+        alert(err.message || 'Не удалось сохранить изменения пользователя');
+      }
+    }
+
+    async function deleteManagedUser() {
+      const user = getSelectedManagedUser();
+      if (!user) {
+        alert('Сначала выберите пользователя.');
+        return;
+      }
+
+      if (!confirm(`Удалить пользователя ${user.username}? Это действие нельзя отменить.`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/auth/users/${Number(user.id)}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders(),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || 'Не удалось удалить пользователя');
+        }
+
+        allUsers = allUsers.filter((item) => Number(item.id) !== Number(user.id));
+        usersManagerState.selectedUserId = Number(getSortedUsers()[0]?.id || 0) || null;
+        usersManagerState.revealHash = false;
+        renderUsersList();
+        alert(data.message || 'Пользователь удалён');
+        window.disaMonitor?.track('Удалил пользователя', user.username);
+      } catch (err) {
+        alert(err.message || 'Не удалось удалить пользователя');
+      }
+    }
+
+    async function loadUsers({ silent = false } = {}) {
+      const usersList = document.getElementById('usersList');
+      if (usersList && !silent && !allUsers.length) {
+        usersList.innerHTML = '<div class="users-empty">Загрузка пользователей...</div>';
+      }
+
+      try {
+        const res = await fetch('/api/auth/users', {
+          cache: 'no-store',
+          headers: getAuthHeaders()
+        });
+
+        const contentType = res.headers.get('content-type') || '';
+        const data = contentType.includes('application/json') ? await res.json() : [];
+
+        if (!res.ok) {
+          throw new Error(data.message || 'Не удалось загрузить пользователей');
+        }
+
+        allUsers = Array.isArray(data) ? data : [];
+
+        if (usersManagerState.selectedUserId && !allUsers.some((user) => Number(user.id) === Number(usersManagerState.selectedUserId))) {
+          usersManagerState.selectedUserId = Number(getSortedUsers()[0]?.id || 0) || null;
+        }
+
+        renderUsersList();
+      } catch (err) {
+        console.warn('Users load error:', err);
+        updateUsersMeta('Список пользователей недоступен');
+        if (usersList && !allUsers.length) {
+          usersList.innerHTML = '<div class="users-empty">Не удалось загрузить список пользователей.</div>';
+        }
+        const managerList = document.getElementById('usersManagerList');
+        if (managerList && !allUsers.length) {
+          managerList.innerHTML = '<div class="users-empty">Не удалось загрузить список пользователей.</div>';
+        }
+      }
+    }
+
+    function getAuthHeaders(extraHeaders = {}) {
+      const token = localStorage.getItem('token');
+      return token ? { ...extraHeaders, Authorization: `Bearer ${token}` } : { ...extraHeaders };
+    }
+
+    async function ensureProfileLoaded() {
+      document.getElementById('username').textContent = localStorage.getItem('username') || 'Администратор';
+
+      const token = localStorage.getItem('token');
+      if (!token || localStorage.getItem('username')) return;
+
+      try {
+        const res = await fetch('/api/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (!res.ok) return;
+
+        const me = await res.json();
+        localStorage.setItem('username', me.username || '');
+        localStorage.setItem('role', me.role || 'user');
+        localStorage.setItem('userId', String(me.id || ''));
+        document.getElementById('username').textContent = me.username || 'Администратор';
+      } catch (err) {
+        console.warn('Не удалось загрузить профиль:', err);
+      }
+    }
+
+    function getViewMeetings() {
+      if (currentView !== 'mine') {
+        return [...allMeetings];
+      }
+
+      const currentUsername = (localStorage.getItem('username') || '').toLowerCase();
+      const currentUserId = String(localStorage.getItem('userId') || '');
+
+      return allMeetings.filter(item => {
+        const createdBy = String(item.created_by || '').toLowerCase();
+        const client = String(item.client || '').toLowerCase();
+        const userId = String(item.user_id || '');
+        return (currentUsername && (createdBy === currentUsername || client === currentUsername))
+          || (currentUserId && userId === currentUserId);
+      });
+    }
+
+    async function loadMeetings({ silent = false, preservePage = true } = {}) {
+      try {
+        const res = await fetch('/api/meetings', {
+          cache: 'no-store',
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Ошибка при получении заявок');
+        }
+
+        allMeetings = Array.isArray(data) ? data : [];
+        applyFilters(!preservePage);
+        updateSyncInfo(`Обновлено: ${new Date().toLocaleTimeString('ru-RU')}`);
+
+        if (activeModalId) {
+          openModal(activeModalId, false);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки заявок:', err);
+        updateSyncInfo('Ошибка автообновления');
+        if (!silent) {
+          alert(err.message || 'Не удалось загрузить данные из базы');
+        }
+      }
+    }
+
+    function renderTableHead() {
+      const thead = document.querySelector('#adminTable thead');
+      if (!thead) return;
+
+      if (currentSection === 'reports') {
+        thead.innerHTML = `
+          <tr>
+            <th>Статус</th>
+            <th>Отчёт</th>
+            <th>Автомобиль</th>
+            <th>Клиент</th>
+            <th>Описание</th>
+            <th>Действие</th>
+          </tr>
+        `;
+        return;
+      }
+
+      thead.innerHTML = `
         <tr>
           <th>Статус</th>
           <th>Тип</th>
@@ -322,98 +2232,428 @@
           <th>Причина</th>
           <th>Действия</th>
         </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+      `;
+    }
 
-    <div class="pagination" id="pagination"></div>
-  <!-- Модальное окно -->
-<div id="detailModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 id="modalTitle">Итоги осмотра</h2>
-            <span class="close" onclick="closeModal()">×</span>
+    function renderTable(data = filteredMeetings) {
+      const tbody = document.querySelector('#adminTable tbody');
+      tbody.innerHTML = '';
+
+      if (!data.length) {
+        const emptyCols = currentSection === 'reports' ? 6 : 9;
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="${emptyCols}" style="text-align:center; color:#888; padding:24px;">
+              Пока ничего не найдено. Попробуйте изменить фильтры или поиск.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const pageData = data.slice(start, start + itemsPerPage);
+
+      pageData.forEach(item => {
+        const row = document.createElement('tr');
+        const status = getStatusText(item.status);
+        const statusClass = getStatusClass(status);
+
+        if (currentSection === 'reports') {
+          row.innerHTML = `
+            <td><span class="status ${statusClass}">${escapeHtml(status)}</span></td>
+            <td>
+              <strong>Отчёт №${escapeHtml(item.number || item.id)}</strong><br>
+              <span style="color:#94a3b8; font-size:12px;">${escapeHtml(formatDate(item.reception_date))}</span>
+            </td>
+            <td>${escapeHtml([item.brand, item.model].filter(Boolean).join(' / ') || '-')}</td>
+            <td>${escapeHtml(item.client || '-')}</td>
+            <td>${escapeHtml(item.reason || item.notes || '-')}</td>
+            <td><button class="open-btn" onclick="openModal(${Number(item.id)})">Открыть отчёт</button></td>
+          `;
+        } else {
+          row.innerHTML = `
+            <td>
+              <select class="status-select ${statusClass}" onchange="changeStatus(${Number(item.id)}, this)">
+                <option value="Новая" ${status === 'Новая' ? 'selected' : ''}>Новая</option>
+                <option value="В работе" ${status === 'В работе' ? 'selected' : ''}>В работе</option>
+                <option value="Завершена" ${status === 'Завершена' ? 'selected' : ''}>Завершена</option>
+                <option value="Отменена" ${status === 'Отменена' ? 'selected' : ''}>Отменена</option>
+              </select>
+            </td>
+            <td>${escapeHtml(item.type || '-')}</td>
+            <td>${escapeHtml(formatDate(item.reception_date))}</td>
+            <td>${escapeHtml(item.client || '-')}</td>
+            <td>${escapeHtml([item.brand, item.model].filter(Boolean).join(' / ') || '-')}</td>
+            <td>${escapeHtml(item.license_plate || '-')}</td>
+            <td>${escapeHtml(item.vin || '-')}</td>
+            <td>${escapeHtml(item.reason || '-')}</td>
+            <td>
+              <div class="action-buttons">
+                <button class="action-icon-btn print" type="button" title="Печать скоро появится" onclick="printMeetingPlaceholder()">🖨</button>
+                <button class="action-icon-btn reject" type="button" title="Отклонить заявку" onclick="quickSetStatus(${Number(item.id)}, 'Отменена', this)" ${status === 'Отменена' ? 'disabled' : ''}>✕</button>
+                <button class="action-icon-btn approve" type="button" title="Принять в работу" onclick="quickSetStatus(${Number(item.id)}, 'В работе', this)" ${status === 'В работе' ? 'disabled' : ''}>✓</button>
+              </div>
+            </td>
+          `;
+        }
+
+        tbody.appendChild(row);
+      });
+    }
+
+    function renderPagination(totalItems = filteredMeetings.length) {
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      if (totalItems <= itemsPerPage) return;
+
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+      const prevBtn = document.createElement('button');
+      prevBtn.innerHTML = '‹';
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => changePage(currentPage - 1);
+      pagination.appendChild(prevBtn);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add('active');
+        btn.onclick = () => changePage(i);
+        pagination.appendChild(btn);
+      }
+
+      const nextBtn = document.createElement('button');
+      nextBtn.innerHTML = '›';
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => changePage(currentPage + 1);
+      pagination.appendChild(nextBtn);
+    }
+
+    function changePage(page) {
+      const totalPages = Math.max(1, Math.ceil(filteredMeetings.length / itemsPerPage));
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderTable();
+      renderPagination();
+    }
+
+    function setSection(section) {
+      currentSection = section === 'reports' ? 'reports' : 'meetings';
+
+      document.querySelectorAll('.main-nav a[data-nav]').forEach((link) => {
+        link.classList.toggle('active', link.dataset.nav === currentSection);
+      });
+
+      const scopeLabel = document.getElementById('searchScopeLabel');
+      const searchInput = document.getElementById('searchFilter');
+      if (scopeLabel) {
+        scopeLabel.textContent = currentSection === 'reports' ? 'По отчетам' : 'По всем полям';
+      }
+      if (searchInput) {
+        searchInput.placeholder = currentSection === 'reports'
+          ? 'Поиск по отчетам, клиенту, автомобилю...'
+          : 'Поиск по модели, клиенту, VIN, номеру...';
+      }
+
+      updatePageTitle();
+      renderTableHead();
+      applyFilters(true);
+      window.disaMonitor?.track('Переключил раздел', currentSection);
+    }
+
+    function updatePageTitle() {
+      const title = document.getElementById('pageTitle');
+      title.textContent = currentSection === 'reports'
+        ? (currentView === 'mine' ? 'Мои отчёты' : 'Отчёты')
+        : (currentView === 'mine' ? 'Мои встречи' : 'Все встречи');
+    }
+
+    function applyFilters(resetPage = true) {
+      const status = document.getElementById('statusFilter').value;
+      const type = document.getElementById('typeFilter').value.trim().toLowerCase();
+      const date = document.getElementById('dateFilter').value;
+      const search = document.getElementById('searchFilter').value.trim().toLowerCase();
+
+      filteredMeetings = getViewMeetings().filter(item => {
+        const itemDate = item.reception_date ? String(item.reception_date).slice(0, 10) : '';
+        const itemType = String(item.type || '').toLowerCase();
+        const haystack = [
+          getStatusText(item.status),
+          item.type,
+          item.number,
+          item.client,
+          item.client_phone,
+          item.brand,
+          item.model,
+          item.license_plate,
+          item.vin,
+          item.reason,
+          item.notes
+        ].join(' ').toLowerCase();
+
+        return (!status || getStatusText(item.status) === status)
+          && (!type || itemType === type)
+          && (!date || itemDate === date)
+          && (!search || haystack.includes(search));
+      });
+
+      if (resetPage) currentPage = 1;
+
+      updatePageTitle();
+      renderTableHead();
+      renderTable();
+      renderPagination();
+    }
+
+    function resetFilters() {
+      document.getElementById('statusFilter').value = '';
+      document.getElementById('typeFilter').value = '';
+      document.getElementById('dateFilter').value = '';
+      document.getElementById('searchFilter').value = '';
+      applyFilters(true);
+    }
+
+    function printMeetingPlaceholder() {
+      alert('Печать заявки пока не подключена. Добавлю позже при необходимости.');
+    }
+
+    async function updateMeetingStatus(id, statusValue, control) {
+      if (control) control.disabled = true;
+
+      try {
+        const res = await fetch(`/api/meetings/${id}/status`, {
+          method: 'PUT',
+          headers: getAuthHeaders({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ status: statusValue })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Ошибка при обновлении статуса');
+        }
+
+        await loadMeetings({ silent: true, preservePage: true });
+        window.disaMonitor?.track('Изменил статус заявки', `#${id} → ${statusValue}`);
+      } catch (err) {
+        alert(err.message || 'Ошибка при обновлении статуса');
+      } finally {
+        if (control) control.disabled = false;
+      }
+    }
+
+    async function changeStatus(id, selectElement) {
+      await updateMeetingStatus(id, selectElement.value, selectElement);
+    }
+
+    async function quickSetStatus(id, statusValue, buttonElement) {
+      await updateMeetingStatus(id, statusValue, buttonElement);
+    }
+
+    async function openModal(id, fetchFresh = true) {
+      let item = allMeetings.find(meeting => Number(meeting.id) === Number(id));
+      activeModalId = Number(id);
+
+      if (fetchFresh) {
+        try {
+          const res = await fetch(`/api/meetings/${id}`, {
+            cache: 'no-store',
+            headers: getAuthHeaders()
+          });
+          if (res.ok) {
+            item = await res.json();
+          }
+        } catch (err) {
+          console.warn('Не удалось обновить детальный отчёт:', err);
+        }
+      }
+
+      if (!item) return;
+
+      document.getElementById('modalTitle').textContent = `Итоги осмотра`;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="report-sheet">
+          <div class="report-title">Итоги осмотра</div>
+
+          <div class="report-section">
+            <h3>Заказ-наряд</h3>
+            <div class="report-row"><div class="report-label">Номер:</div><div class="report-value">${escapeHtml(item.number || item.id)}</div></div>
+            <div class="report-row"><div class="report-label">Дата заказа-наряда:</div><div class="report-value">${escapeHtml(formatDate(item.reception_date))} ${escapeHtml(item.time || '')}</div></div>
+            <div class="report-row"><div class="report-label">Статус:</div><div class="report-value">${escapeHtml(getStatusText(item.status))}</div></div>
+            <div class="report-row"><div class="report-label">Тип работ:</div><div class="report-value">${escapeHtml(item.type || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>ФИО клиента</h3>
+            <div class="report-row"><div class="report-label">Клиент:</div><div class="report-value">${escapeHtml(item.client || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Телефон:</div><div class="report-value">${escapeHtml(item.client_phone || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Создал заявку:</div><div class="report-value">${escapeHtml(item.created_by || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Ответственный:</div><div class="report-value">${escapeHtml(item.assigned_to || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>Данные об автомобиле</h3>
+            <div class="report-row"><div class="report-label">Марка и модель:</div><div class="report-value">${escapeHtml([item.brand, item.model].filter(Boolean).join(' ') || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Идентификационный номер (VIN)</div><div class="report-value">${escapeHtml(item.vin || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Регистрационный номер</div><div class="report-value">${escapeHtml(item.license_plate || '-')}</div></div>
+          </div>
+
+          <div class="report-section">
+            <h3>Описание обращения</h3>
+            <div class="report-row"><div class="report-label">Причина обращения со слов клиента</div><div class="report-value">${escapeHtml(item.reason || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Комментарий / заметки</div><div class="report-value">${escapeHtml(item.notes || '-')}</div></div>
+            <div class="report-row"><div class="report-label">Последнее обновление</div><div class="report-value">${escapeHtml(formatDate(item.updated_at || item.created_at))}</div></div>
+          </div>
         </div>
-        <div id="modalBody" style="line-height:1.8;"></div>
-    </div>
-</div>
-  </div>
+      `;
 
-  <script>
-    let currentPage = 1;
-    const itemsPerPage = 12;
-    let allMeetings = [];
-
-    // Загрузка данных из БД
-    async function loadMeetings() {
-        try {
-            const res = await fetch('/api/meetings');
-            allMeetings = await res.json();
-            renderTable();
-            renderPagination();
-        } catch (err) {
-            console.error("Ошибка загрузки:", err);
-            alert("Не удалось загрузить данные из базы");
-        }
+      document.getElementById('detailModal').style.display = 'flex';
+      window.disaMonitor?.track('Открыл карточку заявки', `#${item.id || id}`);
     }
 
-    function renderTable() {
-        const tbody = document.querySelector('#adminTable tbody');
-        tbody.innerHTML = '';
-
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageData = allMeetings.slice(start, start + itemsPerPage);
-
-        pageData.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <span class="status ${item.status}" onclick="changeStatus(${item.id}, this)">
-                        ${item.status === 'pending' ? 'В обработке' : 
-                          item.status === 'approved' ? 'Одобрено' : 'Отклонено'}
-                    </span>
-                </td>
-                <td>${item.type}</td>
-                <td>${item.reception_date}</td>
-                <td>${item.client}</td>
-                <td>${item.model} ${item.brand}</td>
-                <td>${item.license_plate}</td>
-                <td>${item.vin || '-'}</td>
-                <td>${item.reason}</td>
-                <td><button class="open-btn" onclick="openModal(${item.id})">Открыть</button></td>
-            `;
-            tbody.appendChild(row);
-        });
+    function closeModal() {
+      activeModalId = null;
+      document.getElementById('detailModal').style.display = 'none';
     }
 
-    // Изменение статуса
-    async function changeStatus(id, element) {
-        const newStatus = prompt('Новый статус:\n1 - В обработке\n2 - Одобрено\n3 - Отклонено', '2');
-        let statusValue = 'pending';
-        if (newStatus === '2') statusValue = 'approved';
-        if (newStatus === '3') statusValue = 'rejected';
-
-        try {
-            await fetch(`/api/meetings/${id}/status`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: statusValue })
-            });
-            loadMeetings(); // перезагружаем данные
-        } catch (err) {
-            alert('Ошибка при обновлении статуса');
-        }
+    function setView(view) {
+      currentView = view;
+      document.querySelectorAll('.view-tab').forEach(button => {
+        button.classList.toggle('active', button.dataset.view === view);
+      });
+      applyFilters(true);
+      window.disaMonitor?.track('Переключил список', view === 'mine' ? 'Мои встречи' : 'Все встречи');
     }
 
-    // Загрузка при старте
-    document.addEventListener('DOMContentLoaded', () => {
-        loadMeetings();
+    function startAutoRefresh() {
+      clearInterval(refreshTimer);
+      refreshTimer = setInterval(() => {
+        loadMeetings({ silent: true, preservePage: true });
+        loadUsers({ silent: true });
+      }, refreshIntervalMs);
+    }
 
-        document.getElementById('applyFilters').addEventListener('click', applyFilters);
-        document.getElementById('resetFilters').addEventListener('click', () => {
-            loadMeetings();
-        });
+    function getThemeStorageKey() {
+      const currentUserId = String(localStorage.getItem('userId') || '').trim();
+      const currentUsername = String(localStorage.getItem('username') || '').trim().toLowerCase();
+
+      if (currentUserId) return `disa-theme:user:${currentUserId}`;
+      if (currentUsername) return `disa-theme:name:${currentUsername}`;
+      return 'disa-theme:guest';
+    }
+
+    function loadSavedTheme() {
+      const theme = localStorage.getItem(getThemeStorageKey())
+        || localStorage.getItem('disa-theme:last')
+        || 'dark';
+      document.body.classList.toggle('light-theme', theme === 'light');
+    }
+
+    function getCurrentTheme() {
+      return document.body.classList.contains('light-theme') ? 'light' : 'dark';
+    }
+
+    function syncThemeControls() {
+      const activeTheme = getCurrentTheme();
+      document.querySelectorAll('input[name="themeMode"]').forEach((input) => {
+        input.checked = input.value === activeTheme;
+      });
+      const hint = document.getElementById('themeSavedHint');
+      if (hint) hint.textContent = '';
+    }
+
+    function openSettingsModal() {
+      syncThemeControls();
+      document.getElementById('settingsModal').style.display = 'flex';
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').style.display = 'none';
+    }
+
+    function saveSettings() {
+      const selectedTheme = document.querySelector('input[name="themeMode"]:checked')?.value || 'dark';
+      document.body.classList.toggle('light-theme', selectedTheme === 'light');
+      localStorage.setItem(getThemeStorageKey(), selectedTheme);
+      localStorage.setItem('disa-theme:last', selectedTheme);
+      const hint = document.getElementById('themeSavedHint');
+      if (hint) hint.textContent = 'Настройки сохранены';
+      window.disaMonitor?.track('Сохранил настройки интерфейса', selectedTheme);
+      window.setTimeout(() => closeSettingsModal(), 500);
+    }
+
+    async function logout() {
+      await window.disaMonitor?.logout();
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
+      window.location.href = 'index.html';
+    }
+
+    window.addEventListener('click', (event) => {
+      if (event.target.id === 'detailModal') {
+        closeModal();
+      }
+      if (event.target.id === 'settingsModal') {
+        closeSettingsModal();
+      }
+      if (event.target.id === 'usersManagerModal') {
+        closeUsersManager();
+      }
     });
-</script>
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await ensureProfileLoaded();
+      loadSavedTheme();
+      window.disaMonitor?.init({ pageName: 'Админ-панель' });
+      renderTableHead();
+      document.getElementById('applyFilters').addEventListener('click', () => {
+        applyFilters(true);
+        window.disaMonitor?.track('Применил фильтры');
+      });
+      document.getElementById('resetFilters').addEventListener('click', () => {
+        resetFilters();
+        window.disaMonitor?.track('Сбросил фильтры');
+      });
+      document.getElementById('searchFilter').addEventListener('input', () => applyFilters(true));
+      document.getElementById('statusFilter').addEventListener('change', () => applyFilters(true));
+      document.getElementById('typeFilter').addEventListener('change', () => applyFilters(true));
+      document.getElementById('dateFilter').addEventListener('change', () => applyFilters(true));
+      document.querySelectorAll('.view-tab').forEach(button => {
+        button.addEventListener('click', () => setView(button.dataset.view));
+      });
+      document.querySelectorAll('.main-nav a[data-nav]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          setSection(link.dataset.nav);
+        });
+      });
+      document.querySelectorAll('.main-nav .nav-placeholder').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+        });
+      });
+      document.getElementById('openSettingsBtn').addEventListener('click', (event) => {
+        event.preventDefault();
+        openSettingsModal();
+      });
+      document.getElementById('saveSettingsBtn').addEventListener('click', saveSettings);
+      document.getElementById('usersManagerSearch').addEventListener('input', (event) => {
+        usersManagerState.search = event.target.value || '';
+        renderUsersManagerList();
+      });
+      document.getElementById('usersManagerRefreshBtn').addEventListener('click', () => loadUsers({ silent: false }));
+      document.getElementById('togglePasswordBtn').addEventListener('click', toggleManagedPasswordVisibility);
+      document.getElementById('userEditorForm').addEventListener('submit', saveManagedUser);
+      document.getElementById('deleteUserBtn').addEventListener('click', deleteManagedUser);
+
+      setSection('meetings');
+      await loadMeetings({ silent: false, preservePage: false });
+      await loadUsers({ silent: false });
+      startAutoRefresh();
+    });
+  </script>
 </body>
 </html>
